@@ -8340,7 +8340,6 @@ addcmd('antiafk',{'antiidle'},function(args, speaker)
 				v["Disconnect"](v)
 			end
 		end
-		notify('Anti Idle','Anti idle is enabled')
 	else
 		notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
 	end
