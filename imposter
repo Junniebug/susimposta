@@ -104,34 +104,4 @@ while shared.trinketfarm do wait()
     end)
 end
 end)
-wait()
-local LP = game.Players.LocalPlayer
 
-_G.lool = true
-local LP = game.Players.LocalPlayer
-
-local function hideIdentity()
-if _G.lool == true then
-    for i,v in pairs(LP.Character:GetChildren()) do
-        if v.Name == "Head" and (v:FindFirstChild("TrueName") or v:FindFirstChild("Rank") or v:FindFirstChild("FaceBlock")) then
-            if v:FindFirstChild("TrueName") then
-               v.TrueName:Destroy()
-            end
-            if v:FindFirstChild("Rank") then
-                v.Rank:Destroy()
-            end
-            if v:FindFirstChild("FaceBlock") then
-                v.FaceBlock:Destroy()
-            end
-        elseif v:IsA("Accessory") or v:IsA("MeshPart") then
-            v:Destroy()
-        elseif v:IsA("Shirt") or v:IsA("Pants") then
-            v:Destroy()
-			end
-		end
-	end
-end
-
-hideIdentity()
-wait()
-game.Players.LocalPlayer.CharacterAdded:Connect(hideIdentity)
