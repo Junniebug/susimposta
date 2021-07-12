@@ -16,5 +16,3 @@ game:GetService("Lighting").Blur:Destroy()
 game:GetService("Lighting").DepthOfField:Destroy()
 game:GetService("Lighting").Bloom:Destroy()
 game:GetService("Lighting").Blind:Destroy()
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/racemodex/my-scripts/master/Demonfalltrinketfarm-autoexec", true))()
