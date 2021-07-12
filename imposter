@@ -1,4 +1,4 @@
-
+--[[
 _G.loool = true
 
 local function sus()
@@ -9,7 +9,7 @@ game.Players.LocalPlayer.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
 end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
-sus()
+sus()]]
 wait()
 --[[demonfall stuff
 game:GetService("Lighting").Blur:Destroy()
