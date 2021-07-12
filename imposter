@@ -11,8 +11,8 @@ end
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
 wait()
---[[demonfall stuff]]
+--[[demonfall stuff
 game:GetService("Lighting").Blur:Destroy()
 game:GetService("Lighting").DepthOfField:Destroy()
 game:GetService("Lighting").Bloom:Destroy()
-game:GetService("Lighting").Blind:Destroy()
+game:GetService("Lighting").Blind:Destroy()]]
