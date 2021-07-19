@@ -1,7 +1,7 @@
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka'))()
 execCmd('hideiy')
 execCmd('antiafk')
---[[
+wait()
 _G.loool = true
 
 local function sus()
@@ -12,11 +12,4 @@ game.Players.LocalPlayer.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
 end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
-sus()]]
-wait()
---[[demonfall stuff
-game:GetService("Lighting").Blur:Destroy()
-game:GetService("Lighting").DepthOfField:Destroy()
-game:GetService("Lighting").Bloom:Destroy()
-game:GetService("Lighting").Blind:Destroy()
-]]
+sus()
