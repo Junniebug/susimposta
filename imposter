@@ -2,7 +2,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 execCmd('hideiy')
 execCmd('antiafk')
 wait()
-_G.ws == false
+_G.ws = false
 
 local function sus()
     if _G.ws == true then
