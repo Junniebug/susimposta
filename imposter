@@ -2,10 +2,10 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 execCmd('hideiy')
 execCmd('antiafk')
 wait()
-_G.loool = true
+_G.ws = true
 
 local function sus()
-    if _G.loool == true then
+    if _G.ws == true then
     loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))()
 game.Players.LocalPlayer.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
     end
