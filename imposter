@@ -6,7 +6,8 @@ _G.ws = false
 
 local function sus()
     if _G.ws == true then
-    loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))()
+ -- loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))() someone else's pastebin
+    loadstring(game:HttpGet("https://pastebin.com/raw/14V388Az", true))() -- mine :D
 game.Players.LocalPlayer.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
     end
 end
