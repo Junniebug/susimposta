@@ -11721,7 +11721,7 @@ end
 
 IYMouse.Move:Connect(checkTT)
 
-spawn(function()
+--[[spawn(function()
 	if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end) then
 		if ver ~= Version then
 			notify('Outdated','Get the new version at github.com/EdgeIY/infiniteyield')
@@ -11809,7 +11809,7 @@ spawn(function()
 			end)
 		end
 	end
-end)
+end)]]
 
 wait()
 Credits:TweenPosition(UDim2.new(0,0,0.9,0), "Out", "Quart", 0.2)
