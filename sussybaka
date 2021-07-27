@@ -11721,12 +11721,12 @@ end
 
 IYMouse.Move:Connect(checkTT)
 
---[[spawn(function()
+spawn(function()
 	if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end) then
 		if ver ~= Version then
 			notify('Outdated','Get the new version at github.com/EdgeIY/infiniteyield')
 		end
-		if Announcement and Announcement ~= '' then
+		--[[if Announcement and Announcement ~= '' then
 			local AnnGUI = Instance.new("Frame")
 			local background = Instance.new("Frame")
 			local TextBox = Instance.new("TextLabel")
@@ -11807,9 +11807,9 @@ IYMouse.Move:Connect(checkTT)
 				wait(0.6)
 				AnnGUI:Destroy()
 			end)
-		end
+		end]]
 	end
-end)]]
+end)
 
 wait()
 Credits:TweenPosition(UDim2.new(0,0,0.9,0), "Out", "Quart", 0.2)
