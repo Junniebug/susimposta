@@ -1,4 +1,5 @@
-game.Loaded:Wait()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/babft.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/demonfall.lua'))()
 
 if game['PlaceId'] == 3978370137 then  -- gpo
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
@@ -38,8 +39,4 @@ sus()
     end
 end)
 
-spawn(function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/babft.lua'))()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/demonfall.lua'))()
-end)
     
