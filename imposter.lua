@@ -18,6 +18,8 @@ end
 spawn(function()
 local lp = game:GetService('Players').LocalPlayer
 
+if game['PlaceId'] == 2809202155 then return end
+		
 if lp.Name == "sjlyant" or "Juneuari" then
 
 local ScreenGui = Instance.new("ScreenGui")
