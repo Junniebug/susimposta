@@ -2,10 +2,10 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 execCmd('hideiy')
 execCmd('antiafk')
 wait()
-_G.ws = false
+getgenv().ws = false
 
 local function sus()
-    if _G.ws == true then
+    if ws == true then
  -- loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))() someone else's pastebin
     loadstring(game:HttpGet("https://pastebin.com/raw/14V388Az", true))() -- mine :D
 game.Players.LocalPlayer.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
@@ -14,3 +14,4 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
+    
