@@ -1,28 +1,64 @@
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/babft.lua'))()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/demonfall.lua'))()
 
-if game['PlaceId'] == 3978370137 then  -- gpo
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
-elseif game['PlaceId'] == 6360478118 then -- gpo universe hub
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
-elseif game['PlaceId'] == 1730877806 then -- gpo main hub
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
-elseif game['PlaceId'] == 2809202155 then -- yba
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
-elseif game['PlaceId'] == 5094651510 then -- demonfall
+local sheeesh = {
+3978370137, -- gpo
+6360478118, -- gpo universe hub
+1730877806, -- gpo main menu
+2809202155, -- yba
+5094651510 -- demonfall
+}
+
+for _,xD in pairs(sheeesh) do
+	if game['PlaceId'] == xD then
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
 end
 
 spawn(function()
-if game['PlaceId'] == 2809202155 then return end
-
 local lp = game:GetService('Players').LocalPlayer
 
-if lp.Name ~= "sjlyant" then
-	if lp.Name == "Juneuari" then return end
+if lp.Name == "sjlyant" or "Juneuari" then
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Destroy = Instance.new("TextButton")
+
+ScreenGui.Name = "ScreenGui"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.ResetOnSpawn = false
+
+Frame.Parent = ScreenGui
+Frame.Active = true
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.Position = UDim2.new(0.157894731, 0, 0.321041226, 0)
+Frame.Selectable = true
+Frame.Size = UDim2.new(0, 100, 0, 60)
+Frame.Draggable = true
+
+Destroy.Name = "Destroy"
+Destroy.Parent = Frame
+Destroy.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Destroy.Position = UDim2.new(0.0928495973, 0, 0.493851483, 0)
+Destroy.Size = UDim2.new(0, 80, 0, 20)
+Destroy.Font = Enum.Font.SourceSans
+Destroy.Text = "Turn on IY"
+Destroy.TextColor3 = Color3.fromRGB(0, 0, 0)
+Destroy.TextScaled = true
+Destroy.TextSize = 14.000
+Destroy.TextWrapped = true
+Destroy.MouseButton1Click:connect(function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
+ScreenGui:Destroy()
+end)
+else
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
+execCmd('hideiy')
+execCmd('antiafk')
+end
             
 getgenv().ws = false
             
@@ -36,7 +72,6 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
-    end
 end)
 
     
