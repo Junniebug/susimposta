@@ -1,6 +1,6 @@
 if game['PlaceId'] ~= 5094651510 then return end
 
-wait()
+game.Loaded:Wait()
 
 while wait(1) do
     if workspace:FindFirstChild("Sound") and workspace:FindFirstChild("Sound").Volume ~= 0 then
