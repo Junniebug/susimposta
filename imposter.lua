@@ -33,7 +33,6 @@ ScreenGui.ResetOnSpawn = false
 
 Frame.Parent = ScreenGui
 Frame.ZIndex = 0
-Frame.ZIndexBehavior = 0
 Frame.Active = true
 Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
