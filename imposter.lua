@@ -68,6 +68,7 @@ execCmd('hideiy')
 execCmd('antiafk')
     end
 end		
+--[
 getgenv().ws = false
 
 local function sus()
@@ -80,12 +81,8 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
+]]
 end)
 
-spawn(function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/demonfall.lua'))()
-end)
-
-spawn(function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/babft.lua'))()
-end)
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/demonfall.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/babft.lua'))()
