@@ -1,6 +1,4 @@
-repeat wait() until game:IsLoaded()
-
-    if game['PlaceId'] ~= 5094651510 then return end
+if game['PlaceId'] ~= 5094651510 then return end
 
 wait()
 
