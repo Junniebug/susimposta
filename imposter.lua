@@ -20,10 +20,30 @@ if game['PlaceId'] == 2809202155 then return end
 
 game.Loaded:Wait()
 
-local lp = game:GetService('Players').LocalPlayer
-		
-if lp.Name == "sjlyant" or "Juneuari" then
 
+
+local lp = game:GetService('Players').LocalPlayer
+
+local names = {
+"sjlyant",
+"Juneuari"
+}
+
+getgenv().ws = false
+            
+local function sus()
+    if ws == true then
+ -- loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))() someone else's pastebin
+    loadstring(game:HttpGet("https://pastebin.com/raw/14V388Az", true))() -- mine :D
+lp.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
+    end
+end
+
+game.Players.LocalPlayer.CharacterAdded:Connect(sus)
+sus()
+
+for i,v in pairs(names) do
+if lp.Name == v then
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local Destroy = Instance.new("TextButton")
@@ -64,20 +84,10 @@ else
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
+   end
 end
             
-getgenv().ws = false
-            
-local function sus()
-    if ws == true then
- -- loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))() someone else's pastebin
-    loadstring(game:HttpGet("https://pastebin.com/raw/14V388Az", true))() -- mine :D
-game.Players.LocalPlayer.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
-    end
-end
-
-game.Players.LocalPlayer.CharacterAdded:Connect(sus)
-sus()
 end)
 
     
+
