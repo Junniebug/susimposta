@@ -71,8 +71,6 @@ end)
 spawn(function()
 if game['PlaceId'] ~= 5094651510 then return end
 
-game.Loaded:Wait()
-
 while wait(1) do
     if workspace:FindFirstChild("Sound") and workspace:FindFirstChild("Sound").Volume ~= 0 then
         workspace:FindFirstChild("Sound").Volume = 0
@@ -96,8 +94,6 @@ end
 
 spawn(function()
 if game['PlaceId'] ~= 537413528 then return end
-
-game.Loaded:Wait()
 
 if getgenv().GUI == true then
     return
