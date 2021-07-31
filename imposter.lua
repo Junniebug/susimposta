@@ -12,21 +12,10 @@ for _,xD in pairs(sheeesh) do
     end
 end
 
-getgenv().ws = false
-            
-local function sus()
-    if ws == true then
- -- loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))() someone else's pastebin
-    loadstring(game:HttpGet("https://pastebin.com/raw/14V388Az", true))() -- mine :D
-game.Players.LocalPlayer.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
-    end
-end
-
-game.Players.LocalPlayer.CharacterAdded:Connect(sus)
-sus()
-
 spawn(function()
 if game['PlaceId'] == 2809202155 then return end
+		
+game.Loaded:Wait()
 
 local lp = game:GetService('Players').LocalPlayer
 
@@ -77,8 +66,20 @@ else
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
-        end
     end
+end		
+getgenv().ws = false
+
+local function sus()
+    if ws == true then
+ -- loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))() someone else's pastebin
+    loadstring(game:HttpGet("https://pastebin.com/raw/14V388Az", true))() -- mine :D
+game.Players.LocalPlayer.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
+    end
+end
+
+game.Players.LocalPlayer.CharacterAdded:Connect(sus)
+sus()
 end)
 
 spawn(function()
