@@ -16,9 +16,11 @@ for _,xD in pairs(sheeesh) do
 end
 
 spawn(function()
-local lp = game:GetService('Players').LocalPlayer
-
 if game['PlaceId'] == 2809202155 then return end
+
+game.Loaded:Wait()
+
+local lp = game:GetService('Players').LocalPlayer
 		
 if lp.Name == "sjlyant" or "Juneuari" then
 
