@@ -84,10 +84,10 @@ else
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
-   end
-end
-            
+        end
+    end
 end)
 
     
+
 
