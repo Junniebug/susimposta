@@ -266,7 +266,7 @@ Player.CharacterAdded:Connect(function()
             Player.CharacterAdded:Disconnect()
             return
         end
-        repeat wait() until Wait == true
+        repeat wait() until getgenv().Wait == true
         if getgenv().Enabled == true then
             Bruh()
         else
