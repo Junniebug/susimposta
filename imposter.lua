@@ -1,6 +1,6 @@
 
 
-    spawn(function()
+spawn(function()
 if game['PlaceId'] == 2809202155 then return end
 
 game.Loaded:Wait()
@@ -25,7 +25,8 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
-    end)
+    end
+end)
 
 spawn(function()
 if game['PlaceId'] == 3978370137 then  -- gpo
@@ -42,5 +43,6 @@ end
         game.Loaded:Wait()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/babft.lua'))()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/demonfall.lua'))()
+    end
 end)
     
