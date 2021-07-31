@@ -1,4 +1,5 @@
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/babft.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
 wait()
