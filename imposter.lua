@@ -68,7 +68,7 @@ execCmd('hideiy')
 execCmd('antiafk')
     end
 end		
---[
+--[[
 getgenv().ws = false
 
 local function sus()
