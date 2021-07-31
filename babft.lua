@@ -1,5 +1,7 @@
 if game['PlaceId'] ~= 537413528 then return end
 
+game.Loaded:Wait()
+
 if getgenv().GUI == true then
     return
 end
