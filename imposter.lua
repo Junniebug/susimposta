@@ -245,7 +245,7 @@ end
 
 Player.CharacterAdded:Connect(function()
     if getgenv().Enabled == true then
-        getgenv().Wait = false
+        _G.Wait = false
         local function Check()
             local gmt = getrawmetatable(game)
             setreadonly(gmt, false)
@@ -255,7 +255,7 @@ Player.CharacterAdded:Connect(function()
                 if getnamecallmethod() == "InvokeServer" and self.Name == "Check" then
                     workspace.ClaimRiverResultsGold:FireServer()
                     print("Total Gold Gained: "..Player.PlayerGui.RiverResultsGui.Frame.TotalGoldGained.Text)
-                    getgenv().Wait = true
+                    _G.Wait = true
                 end
                 return old(self, ...)
             end)
@@ -266,7 +266,7 @@ Player.CharacterAdded:Connect(function()
             Player.CharacterAdded:Disconnect()
             return
         end
-        repeat wait() until getgenv().Wait == true
+        repeat wait() until _G.Wait == true
         if getgenv().Enabled == true then
             Bruh()
         else
