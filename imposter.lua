@@ -10,8 +10,8 @@ local sheeesh = {
 }
 
 if game['PlaceId'] == xD then
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
-
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
+end
 spawn(function()
     game.Loaded:Wait()
     local lp = game:GetService('Players').LocalPlayer
