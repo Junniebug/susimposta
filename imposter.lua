@@ -1,6 +1,3 @@
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/babft.lua'))()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/demonfall.lua'))()
-
 local sheeesh = {
 3978370137, -- gpo
 6360478118, -- gpo universe hub
@@ -15,12 +12,21 @@ for _,xD in pairs(sheeesh) do
     end
 end
 
+getgenv().ws = false
+            
+local function sus()
+    if ws == true then
+ -- loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))() someone else's pastebin
+    loadstring(game:HttpGet("https://pastebin.com/raw/14V388Az", true))() -- mine :D
+game.Players.LocalPlayer.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
+    end
+end
+
+game.Players.LocalPlayer.CharacterAdded:Connect(sus)
+sus()
+
 spawn(function()
 if game['PlaceId'] == 2809202155 then return end
-
-game.Loaded:Wait()
-
-
 
 local lp = game:GetService('Players').LocalPlayer
 
@@ -29,28 +35,15 @@ local names = {
 "Juneuari"
 }
 
-getgenv().ws = false
-            
-local function sus()
-    if ws == true then
- -- loadstring(game:HttpGet("https://pastebin.com/raw/UwFCVrhS", true))() someone else's pastebin
-    loadstring(game:HttpGet("https://pastebin.com/raw/14V388Az", true))() -- mine :D
-lp.Character.Humanoid:AddPropertyEmulator("WalkSpeed")
-    end
-end
-
-game.Players.LocalPlayer.CharacterAdded:Connect(sus)
-sus()
-
 for i,v in pairs(names) do
-if lp.Name == v then
+if v.Name == lp.Name then
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local Destroy = Instance.new("TextButton")
 
 ScreenGui.Name = "ScreenGui"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
--- ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.ResetOnSpawn = false
 
 Frame.Parent = ScreenGui
@@ -88,6 +81,10 @@ execCmd('antiafk')
     end
 end)
 
-    
+spawn(function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/demonfall.lua'))()
+end)
 
-
+spawn(function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/babft.lua'))()
+end)
