@@ -85,10 +85,10 @@ while wait(1) do
             if v:IsA("Sound") and v.Volume ~= 0 then
                 v.Volume = 0   
             end
-        end
-    end
-end
-   end)
+         end
+      end
+   end
+end)
 
 
 
