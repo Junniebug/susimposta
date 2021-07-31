@@ -32,6 +32,8 @@ ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.ResetOnSpawn = false
 
 Frame.Parent = ScreenGui
+Frame.ZIndex = 0
+Frame.ZIndexBehavior = 0
 Frame.Active = true
 Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -39,6 +41,7 @@ Frame.Position = UDim2.new(0.157894731, 0, 0.321041226, 0)
 Frame.Selectable = true
 Frame.Size = UDim2.new(0, 100, 0, 60)
 Frame.Draggable = true
+Frame.Transparency = 1
 
 Destroy.Name = "Destroy"
 Destroy.Parent = Frame
