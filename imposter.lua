@@ -255,7 +255,7 @@ Player.CharacterAdded:Connect(function()
                 if getnamecallmethod() == "InvokeServer" and self.Name == "Check" then
                     workspace.ClaimRiverResultsGold:FireServer()
                     print("Total Gold Gained: "..Player.PlayerGui.RiverResultsGui.Frame.TotalGoldGained.Text)
-                    Wait = true
+                    getgenv().Wait = true
                 end
                 return old(self, ...)
             end)
