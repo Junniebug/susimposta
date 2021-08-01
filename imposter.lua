@@ -13,9 +13,12 @@ local sexxD = {
 }
 
 for anal,sex in pairs(sexxD) do
-if game['PlaceId'] == v then wait(5) end
+if game['PlaceId'] == v then 
 
 game.Loaded:Wait()
+
+wait(5)
+
 local lp = game:GetService('Players').LocalPlayer
 
 local names = {
@@ -25,8 +28,6 @@ local names = {
 
 for i,v in pairs(names) do
 if v.Name == lp.Name then
-if poop then return end
-getgenv().poop = true
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local Destroy = Instance.new("TextButton")
@@ -85,7 +86,10 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
+        end
+    end
 end)
+
 
 spawn(function()
 if game['PlaceId'] ~= 5094651510 then return end
