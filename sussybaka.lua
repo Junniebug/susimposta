@@ -8,7 +8,7 @@ pcall(function() getgenv().IY_LOADED  = true end)
 if not game:IsLoaded() then
 	local notLoaded = Instance.new("Message",workspace)
 	notLoaded.Text = 'Infinite Yield is waiting for the game to load'
-	game.Loaded:Wait()
+	--game.Loaded:Wait()
 	notLoaded:Destroy()
 end
 
