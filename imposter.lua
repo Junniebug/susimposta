@@ -3,6 +3,18 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 end)
 
 spawn(function()
+
+local sexxD = {
+3978370137, -- gpo
+6360478118, -- gpo universe hub
+1730877806, -- gpo main menu
+2809202155, -- yba
+5094651510 -- demonfall
+}
+
+for anal,sex in pairs(sexxD) do
+if game['PlaceId'] == v then wait(5) end
+
 game.Loaded:Wait()
 local lp = game:GetService('Players').LocalPlayer
 
