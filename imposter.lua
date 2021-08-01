@@ -3,8 +3,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 end)
 
 
-spawn(function()
-    game.Loaded:Wait()	
+spawn(function()	
 local lp = game:GetService('Players').LocalPlayer
 
 local names = {
