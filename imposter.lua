@@ -44,6 +44,7 @@ execCmd('hideiy')
 execCmd('antiafk')
 end)
 else
+		print("sus")
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
