@@ -30,7 +30,7 @@ Destroy.TextSize = 14.000
 Destroy.TextWrapped = true
 Destroy.MouseButton1Click:connect(function()
 ScreenGui:Destroy()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
 end)
