@@ -4,14 +4,14 @@ if IY_LOADED and not _G.IY_DEBUG == true then
 end
 
 pcall(function() getgenv().IY_LOADED  = true end)
-
+--[[
 if not game:IsLoaded() then
 	local notLoaded = Instance.new("Message",workspace)
 	notLoaded.Text = 'Infinite Yield is waiting for the game to load'
-	--game.Loaded:Wait()
+	game.Loaded:Wait()
 	notLoaded:Destroy()
 end
-
+]]
 ver = '5.2.5'
 
 Players = game:GetService("Players")
