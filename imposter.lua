@@ -9,6 +9,8 @@ repeat wait() until lp ~= nil
 
 wait(5)
 
+print("as")
+
 local names = {
 "sjlyant",
 "Juneuari"
