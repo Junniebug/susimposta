@@ -47,13 +47,15 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 execCmd('hideiy')
 execCmd('antiafk')
 end)
-else
-		print("sus")
+getgenv().ligma = true
+    end
+end		
+
+if not ligma then
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
-    end
-end		
+end
 
 getgenv().ws = false
 
