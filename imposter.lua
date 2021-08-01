@@ -4,11 +4,11 @@ game.Loaded:Wait()
 local lp = game:GetService('Players').LocalPlayer
 
 if lp.Name == "Juneuari" then
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/yepLol'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
 elseif lp.Name == "sjlyant" then 
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/yepLol'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
 else
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
 end
@@ -28,7 +28,7 @@ sus()
 end)
 
 spawn(function()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/FH.lua'))()
 end)
 
 spawn(function()
