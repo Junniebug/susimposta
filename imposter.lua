@@ -1,6 +1,3 @@
-spawn(function()
-if game['PlaceId'] == 2809202155 then return end
-
 local lp = game:GetService('Players').LocalPlayer
 
 local names = {
@@ -65,8 +62,6 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
-
-end)
 
 spawn(function()
 if game['PlaceId'] ~= 5094651510 then return end
