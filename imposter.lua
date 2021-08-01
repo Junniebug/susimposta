@@ -7,6 +7,8 @@ local lp = game:GetService('Players').LocalPlayer
 		
 repeat wait() until lp ~= nil
 
+wait(5)
+
 local names = {
 "sjlyant",
 "Juneuari"
