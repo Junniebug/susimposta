@@ -52,7 +52,7 @@ execCmd('hideiy')
 execCmd('antiafk')
     end
 end		
---[[
+
 getgenv().ws = false
 
 local function sus()
@@ -65,7 +65,7 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
-]]
+
 end)
 
 spawn(function()
