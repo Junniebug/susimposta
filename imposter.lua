@@ -14,9 +14,11 @@ local names = {
 
 for i,v in pairs(names) do
 if v.Name ~= lp.Name then
+if poopsex == true then return end
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
 execCmd('antiafk')
+getgenv().poopsex = true
 else
     getgenv().ligma = true
     end
