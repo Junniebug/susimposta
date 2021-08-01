@@ -3,8 +3,9 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 end)
 
 spawn(function()	
-repeat wait() until game:IsLoaded()
 local lp = game:GetService('Players').LocalPlayer
+		
+repeat wait() until lp ~= nil
 
 local names = {
 "sjlyant",
