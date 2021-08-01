@@ -1,10 +1,7 @@
+spawn(function()
+game.Loaded:Wait()
+
 local lp = game:GetService('Players').LocalPlayer
-		
-repeat wait() until lp ~= nil
-
-wait(5)
-
-print("as")
 
 local names = {
 "sjlyant",
@@ -76,6 +73,7 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
+end)
 
 spawn(function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
