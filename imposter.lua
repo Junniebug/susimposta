@@ -2,7 +2,6 @@ spawn(function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
 end)
 
-
 spawn(function()	
 local lp = game:GetService('Players').LocalPlayer
 
