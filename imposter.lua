@@ -1,8 +1,3 @@
-spawn(function()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
-end)
-
-spawn(function()	
 local lp = game:GetService('Players').LocalPlayer
 		
 repeat wait() until lp ~= nil
@@ -81,8 +76,10 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
-end)
 
+spawn(function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
+end)
 
 spawn(function()
 if game['PlaceId'] ~= 5094651510 then return end
@@ -107,8 +104,6 @@ wait(1)
       end
    end
 end)
-
-
 
 spawn(function()
 if game['PlaceId'] ~= 537413528 then return end
