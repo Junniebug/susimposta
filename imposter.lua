@@ -1,3 +1,7 @@
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/fh.lua'))()
+
+spawn(function()
+game.Loaded:Wait()
 local lp = game:GetService('Players').LocalPlayer
 
 local names = {
@@ -63,11 +67,13 @@ end
 
 game.Players.LocalPlayer.CharacterAdded:Connect(sus)
 sus()
+end)
 
 spawn(function()
 if game['PlaceId'] ~= 5094651510 then return end
 
-while wait(1) do
+getgenv().poopoo = true
+while poopoo do
     if workspace:FindFirstChild("Sound") and workspace:FindFirstChild("Sound").Volume ~= 0 then
         workspace:FindFirstChild("Sound").Volume = 0
     end
@@ -80,6 +86,7 @@ while wait(1) do
         for i, v in pairs(workspace.AmbientSounds:GetChildren()) do wait(.5)
             if v:IsA("Sound") and v.Volume ~= 0 then
                 v.Volume = 0   
+wait(1)
             end
          end
       end
@@ -90,6 +97,8 @@ end)
 
 spawn(function()
 if game['PlaceId'] ~= 537413528 then return end
+
+game.Loaded:Wait()
 
 if getgenv().GUI == true then
     return
