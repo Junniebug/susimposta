@@ -25,6 +25,8 @@ local names = {
 
 for i,v in pairs(names) do
 if v.Name == lp.Name then
+if poop then return end
+getgenv().poop = true
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local Destroy = Instance.new("TextButton")
