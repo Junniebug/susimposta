@@ -57,7 +57,7 @@ else
     end
 end		
 
-if not ligma then
+if ligma then
 if sexpoop then return end
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/sussybaka.lua'))()
 execCmd('hideiy')
