@@ -60,6 +60,8 @@ if game['PlaceId'] ~= 537413528 then return end
 
 game.Loaded:Wait()
 
+getgenv().ligmaxD = false
+
 if ligmaxD then return end
 
 	local ScreenGui = Instance.new("ScreenGui")
@@ -96,6 +98,7 @@ if ligmaxD then return end
 	Destroy.MouseButton1Click:connect(function()
 		ScreenGui:Destroy()
 		getgenv().poop = false
+		getgenv().ligmaxD = false
 	end)
 
 	OffButton.Name = "OffButton"
@@ -141,7 +144,7 @@ local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 				
 function Repeat()
 if getgenv().poop == true then
-wait(3.9)
+wait()
 	for i = 1,10 do
 	Tween(2,Stage["CaveStage"..i].DarknessPart.CFrame)
 	end
