@@ -58,6 +58,8 @@ end)
 spawn(function()
 if game['PlaceId'] ~= 537413528 then return end
 
+game.Loaded:Wait()
+		
 getgenv().ligmaxD = false
 
 if ligmaxD then return end
@@ -140,13 +142,15 @@ end
 				
 function Repeat()
 if getgenv().poop == true then
-	wait(1.5)
+	wait(3)
 	local Stage = workspace.BoatStages.NormalStages
-        Tween(0.25,game:GetService("Workspace").BoatStages.NormalStages.CaveStage1.DarknessPart.CFrame - Vector3.new(0,0,50))
+        Tween(0.5,game:GetService("Workspace").BoatStages.NormalStages.CaveStage1.DarknessPart.CFrame - Vector3.new(0,0,50))
 	for i = 1,10 do
 	Tween(2,Stage["CaveStage"..i].DarknessPart.CFrame)
 	end
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Stage.TheEnd.GoldenChest.Trigger.CFrame
+	wait(15)
+	game.Players.LocalPlayer.Character.Head:Destroy()
     end
 end
 Repeat()
