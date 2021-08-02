@@ -62,8 +62,6 @@ game.Loaded:Wait()
 
 if ligmaxD then return end
 
-if game['PlaceId'] ~= 537413528 then return end
-
 	local ScreenGui = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
 	local Destroy = Instance.new("TextButton")
