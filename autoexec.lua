@@ -172,6 +172,8 @@ workspace.ClaimRiverResultsGold:FireServer()
 end)
 getgenv().ligmaxD = true
 
+wait(5)
+					
 getgenv().poop = true
 	
 function Tween(time,pos)
