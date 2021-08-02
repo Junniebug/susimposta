@@ -142,7 +142,7 @@ end
 				
 function Repeat()
 if getgenv().poop == true then
-    wait(1)
+    wait(3)
 	getgenv().leeleelooloo = true
 	game:GetService("RunService").Heartbeat:Connect(function(step)
 	    if leeleelooloo then
@@ -152,6 +152,7 @@ if getgenv().poop == true then
 	    end
 	end)
 	if leeleelooloo == false then
+	leeleelooloo = true
 	local Stage = workspace.BoatStages.NormalStages
         Tween(0.5,game:GetService("Workspace").BoatStages.NormalStages.CaveStage1.DarknessPart.CFrame - Vector3.new(0,0,50))
 	for i = 1,10 do
