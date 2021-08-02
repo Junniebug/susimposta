@@ -141,7 +141,7 @@ end
 
 function Repeat()
 if getgenv().poop == true then
-wait(1.5)
+wait(3.9)
 local Player = game.Players.LocalPlayer
 local Stage = workspace.BoatStages.NormalStages
 local HRP = Player.Character.HumanoidRootPart
