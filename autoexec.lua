@@ -148,9 +148,7 @@ if getgenv().poop == true then
 	for i = 1,10 do
 	Tween(2,Stage["CaveStage"..i].DarknessPart.CFrame)
 	end
-        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-
-	hrp = Stage.TheEnd.GoldenChest.Trigger.CFrame
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Stage.TheEnd.GoldenChest.Trigger.CFrame
     end
 end
 Repeat()
