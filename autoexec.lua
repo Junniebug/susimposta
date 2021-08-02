@@ -142,7 +142,8 @@ end
 				
 function Repeat()
 if getgenv().poop == true then
-	game.Players.LocalPlayer.CharacterAdded:Wait()
+    function poopy()
+	if game.Players.LocalPlayer.Character ~= nil then
 	local Stage = workspace.BoatStages.NormalStages
         Tween(0.5,game:GetService("Workspace").BoatStages.NormalStages.CaveStage1.DarknessPart.CFrame - Vector3.new(0,0,50))
 	for i = 1,10 do
@@ -151,6 +152,9 @@ if getgenv().poop == true then
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Stage.TheEnd.GoldenChest.Trigger.CFrame
 	wait(5)
 	game.Players.LocalPlayer.Character.HumanoidRootPart:Destroy()
+	else repeat wait() poopy() until game.Players.LocalPlayer.Character ~= nil 
+	        end
+	    end
     end
 end
 Repeat()
