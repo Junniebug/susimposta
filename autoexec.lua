@@ -141,7 +141,7 @@ local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 				
 function Repeat()
 if getgenv().poop == true then
-wait(1.5)
+wait(3.9)
 	for i = 1,10 do
 	Tween(2,Stage["CaveStage"..i].DarknessPart.CFrame)
 	end
