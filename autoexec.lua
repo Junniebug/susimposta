@@ -171,9 +171,7 @@ workspace.ClaimRiverResultsGold:FireServer()
    end)
 end)
 getgenv().ligmaxD = true
-
-wait(5)
-					
+-- delete below if i am not trying to do the auto rejoin every hour thing Lol Xd!
 getgenv().poop = true
 	
 function Tween(time,pos)
@@ -188,17 +186,7 @@ end
 				
 function Repeat()
 if getgenv().poop == true then
-    wait(3)
-	getgenv().leeleelooloo = true
-	game:GetService("RunService").Heartbeat:Connect(function(step)
-	    if leeleelooloo then
-	        if game.Players.LocalPlayer.Character.HumanoidRootPart then
-	            leeleelooloo = false
-	        end
-	    end
-	end)
-	if leeleelooloo == false then
-	leeleelooloo = true
+	wait(5)
 	local Stage = workspace.BoatStages.NormalStages
         Tween(0.5,game:GetService("Workspace").BoatStages.NormalStages.CaveStage1.DarknessPart.CFrame - Vector3.new(0,0,50))
 	for i = 1,10 do
@@ -207,7 +195,6 @@ if getgenv().poop == true then
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Stage.TheEnd.GoldenChest.Trigger.CFrame
 	wait(5)
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Stage.TheEnd.GoldenChest.Trigger.CFrame
-        end
     end
 end
 Repeat()
