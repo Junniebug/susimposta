@@ -142,7 +142,9 @@ end
 				
 function Repeat()
 if getgenv().poop == true then
+	if game.Players.LocalPlayer.Character == nil then
 	repeat wait() until game.Players.LocalPlayer.Character ~= nil
+	end
 	local Stage = workspace.BoatStages.NormalStages
         Tween(0.5,game:GetService("Workspace").BoatStages.NormalStages.CaveStage1.DarknessPart.CFrame - Vector3.new(0,0,50))
 	for i = 1,10 do
