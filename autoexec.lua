@@ -64,70 +64,70 @@ getgenv().ligmaxD = false
 
 if ligmaxD then return end
 
-	local ScreenGui = Instance.new("ScreenGui")
-	local Frame = Instance.new("Frame")
-	local Destroy = Instance.new("TextButton")
-	local OffButton = Instance.new("TextButton")
-	local OnButton = Instance.new("TextButton")
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Destroy = Instance.new("TextButton")
+local OffButton = Instance.new("TextButton")
+local OnButton = Instance.new("TextButton")
 
-	ScreenGui.Name = "ScreenGui"
-	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	ScreenGui.ResetOnSpawn = false
+ScreenGui.Name = "ScreenGui"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.ResetOnSpawn = false
 
-	Frame.Parent = ScreenGui
-	Frame.Active = true
-	Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Frame.Position = UDim2.new(0.157894731, 0, 0.321041226, 0)
-	Frame.Selectable = true
-	Frame.Size = UDim2.new(0, 100, 0, 60)
-	Frame.Draggable = true
+Frame.Parent = ScreenGui
+Frame.Active = true
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.Position = UDim2.new(0.157894731, 0, 0.321041226, 0)
+Frame.Selectable = true
+Frame.Size = UDim2.new(0, 100, 0, 60)
+Frame.Draggable = true
 
-	Destroy.Name = "Destroy"
-	Destroy.Parent = Frame
-	Destroy.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Destroy.Position = UDim2.new(0.0928495973, 0, 0.493851483, 0)
-	Destroy.Size = UDim2.new(0, 80, 0, 20)
-	Destroy.Font = Enum.Font.SourceSans
-	Destroy.Text = "Destroy GUI"
-	Destroy.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Destroy.TextScaled = true
-	Destroy.TextSize = 14.000
-	Destroy.TextWrapped = true
-	Destroy.MouseButton1Click:connect(function()
-		ScreenGui:Destroy()
-		getgenv().poop = false
-		getgenv().ligmaxD = false
-	end)
+Destroy.Name = "Destroy"
+Destroy.Parent = Frame
+Destroy.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Destroy.Position = UDim2.new(0.0928495973, 0, 0.493851483, 0)
+Destroy.Size = UDim2.new(0, 80, 0, 20)
+Destroy.Font = Enum.Font.SourceSans
+Destroy.Text = "Destroy GUI"
+Destroy.TextColor3 = Color3.fromRGB(0, 0, 0)
+Destroy.TextScaled = true
+Destroy.TextSize = 14.000
+Destroy.TextWrapped = true
+Destroy.MouseButton1Click:connect(function()
+	ScreenGui:Destroy()
+	getgenv().poop = false
+	getgenv().ligmaxD = false
+end)
 
-	OffButton.Name = "OffButton"
-	OffButton.Parent = Frame
-	OffButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	OffButton.Position = UDim2.new(0.0905555636, 0, 0.157666683, 0)
-	OffButton.Size = UDim2.new(0, 40, 0, 20)
-	OffButton.Font = Enum.Font.SourceSans
-	OffButton.Text = "Off"
-	OffButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-	OffButton.TextScaled = true
-	OffButton.TextSize = 14.000
-	OffButton.TextWrapped = true
-	OffButton.MouseButton1Click:connect(function()
-		getgenv().poop = false
-	end)
+OffButton.Name = "OffButton"
+OffButton.Parent = Frame
+OffButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+OffButton.Position = UDim2.new(0.0905555636, 0, 0.157666683, 0)
+OffButton.Size = UDim2.new(0, 40, 0, 20)
+OffButton.Font = Enum.Font.SourceSans
+OffButton.Text = "Off"
+OffButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+OffButton.TextScaled = true
+OffButton.TextSize = 14.000
+OffButton.TextWrapped = true
+OffButton.MouseButton1Click:connect(function()
+	getgenv().poop = false
+end)
 
-	OnButton.Name = "OnButton"
-	OnButton.Parent = Frame
-	OnButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	OnButton.Position = UDim2.new(0.490940154, 0, 0.15773055, 0)
-	OnButton.Size = UDim2.new(0, 40, 0, 20)
-	OnButton.Font = Enum.Font.SourceSans
-	OnButton.Text = "On"
-	OnButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-	OnButton.TextScaled = true
-	OnButton.TextSize = 14.000
-	OnButton.TextWrapped = true
-	OnButton.MouseButton1Click:connect(function()
+OnButton.Name = "OnButton"
+OnButton.Parent = Frame
+OnButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+OnButton.Position = UDim2.new(0.490940154, 0, 0.15773055, 0)
+OnButton.Size = UDim2.new(0, 40, 0, 20)
+OnButton.Font = Enum.Font.SourceSans
+OnButton.Text = "On"
+OnButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+OnButton.TextScaled = true
+OnButton.TextSize = 14.000
+OnButton.TextWrapped = true
+OnButton.MouseButton1Click:connect(function()
 getgenv().poop = true
 	
 function Tween(time,pos)
@@ -141,6 +141,7 @@ function Tween(time,pos)
 end
 
 local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local Stage = workspace.BoatStages.NormalStages
 				
 function Repeat()
 if getgenv().poop == true then
