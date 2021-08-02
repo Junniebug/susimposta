@@ -142,7 +142,7 @@ end
 				
 function Repeat()
 if getgenv().poop == true then
-	wait()
+	wait(1.5)
 	local Stage = workspace.BoatStages.NormalStages
 
 	for i = 1,10 do
