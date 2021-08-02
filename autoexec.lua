@@ -139,16 +139,17 @@ function Tween(time,pos)
 		end)
 	end
 end
-
-local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-local Stage = workspace.BoatStages.NormalStages
 				
 function Repeat()
 if getgenv().poop == true then
-wait()
+	wait()
+	local Stage = workspace.BoatStages.NormalStages
+
 	for i = 1,10 do
 	Tween(2,Stage["CaveStage"..i].DarknessPart.CFrame)
 	end
+        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+
 	hrp = Stage.TheEnd.GoldenChest.Trigger.CFrame
     end
 end
