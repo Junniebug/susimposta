@@ -62,13 +62,13 @@ game.Loaded:Wait()
 
 if ligmaxD then return end
 
+if game['PlaceId'] ~= 537413528 then return end
+
 	local ScreenGui = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
 	local Destroy = Instance.new("TextButton")
 	local OffButton = Instance.new("TextButton")
 	local OnButton = Instance.new("TextButton")
-
-	--Properties:
 
 	ScreenGui.Name = "ScreenGui"
 	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -144,13 +144,11 @@ if getgenv().poop == true then
 local Player = game.Players.LocalPlayer
 local Stage = workspace.BoatStages.NormalStages
 local HRP = Player.Character.HumanoidRootPart
-	wait(1.5)
 	Tween(2,game:GetService("Workspace").BoatStages.NormalStages.CaveStage1.DarknessPart.CFrame - Vector3.new(0,0,50))
-	Tween(2,Stage["CaveStage"..i].DarknessPart.CFrame)
 	for i = 1,10 do
-	HRP.CFrame = Stage.TheEnd.GoldenChest.Trigger.CFrame
+	Tween(2,Stage["CaveStage"..i].DarknessPart.CFrame)
 	end
-	
+	HRP.CFrame = Stage.TheEnd.GoldenChest.Trigger.CFrame
 	game.Players.LocalPlayer.CharacterAdded:Connect(Repeat)
     end
 end
