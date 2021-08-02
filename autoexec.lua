@@ -58,8 +58,6 @@ end)
 spawn(function()
 if game['PlaceId'] ~= 537413528 then return end
 
-game.Loaded:Wait()
-
 getgenv().ligmaxD = false
 
 if ligmaxD then return end
@@ -144,7 +142,7 @@ function Repeat()
 if getgenv().poop == true then
 	wait(1.5)
 	local Stage = workspace.BoatStages.NormalStages
-
+        Tween(0.25,game:GetService("Workspace").BoatStages.NormalStages.CaveStage1.DarknessPart.CFrame - Vector3.new(0,0,50))
 	for i = 1,10 do
 	Tween(2,Stage["CaveStage"..i].DarknessPart.CFrame)
 	end
