@@ -151,7 +151,6 @@ if getgenv().poop == true then
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Stage.TheEnd.GoldenChest.Trigger.CFrame
 	wait(5)
 	game.Players.LocalPlayer.Character.HumanoidRootPart:Destroy()
-	end
     end
 end
 Repeat()
@@ -160,7 +159,5 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function()
 workspace.ClaimRiverResultsGold:FireServer()
    end)
 end)
-
 getgenv().ligmaxD = true
-					
 end)
