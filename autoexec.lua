@@ -139,22 +139,22 @@ function Tween(time,pos)
 	end
 end
 
+local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+				
 function Repeat()
 if getgenv().poop == true then
-wait(3.9)
-local Player = game.Players.LocalPlayer
-local Stage = workspace.BoatStages.NormalStages
-local HRP = Player.Character.HumanoidRootPart
-	Tween(0.25,game:GetService("Workspace").BoatStages.NormalStages.CaveStage1.DarknessPart.CFrame - Vector3.new(0,0,50))
+wait(1.5)
 	for i = 1,10 do
 	Tween(2,Stage["CaveStage"..i].DarknessPart.CFrame)
 	end
-	HRP.CFrame = Stage.TheEnd.GoldenChest.Trigger.CFrame
-	workspace.ClaimRiverResultsGold:FireServer()
+	hrp = Stage.TheEnd.GoldenChest.Trigger.CFrame
     end
 end
 Repeat()
 game.Players.LocalPlayer.CharacterAdded:Connect(Repeat)
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+workspace.ClaimRiverResultsGold:FireServer()
+   end)
 end)
 
 getgenv().ligmaxD = true
