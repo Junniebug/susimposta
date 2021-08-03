@@ -1,4 +1,4 @@
-spawn(function()
+spawn(function() -- infinite yield
 game.Loaded:Wait()
 
 local lp = game:GetService('Players').LocalPlayer
@@ -7,6 +7,11 @@ if lp.Name == "Juneuari" then
 --loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
 elseif lp.Name == "sjlyant" then
 --loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
+elseif lp.Name == "junniekangbug" and game['PlaceId'] == 537413528 then
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
+execCmd('hideiy')
+execCmd('antiafk')
+execCmd('nosit')
 else
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 execCmd('hideiy')
@@ -31,7 +36,7 @@ spawn(function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/FH.lua'))()
 end)
 
-spawn(function()
+spawn(function() -- demonfall
 if game['PlaceId'] ~= 5094651510 then return end
 
 getgenv().poopoo = true
@@ -55,8 +60,8 @@ wait(1)
    end
 end)
 
-spawn(function()
-if game['PlaceId'] ~= 537413528 then return end
+spawn(function() -- babft
+if game['PlaceId'] ~= 537413528 then return end 
 
 game.Loaded:Wait()
 		
