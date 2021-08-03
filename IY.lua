@@ -11743,7 +11743,7 @@ if aliases and #aliases > 0 then
 end
 
 IYMouse.Move:Connect(checkTT)
-
+--[[
 spawn(function()
 	if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end) then
 		if ver ~= Version then
@@ -11833,7 +11833,7 @@ spawn(function()
 		end
 	end
 end)
-
+]]
 wait()
 Credits:TweenPosition(UDim2.new(0,0,0.9,0), "Out", "Quart", 0.2)
 Logo:TweenSizeAndPosition(UDim2.new(0,175,0,175),UDim2.new(0,37,0,45), "Out", "Quart", 0.3)
