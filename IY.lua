@@ -6,13 +6,13 @@ end
 pcall(function() getgenv().IY_LOADED  = true end)
 
 if not game:IsLoaded() then
-	local notLoaded = Instance.new("Message",workspace)
+	local notLoaded = Instance.new("Message", game:GetService("CoreGui"))
 	notLoaded.Text = 'Infinite Yield is waiting for the game to load'
-	game.Loaded:Wait()
+	--game.Loaded:Wait()
 	notLoaded:Destroy()
 end
 
-ver = '5.2.5'
+ver = '5.3'
 
 Players = game:GetService("Players")
 
@@ -2677,6 +2677,8 @@ eventEditor = (function()
 						v:Destroy()
 					end
 				end
+				
+				eventF.EventName.Text = name..(#event.commands > 0 and " ("..#event.commands..")" or "")
 
 				for i,cmd in pairs(event.commands) do
 					local cmdF = cmdTemplate:Clone()
@@ -4466,6 +4468,7 @@ CMDs[#CMDs + 1] = {NAME = 'tweenspeed / tspeed [num]', DESC = 'Sets how fast all
 CMDs[#CMDs + 1] = {NAME = 'vehiclegoto / vgoto [plr]', DESC = 'Go to a player while in a vehicle'}
 CMDs[#CMDs + 1] = {NAME = 'loopgoto [plr] [distance] [delay]', DESC = 'Loop teleport to a player'}
 CMDs[#CMDs + 1] = {NAME = 'unloopgoto', DESC = 'Stops teleporting you to a player'}
+CMDs[#CMDs + 1] = {NAME = 'pulsetp / ptp [plr] [seconds]', DESC = 'Teleports you to a player for a specified ammount of time'}
 CMDs[#CMDs + 1] = {NAME = 'clientbring / cbring [plr] (CLIENT)', DESC = 'Bring a player'}
 CMDs[#CMDs + 1] = {NAME = 'loopbring [plr] [distance] [delay] (CLIENT)', DESC = 'Loop brings a player to you (useful for killing)'}
 CMDs[#CMDs + 1] = {NAME = 'unloopbring [plr]', DESC = 'Undoes loopbring'}
@@ -7477,6 +7480,7 @@ addcmd('hideiy',{},function(args, speaker)
 	end
 	minimizeNum = 0
 	minimizeHolder()
+	--notify('IY Hidden','You can press the prefix key to access the command bar')
 end)
 
 addcmd('showiy',{'unhideiy'},function(args, speaker)
@@ -8346,6 +8350,7 @@ addcmd('antiafk',{'antiidle'},function(args, speaker)
 				v["Disconnect"](v)
 			end
 		end
+		--notify('Anti Idle','Anti idle is enabled')
 	else
 		notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
 	end
@@ -8536,6 +8541,24 @@ addcmd('vehiclegoto',{'vgoto','vtp','vehicletp'},function(args, speaker)
 			vehicleModel:MoveTo(getRoot(Players[v].Character).Position)
 		end
 	end
+end)
+
+addcmd('pulsetp',{'ptp'},function(args, speaker)
+	local players = getPlayer(args[1], speaker)
+	for i,v in pairs(players)do
+		if Players[v].Character ~= nil then
+			local startPos = getRoot(speaker.Character).CFrame
+			local seconds = args[2] or 1
+			if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+				speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+				wait(.1)
+			end
+			getRoot(speaker.Character).CFrame = getRoot(Players[v].Character).CFrame + Vector3.new(3,1,0)
+			wait(seconds)
+			getRoot(speaker.Character).CFrame = startPos
+		end
+	end
+	execCmd('breakvelocity')
 end)
 
 local vnoclipParts = {}
@@ -11724,9 +11747,9 @@ IYMouse.Move:Connect(checkTT)
 spawn(function()
 	if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end) then
 		if ver ~= Version then
-			notify('Outdated','Get the new version at github.com/EdgeIY/infiniteyield')
+			notify('Outdated','Get the new version at infinite.yiff.gg')
 		end
-		--[[if Announcement and Announcement ~= '' then
+		if Announcement and Announcement ~= '' then
 			local AnnGUI = Instance.new("Frame")
 			local background = Instance.new("Frame")
 			local TextBox = Instance.new("TextLabel")
@@ -11807,7 +11830,7 @@ spawn(function()
 				wait(0.6)
 				AnnGUI:Destroy()
 			end)
-		end]]
+		end
 	end
 end)
 
