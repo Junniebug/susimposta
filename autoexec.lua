@@ -4,9 +4,9 @@ game.Loaded:Wait()
 local lp = game:GetService('Players').LocalPlayer
 
 if lp.Name == "Juneuari" then
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
+--loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
 elseif lp.Name == "sjlyant" then
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
+--loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
 elseif lp.Name == "junniekangbug" and game['PlaceId'] == 537413528 then
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 execCmd('hideiy')
@@ -36,7 +36,7 @@ spawn(function() -- frosthub
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/FH.lua'))()
 end)
 
-spawn(function()
+spawn(function() -- gpo rejoin dungeon farm thing
 if game['PlaceId'] ~= 3978370137 then return end
 game.Loaded:Wait()
 
