@@ -12,6 +12,8 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/
 execCmd('hideiy')
 execCmd('antiafk')
 execCmd('nosit')
+wait(10800)
+execCmd('rj')
 else
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 execCmd('hideiy')
