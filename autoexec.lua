@@ -46,11 +46,11 @@ local poo = game.Players.LocalPlayer
 		
 if poo.Name == "Juneuari" then
 wait(1200)
---loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 execCmd('rj')
 elseif poo.Name == "sjlyant" then
 wait(1200)
---loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 execCmd('rj')
 else 
 return 
