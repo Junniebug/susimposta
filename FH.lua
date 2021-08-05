@@ -17,7 +17,7 @@ for _,xD in pairs(sheeesh) do
 for _,dX in pairs(sheeesh) do
 		if game['PlaceId'] == dX then game.Loaded:Wait()
 			if game.Players.LocalPlayer.Name == "junniekangbug" then return
-			elseif game.Players.LocalPlayer.Name == "Juneuari" then return
+			--elseif game.Players.LocalPlayer.Name == "Juneuari" then return
 			end
 	pcall(function()
    getgenv().Key = "June1010";
