@@ -16,7 +16,9 @@ for _,xD in pairs(sheeesh) do
 	if game['PlaceId'] == xD then
 for _,dX in pairs(sheeesh) do
 		if game['PlaceId'] == dX then game.Loaded:Wait()
-			if game.Players.LocalPlayer.Name == "junniekangbug" then return end
+			if game.Players.LocalPlayer.Name == "junniekangbug" then return
+			elseif game.Players.LocalPlayer.Name == "Juneuari" then return
+			end
 	pcall(function()
    getgenv().Key = "June1010";
    getgenv().Id = "682297558353051687";if syn and not(SENTINEL_V2) then r=syn.request else r=request end;
