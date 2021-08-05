@@ -7,6 +7,8 @@ if lp.Name == "Juneuari" then
 --loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
 elseif lp.Name == "sjlyant" then
 --loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
+elseif lp.Name == "d5qt" then
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY_GUI.lua'))()
 elseif lp.Name == "junniekangbug" and game['PlaceId'] == 537413528 then
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 execCmd('hideiy')
