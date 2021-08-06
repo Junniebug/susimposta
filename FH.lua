@@ -9,7 +9,7 @@ local sheeesh = {
 local gpo = {
 3978370137, -- gpo
 6360478118, -- gpo universe hub
-1730877806 -- gpo main menu
+--1730877806 -- gpo main menu
 }
 
 for _,xD in pairs(sheeesh) do
