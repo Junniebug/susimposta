@@ -15,7 +15,11 @@ local gpo = {
 for _,xD in pairs(sheeesh) do
 	if game['PlaceId'] == xD then
 for _,dX in pairs(sheeesh) do
-		if game['PlaceId'] == dX then game.Loaded:Wait()
+		if game['PlaceId'] == dX then
+			if not game:IsLoaded() then
+    				game.Loaded:Wait()
+			end
+
 			if game.Players.LocalPlayer.Name == "junniekangbug" then return
 			--elseif game.Players.LocalPlayer.Name == "Juneuari" then return
 			end
