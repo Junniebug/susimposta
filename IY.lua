@@ -1,5 +1,5 @@
 if IY_LOADED and not _G.IY_DEBUG == true then
-	error("Infinite Yield is already running!",0)
+	--error("Infinite Yield is already running!",0)
 	return
 end
 
@@ -42,9 +42,6 @@ PinImage = Instance.new("ImageLabel")
 Tooltip = Instance.new("Frame")
 Title_3 = Instance.new("TextLabel")
 Description = Instance.new("TextLabel")
-IntroBackground = Instance.new("Frame")
-Logo = Instance.new("ImageLabel")
-Credits = Instance.new("TextBox")
 KeybindsFrame = Instance.new("Frame")
 Close = Instance.new("TextButton")
 Add = Instance.new("TextButton")
@@ -203,7 +200,8 @@ Holder.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
 Holder.BorderSizePixel = 0
 Holder.Position = UDim2.new(1, -250, 1, -220)
 Holder.Size = UDim2.new(0, 250, 0, 220)
-Holder.ZIndex = 10
+Holder.ZIndex = 10  
+Holder.Visible = false
 table.insert(shade2,Holder)
 
 Title.Name = "Title"
@@ -532,7 +530,7 @@ Tooltip.Name = randomString()
 Tooltip.Parent = PARENT
 Tooltip.Active = true
 Tooltip.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
-Tooltip.BackgroundTransparency = 1
+Tooltip.BackgroundTransparency = 0.1
 Tooltip.BorderSizePixel = 0
 Tooltip.Size = UDim2.new(0, 200, 0, 96)
 Tooltip.Visible = false
@@ -542,7 +540,7 @@ table.insert(shade1,Tooltip)
 Title_3.Name = "Title"
 Title_3.Parent = Tooltip
 Title_3.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
-Title_3.BackgroundTransparency = 1
+Title_3.BackgroundTransparency = 0.1
 Title_3.BorderSizePixel = 0
 Title_3.Size = UDim2.new(0, 200, 0, 20)
 Title_3.Font = Enum.Font.SourceSans
@@ -568,37 +566,6 @@ Description.TextTransparency = 0.1
 Description.TextWrapped = true
 Description.ZIndex = 10
 table.insert(text1,Description)
-
-IntroBackground.Name = "IntroBackground"
-IntroBackground.Parent = Holder
-IntroBackground.Active = true
-IntroBackground.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
-IntroBackground.BorderSizePixel = 0
-IntroBackground.Position = UDim2.new(0, 0, 0, 45)
-IntroBackground.Size = UDim2.new(0, 250, 0, 175)
-IntroBackground.ZIndex = 10
-
-Logo.Name = "Logo"
-Logo.Parent = Holder
-Logo.BackgroundTransparency = 1
-Logo.BorderSizePixel = 0
-Logo.Position = UDim2.new(0, 125, 0, 127)
-Logo.Size = UDim2.new(0, 10, 0, 10)
-Logo.Image = "rbxassetid://1352543873"
-Logo.ImageTransparency = 0
-Logo.ZIndex = 10
-
-Credits.Name = "Credits"
-Credits.Parent = Holder
-Credits.BackgroundTransparency = 1
-Credits.BorderSizePixel = 0
-Credits.Position = UDim2.new(0, 0, 0.9, 30)
-Credits.Size = UDim2.new(0, 250, 0, 20)
-Credits.Font = Enum.Font.SourceSansLight
-Credits.FontSize = Enum.FontSize.Size18
-Credits.Text = "Edge // Zwolf // Moon // Hunter"
-Credits.TextColor3 = Color3.new(1, 1, 1)
-Credits.ZIndex = 10
 
 KeybindsFrame.Name = "KeybindsFrame"
 KeybindsFrame.Parent = Settings
@@ -3182,7 +3149,7 @@ function maximizeHolder()
 	end
 end
 
-local minimizeNum = 0 --usually -20
+local minimizeNum = 0 -- change it back to -20
 function minimizeHolder()
 	if StayOpen == false then
 		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
@@ -3353,6 +3320,7 @@ end
 
 IYMouse.KeyDown:Connect(function(Key)
 	if (Key==prefix) then
+        Holder.Visible = true
 		Cmdbar:CaptureFocus()
 		spawn(function()
 			repeat Cmdbar.Text = '' until Cmdbar.Text == ''
@@ -11831,19 +11799,4 @@ spawn(function()
 	end
 end)
 ]]
-wait()
-Credits:TweenPosition(UDim2.new(0,0,0.9,0), "Out", "Quart", 0.2)
-Logo:TweenSizeAndPosition(UDim2.new(0,175,0,175),UDim2.new(0,37,0,45), "Out", "Quart", 0.3)
-wait(1)
-for i=0,1,0.1 do
-	Logo.ImageTransparency = i
-	IntroBackground.BackgroundTransparency = i
-	wait()
-end
-Credits:TweenPosition(UDim2.new(0,0,0.9,30), "Out", "Quart", 0.2)
-wait(0.2)
-Logo:Destroy()
-Credits:Destroy()
-IntroBackground:Destroy()
 minimizeHolder()
-
