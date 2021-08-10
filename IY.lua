@@ -6,10 +6,7 @@ end
 pcall(function() getgenv().IY_LOADED  = true end)
 
 if not game:IsLoaded() then
-	local notLoaded = Instance.new("Message", game:GetService("CoreGui"))
-	notLoaded.Text = 'Infinite Yield is waiting for the game to load'
-	--game.Loaded:Wait()
-	notLoaded:Destroy()
+	game.Loaded:Wait()
 end
 
 ver = '5.3'
@@ -3185,7 +3182,7 @@ function maximizeHolder()
 	end
 end
 
-local minimizeNum = -20
+local minimizeNum = 0 --usually -20
 function minimizeHolder()
 	if StayOpen == false then
 		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
