@@ -8306,19 +8306,19 @@ addcmd('partpath',{'partname'},function(args, speaker)
 end)
 
 addcmd('antiafk',{'antiidle'},function(args, speaker)
-	local GC = getconnections or get_signal_cons
-	if GC then
-		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
-			if v["Disable"] then
-				v["Disable"](v)
-			elseif v["Disconnect"] then
-				v["Disconnect"](v)
-			end
-		end
-		--notify('Anti Idle','Anti idle is enabled')
-	else
-		notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
-	end
+    local GC = getconnections or get_signal_cons
+    if GC then
+        for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
+            if v["Disable"] then
+                v["Disable"](v)
+            elseif v["Disconnect"] then
+                v["Disconnect"](v)
+    		end
+        end
+          --notify('Anti Idle','Anti idle is enabled')
+	    else
+          --notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
+    end
 end)
 
 addcmd('datalimit',{},function(args, speaker)
@@ -11799,4 +11799,24 @@ spawn(function()
 	end
 end)
 ]]
+
 minimizeHolder()
+
+local function mongus()
+	local GC = getconnections or get_signal_cons
+	if GC then
+        for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
+            if v["Disable"] then
+                v["Disable"](v)
+            elseif v["Disconnect"] then
+                v["Disconnect"](v)
+            end
+        end
+		--notify('Anti Idle','Anti idle is enabled')
+        else
+		--notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
+    end
+end
+
+mongus()
+
