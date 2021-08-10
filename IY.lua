@@ -532,7 +532,7 @@ Tooltip.Name = randomString()
 Tooltip.Parent = PARENT
 Tooltip.Active = true
 Tooltip.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
-Tooltip.BackgroundTransparency = 0.1
+Tooltip.BackgroundTransparency = 1
 Tooltip.BorderSizePixel = 0
 Tooltip.Size = UDim2.new(0, 200, 0, 96)
 Tooltip.Visible = false
@@ -542,7 +542,7 @@ table.insert(shade1,Tooltip)
 Title_3.Name = "Title"
 Title_3.Parent = Tooltip
 Title_3.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
-Title_3.BackgroundTransparency = 0.1
+Title_3.BackgroundTransparency = 1
 Title_3.BorderSizePixel = 0
 Title_3.Size = UDim2.new(0, 200, 0, 20)
 Title_3.Font = Enum.Font.SourceSans
@@ -11846,3 +11846,4 @@ Logo:Destroy()
 Credits:Destroy()
 IntroBackground:Destroy()
 minimizeHolder()
+
