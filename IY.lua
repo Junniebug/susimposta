@@ -11866,14 +11866,14 @@ end)
 wait()
 Credits:TweenPosition(UDim2.new(0,0,0.9,0), "Out", "Quart", 0.2)
 Logo:TweenSizeAndPosition(UDim2.new(0,175,0,175),UDim2.new(0,37,0,45), "Out", "Quart", 0.3)
-wait(1)
+wait()
 for i=0,1,0.1 do
 	Logo.ImageTransparency = i
 	IntroBackground.BackgroundTransparency = i
 	wait()
 end
 Credits:TweenPosition(UDim2.new(0,0,0.9,30), "Out", "Quart", 0.2)
-wait(0.2)
+wait()
 Logo:Destroy()
 Credits:Destroy()
 IntroBackground:Destroy()
