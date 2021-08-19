@@ -1,34 +1,60 @@
-local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local Destroy = Instance.new("TextButton")
 
-ScreenGui.Name = "ScreenGui"
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenGui.ResetOnSpawn = false
+function randomString()
+	local length = math.random(10,20)
+	local array = {}
+	for i = 1, length do
+		array[i] = string.char(math.random(32, 126))
+	end
+	return table.concat(array)
+end
 
-Frame.Parent = ScreenGui
+COREGUI = game:GetService("CoreGui")
+PARENT = nil
+if (not is_sirhurt_closure) and (syn and syn.protect_gui) then
+	local Main = Instance.new("ScreenGui")
+	Main.Name = randomString()
+	syn.protect_gui(Main)
+	Main.Parent = COREGUI
+	PARENT = Main
+elseif get_hidden_gui or gethui then
+	local hiddenUI = get_hidden_gui or gethui
+	local Main = Instance.new("ScreenGui")
+	Main.Name = randomString()
+	Main.Parent = hiddenUI()
+	PARENT = Main
+elseif COREGUI:FindFirstChild('RobloxGui') then
+	PARENT = COREGUI.RobloxGui
+else
+	local Main = Instance.new("ScreenGui")
+	Main.Name = randomString()
+	Main.Parent = COREGUI
+	PARENT = Main
+end
+
+Frame.Name = randomString()
+Frame.Parent = PARENT
 Frame.Active = true
 Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Frame.Position = UDim2.new(0.157894731, 0, 0.321041226, 0)
+Frame.Position = UDim2.new(0.036, 0, 0.75, 0)
 Frame.Selectable = true
-Frame.Size = UDim2.new(0, 100, 0, 60)
+Frame.Size = UDim2.new(0, 60, 0, 60)
 Frame.Draggable = true
 Frame.Transparency = 1
 
-Destroy.Name = "Destroy"
+Destroy.Name = randomString()
 Destroy.Parent = Frame
 Destroy.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Destroy.Position = UDim2.new(0.0928495973, 0, 0.493851483, 0)
-Destroy.Size = UDim2.new(0, 80, 0, 20)
+Destroy.Position = UDim2.new(0.3, 0, 0.3, 0)
+Destroy.Size = UDim2.new(0, 25, 0, 25)
 Destroy.Font = Enum.Font.SourceSans
-Destroy.Text = "Turn on IY"
+Destroy.Text = "IY"
 Destroy.TextColor3 = Color3.fromRGB(0, 0, 0)
 Destroy.TextScaled = true
-Destroy.TextSize = 14.000
 Destroy.TextWrapped = true
 Destroy.MouseButton1Click:connect(function()
-ScreenGui:Destroy()
+PARENT:Destroy()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Junniebug/susimposta/master/IY.lua'))()
 end)
