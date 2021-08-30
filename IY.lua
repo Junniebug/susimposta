@@ -11768,7 +11768,7 @@ local function mongus()
         end
 		--notify('Anti Idle','Anti idle is enabled')
         else
-		--notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
+		notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
     end
 end
 
