@@ -3190,7 +3190,7 @@ function maximizeHolder()
 	end
 end
 
-local minimizeNum = -20
+local minimizeNum = 0 -- -20
 function minimizeHolder()
 	if StayOpen == false then
 		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
