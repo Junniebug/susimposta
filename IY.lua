@@ -6,7 +6,10 @@ end
 pcall(function() getgenv().IY_LOADED  = true end)
 
 if not game:IsLoaded() then
+	-- local notLoaded = Instance.new("Message", game:GetService("CoreGui"))
+	-- notLoaded.Text = 'Infinite Yield is waiting for the game to load'
 	game.Loaded:Wait()
+	-- notLoaded:Destroy()
 end
 
 ver = '5.3.1'
@@ -2200,7 +2203,7 @@ AllWaypoints = {}
 
 local cooldown = false
 function writefileCooldown(name,data)
-	spawn(function()
+	task.spawn(function()
 		if not cooldown then
 			cooldown = true
 			writefile(name, data)
@@ -2214,7 +2217,7 @@ function writefileCooldown(name,data)
 end
 
 function dragGUI(gui)
-	spawn(function()
+	task.spawn(function()
 		local dragging
 		local dragInput
 		local dragStart = Vector3.new(0,0,0)
@@ -3187,7 +3190,7 @@ function maximizeHolder()
 	end
 end
 
-local minimizeNum = 0 -- -20
+local minimizeNum = -20
 function minimizeHolder()
 	if StayOpen == false then
 		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
@@ -3203,13 +3206,13 @@ end
 pinNotification = nil
 local notifyCount = 0
 function notify(text,text2,length)
-	spawn(function()
+	task.spawn(function()
 		local LnotifyCount = notifyCount+1
 		local notificationPinned = false
 		notifyCount = notifyCount+1
 		if pinNotification then pinNotification:Disconnect() end
 		pinNotification = PinButton.MouseButton1Click:Connect(function()
-			spawn(function()
+			task.spawn(function()
 				pinNotification:Disconnect()
 				notificationPinned = true
 				Title_2.BackgroundTransparency = 1
@@ -3358,7 +3361,7 @@ end
 
 IYMouse.KeyDown:Connect(function(Key)
 	if (Key==prefix) then
-	Holder.Visible = true
+    Holder.Visible = true
 		Cmdbar:CaptureFocus()
 		spawn(function()
 			repeat Cmdbar.Text = '' until Cmdbar.Text == ''
@@ -4194,7 +4197,7 @@ end
 CamMoved = workspace.CurrentCamera.AncestryChanged:Connect(updateCamera)
 
 function dragMain(dragpoint,gui)
-	spawn(function()
+	task.spawn(function()
 		local dragging
 		local dragInput
 		local dragStart = Vector3.new(0,0,0)
@@ -4312,7 +4315,7 @@ end
 
 PlayerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
 local chatbox
-spawn(function()
+task.spawn(function()
 	if pcall(function() chatbox = PlayerGui:WaitForChild("Chat").Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end) then	
 		local function chatboxFocused()
 			canvasPos = CMDsF.CanvasPosition
@@ -4391,6 +4394,7 @@ function autoComplete(str,curText)
 end
 
 CMDs = {}
+CMDs[#CMDs + 1] = {NAME = 'discord / support / help', DESC = 'Invite to the Infinite Yield support server.'}
 CMDs[#CMDs + 1] = {NAME = 'console', DESC = 'Loads old Roblox console'}
 CMDs[#CMDs + 1] = {NAME = 'explorer / dex', DESC = 'Opens DEX explorer'}
 CMDs[#CMDs + 1] = {NAME = 'remotespy / rspy', DESC = 'Opens FrostHook Spy'}
@@ -4639,6 +4643,7 @@ CMDs[#CMDs + 1] = {NAME = 'unloopjumppower / unloopjp [num]', DESC = 'Turns off 
 CMDs[#CMDs + 1] = {NAME = 'maxslopeangle / msa [num]', DESC = 'Adjusts MaxSlopeAngle'}
 CMDs[#CMDs + 1] = {NAME = 'gravity / grav [num] (CLIENT)', DESC = 'Change your gravity'}
 CMDs[#CMDs + 1] = {NAME = 'sit', DESC = 'Makes your character sit'}
+CMDs[#CMDs + 1] = {NAME = 'lay / laydown', DESC = 'Makes your character lay down'}
 CMDs[#CMDs + 1] = {NAME = 'sitwalk', DESC = 'Makes your character sit while still being able to walk'}
 CMDs[#CMDs + 1] = {NAME = 'nosit', DESC = 'Prevents your character from sitting'}
 CMDs[#CMDs + 1] = {NAME = 'unnosit', DESC = 'Disables nosit'}
@@ -4705,7 +4710,9 @@ CMDs[#CMDs + 1] = {NAME = 'animspeed [num]', DESC = 'Changes the speed of your c
 CMDs[#CMDs + 1] = {NAME = 'copyanimation / copyanim / copyemote [plr]', DESC = 'Copies someone elses animation'}
 CMDs[#CMDs + 1] = {NAME = 'loopanimation / loopanim', DESC = 'Loops your current animation'}
 CMDs[#CMDs + 1] = {NAME = 'stopanimations / stopanims', DESC = 'Stops running animations'}
-CMDs[#CMDs + 1] = {NAME = 'refreshanimations / refreshanims / reanim', DESC = 'Refreshes animations'}
+CMDs[#CMDs + 1] = {NAME = 'refreshanimations / refreshanims', DESC = 'Refreshes animations'}
+CMDs[#CMDs + 1] = {NAME = 'allowcustomanim / allowcustomanimations', DESC = 'Lets you use custom animation packs instead'}
+CMDs[#CMDs + 1] = {NAME = 'unallowcustomanim / unallowcustomanimations', DESC = 'Doesn\'t let you use custom animation packs instead'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'autoclick [click delay] [release delay]', DESC = 'Automatically clicks your mouse with a set delay'}
 CMDs[#CMDs + 1] = {NAME = 'unautoclick / noautoclick', DESC = 'Turns off autoclick'}
@@ -4845,7 +4852,7 @@ function refresh(plr)
 	local pos = Human and Human.RootPart and Human.RootPart.CFrame
 	local pos1 = workspace.CurrentCamera.CFrame
 	respawn(plr)
-	spawn(function()
+	task.spawn(function()
 		plr.CharacterAdded:Wait():WaitForChild("Humanoid").RootPart.CFrame, workspace.CurrentCamera.CFrame = pos, wait() and pos1
 		refreshCmd = false
 	end)
@@ -4854,7 +4861,7 @@ end
 local lastDeath
 
 function onDied()
-	spawn(function()
+	task.spawn(function()
 		if pcall(function() Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') end) and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
 			Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').Died:Connect(function()
 				if getRoot(Players.LocalPlayer.Character) then
@@ -4931,7 +4938,7 @@ local split=" "
 local lastBreakTime = 0
 function execCmd(cmdStr,speaker,store)
 	cmdStr = cmdStr:gsub("%s+$","")
-	spawn(function()
+	task.spawn(function()
 		local rawCmdStr = cmdStr
 		cmdStr = string.gsub(cmdStr,"\\\\","%%BackSlash%%")
 		local commandsToRun = splitString(cmdStr,"\\")
@@ -5475,7 +5482,7 @@ function round(num, numDecimalPlaces)
 end
 
 function ESP(plr)
-	spawn(function()
+	task.spawn(function()
 		for i,v in pairs(COREGUI:GetChildren()) do
 			if v.Name == plr.Name..'_ESP' then
 				v:Destroy()
@@ -5567,7 +5574,7 @@ function ESP(plr)
 end
 
 function CHMS(plr)
-	spawn(function()
+	task.spawn(function()
 		for i,v in pairs(COREGUI:GetChildren()) do
 			if v.Name == plr.Name..'_CHMS' then
 				v:Destroy()
@@ -5628,7 +5635,7 @@ function CHMS(plr)
 end
 
 function Locate(plr)
-	spawn(function()
+	task.spawn(function()
 		for i,v in pairs(COREGUI:GetChildren()) do
 			if v.Name == plr.Name..'_LC' then
 				v:Destroy()
@@ -6363,8 +6370,34 @@ addcmd('clraliases',{},function(args, speaker)
 	refreshaliases()
 end)
 
+addcmd('discord', {'support', 'help'}, function(args, speaker)
+	local http = game:GetService('HttpService') 
+	if toClipboard then
+		toClipboard('https://discord.com/invite/dYHag43eeU')
+		notify('Discord Invite', 'Copied to clipboard!\ndiscord.gg/dYHag43eeU')
+	else
+		notify('Discord Invite', 'discord.gg/dYHag43eeU')
+	end
+	local req = (syn and syn.request) or (http and http.request) or http_request
+	if req then
+		req({
+			Url = 'http://127.0.0.1:6463/rpc?v=1',
+			Method = 'POST',
+			Headers = {
+				['Content-Type'] = 'application/json',
+				Origin = 'https://discord.com'
+			},
+			Body = http:JSONEncode({
+				cmd = 'INVITE_BROWSER',
+				nonce = http:GenerateGUID(false),
+				args = {code = 'dYHag43eeU'}
+			})
+		})
+	end
+end)
+
 addcmd('serverinfo',{'info','sinfo'},function(args, speaker)
-	spawn(function()
+	task.spawn(function()
 		local FRAME = Instance.new("Frame")
 		local shadow = Instance.new("Frame")
 		local PopupText = Instance.new("TextLabel")
@@ -6850,7 +6883,7 @@ function sFLY(vfly)
 		BG.cframe = T.CFrame
 		BV.velocity = Vector3.new(0, 0, 0)
 		BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
-		spawn(function()
+		task.spawn(function()
 			repeat wait()
 				if not vfly and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
 					Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
@@ -7041,7 +7074,7 @@ addcmd('float', {'platform'},function(args, speaker)
 	Floating = true
 	local pchar = speaker.Character
 	if pchar and not pchar:FindFirstChild(floatName) then
-		spawn(function()
+		task.spawn(function()
 			local Float = Instance.new('Part')
 			Float.Name = floatName
 			Float.Parent = pchar
@@ -8590,7 +8623,7 @@ local bringT = {}
 addcmd('loopbring',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players)do
-		spawn(function()
+		task.spawn(function()
 			if Players[v].Name ~= speaker.Name and not FindInTable(bringT, Players[v].Name) then
 				table.insert(bringT, Players[v].Name)
 				local plrName = Players[v].Name
@@ -8624,7 +8657,7 @@ end)
 addcmd('unloopbring',{'noloopbring'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players)do
-		spawn(function()
+		task.spawn(function()
 			for a,b in pairs(bringT) do if b == Players[v].Name then table.remove(bringT, a) end end
 		end)
 	end
@@ -8692,7 +8725,7 @@ addcmd('freeze',{'fr'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	if players ~= nil then
 		for i,v in pairs(players) do
-			spawn(function()
+			task.spawn(function()
 				for i, x in next, Players[v].Character:GetDescendants() do
 					if x:IsA("BasePart") and not x.Anchored then
 						x.Anchored = true
@@ -8707,7 +8740,7 @@ addcmd('thaw',{'unfreeze','unfr'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	if players ~= nil then
 		for i,v in pairs(players) do
-			spawn(function()
+			task.spawn(function()
 				for i, x in next, Players[v].Character:GetDescendants() do
 					if x:IsA("BasePart") and x.Anchored then
 						x.Anchored = false
@@ -8742,7 +8775,7 @@ addcmd('muteboombox',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	if players ~= nil then
 		for i,v in pairs(players) do
-			spawn(function()
+			task.spawn(function()
 				for i, x in next, Players[v].Character:GetDescendants() do
 					if x:IsA("Sound") and x.Playing == true then
 						x.Playing = false
@@ -8763,7 +8796,7 @@ addcmd('unmuteboombox',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	if players ~= nil then
 		for i,v in pairs(players) do
-			spawn(function()
+			task.spawn(function()
 				for i, x in next, Players[v].Character:GetDescendants() do
 					if x:IsA("Sound") and x.Playing == false then
 						x.Playing = true
@@ -9196,6 +9229,19 @@ addcmd('sit',{},function(args, speaker)
 	speaker.Character:FindFirstChildOfClass("Humanoid").Sit = true
 end)
 
+addcmd('lay', {'laydown'}, function(args, speaker)
+	local Human = speaker.Character and speaker.Character:FindFirstChildOfClass('Humanoid')
+	if not Human then
+		return
+	end
+	Human.Sit = true
+	task.wait(.1)
+	Human.RootPart.CFrame = Human.RootPart.CFrame * CFrame.Angles(math.pi * .5, 0, 0)
+	for _, v in ipairs(Human:GetPlayingAnimationTracks()) do
+		v:Stop()
+	end
+end)
+
 addcmd('sitwalk',{},function(args, speaker)
 	local anims = speaker.Character.Animate
 	local sit = anims.sit:FindFirstChildOfClass("Animation").AnimationId
@@ -9432,7 +9478,7 @@ addcmd('copyanimation',{'copyanim','copyemote'},function(args, speaker)
 				local ANIM = speaker.Character.Humanoid:LoadAnimation(v1.Animation)
 				ANIM:Play(.1, 1, v1.Speed)
 				ANIM.TimePosition = v1.TimePosition
-				spawn(function()
+				task.spawn(function()
 					v1.Stopped:Wait()
 					ANIM:Stop()
 					ANIM:Destroy()
@@ -9451,15 +9497,28 @@ addcmd('stopanimations',{'stopanims','stopanim'},function(args, speaker)
 	end
 end)
 
-addcmd('refreshanimations', {'refreshanimation','refreshanims','refreshanim','reanim'},function(args, speaker)
-	local Char = speaker.Character
-	local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
-	local Animate = Char and Char.FindFirstChild(Char, "Animate")
+addcmd('refreshanimations', {'refreshanimation', 'refreshanims', 'refreshanim'}, function(args, speaker)
+	local Char = speaker.Character or speaker.CharacterAdded:Wait()
+	local Human = Char and Char:WaitForChild('Humanoid', 15)
+	local Animate = Char and Char:WaitForChild('Animate', 15)
+	if not Human or not Animate then
+		return notify('Refresh Animations', 'Failed to get Animate/Humanoid')
+	end
 	Animate.Disabled = true
-	for _, v in ipairs(Human.GetPlayingAnimationTracks(Human)) do
-		v.Stop(v, 0)
+	for _, v in ipairs(Human:GetPlayingAnimationTracks()) do
+		v:Stop()
 	end
 	Animate.Disabled = false
+end)
+
+addcmd('allowcustomanim', {'allowcustomanimations'}, function(args, speaker)
+	game:GetService('StarterPlayer').AllowCustomAnimations = true
+	execCmd('refreshanimations')
+end)
+
+addcmd('unallowcustomanim', {'unallowcustomanimations'}, function(args, speaker)
+	game:GetService('StarterPlayer').AllowCustomAnimations = false
+	execCmd('refreshanimations')
 end)
 
 addcmd('loopanimation', {'loopanim'},function(args, speaker)
@@ -9737,7 +9796,7 @@ addcmd('explorer',{'dex'},function(args, speaker)
 		end
 		local function LoadScripts(Script)
 			if Script.ClassName == "Script" or Script.ClassName == "LocalScript" then
-				spawn(function()
+				task.spawn(function()
 					GiveOwnGlobals(loadstring(Script.Source, "=" .. Script:GetFullName()), Script)()
 				end)
 			end
@@ -9835,7 +9894,7 @@ end)
 addcmd('whisper',{'pm'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players)do
-		spawn(function()
+		task.spawn(function()
 			local plrName = Players[v].Name
 			local pmstring = getstring(2)
 			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..plrName.." "..pmstring, "All")
@@ -9847,7 +9906,7 @@ pmspamming = {}
 addcmd('pmspam',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players)do
-		spawn(function()
+		task.spawn(function()
 			local plrName = Players[v].Name
 			if FindInTable(pmspamming, plrName) then return end
 			table.insert(pmspamming, plrName)
@@ -9867,7 +9926,7 @@ end)
 addcmd('nopmspam',{'unpmspam'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players)do
-		spawn(function()
+		task.spawn(function()
 			for a,b in pairs(pmspamming) do
 				if b == Players[v].Name then
 					table.remove(pmspamming, a)
@@ -9965,6 +10024,11 @@ addcmd('creeper',{},function(args, speaker)
 	end
 end)
 
+function getTorso(x)
+	x = x or Players.LocalPlayer.Character
+	return x:FindFirstChild("Torso") or x:FindFirstChild("UpperTorso") or x:FindFirstChild("LowerTorso") or x:FindFirstChild("HumanoidRootPart")
+end
+
 addcmd('bang',{'rape'},function(args, speaker)
 	if not r15(speaker) then
 		execCmd('unbang')
@@ -9982,14 +10046,16 @@ addcmd('bang',{'rape'},function(args, speaker)
 			end
 			local bangplr = Players[v].Name
 			bangDied = speaker.Character:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
-				bangLoop:Disconnect()
+				bangLoop = bangLoop:Disconnect()
 				bang:Stop()
 				bangAnim:Destroy()
 				bangDied:Disconnect()
 			end)
+			local bangOffet = CFrame.new(0, 0, 1.1)
 			bangLoop = game:GetService('RunService').Stepped:Connect(function()
 				pcall(function()
-					getRoot(Players.LocalPlayer.Character).CFrame = getRoot(Players[bangplr].Character).CFrame
+					local otherRoot = getTorso(Players[bangplr].Character)
+					getRoot(Players.LocalPlayer.Character).CFrame = otherRoot.CFrame * bangOffet
 				end)
 			end)
 		end
@@ -10000,7 +10066,7 @@ end)
 
 addcmd('unbang',{'unrape'},function(args, speaker)
 	if bangLoop then
-		bangLoop:Disconnect()
+		bangLoop = bangLoop:Disconnect()
 		bangDied:Disconnect()
 		bang:Stop()
 		bangAnim:Destroy()
@@ -10257,7 +10323,7 @@ end)
 addcmd('copytools',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players)do
-		spawn(function()
+		task.spawn(function()
 			for i,v in pairs(Players[v]:FindFirstChildOfClass("Backpack"):GetChildren()) do
 				if v:IsA('Tool') or v:IsA('HopperBin') then
 					v:Clone().Parent = speaker:FindFirstChildOfClass("Backpack")
@@ -10543,7 +10609,7 @@ addcmd('touchinterests', {'touchinterest', 'firetouchinterests', 'firetouchinter
 		x = x.FindFirstAncestorWhichIsA(x, "Part")
 		if x then
 			if firetouchinterest then
-				return spawn(function()
+				return task.spawn(function()
 					firetouchinterest(x, Root, 1, wait() and firetouchinterest(x, Root, 0))
 				end)
 			end
@@ -11001,7 +11067,7 @@ addcmd('handlekill', {'hkill'}, function(args, speaker)
 	end
 	for _, v in ipairs(getPlayer(args[1], speaker)) do
 		v = Players[v]
-		spawn(function()
+		task.spawn(function()
 			while Tool and speaker.Character and v.Character and Tool.Parent == speaker.Character do
 				local Human = v.Character.FindFirstChildWhichIsA(v.Character, "Humanoid")
 				if not Human or Human.Health <= 0 then
@@ -11671,7 +11737,7 @@ eventEditor.RegisterEvent("OnChatted",{
 })
 
 function hookCharEvents(plr,instant)
-	spawn(function()
+	task.spawn(function()
 		local char = plr.Character
 		if not char then return end
 
@@ -11754,9 +11820,8 @@ end
 
 IYMouse.Move:Connect(checkTT)
 
-spawn(function()
-
-local function mongus()
+task.spawn(function()
+    local function mongus()
 	local GC = getconnections or get_signal_cons
 	if GC then
         for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
@@ -11769,11 +11834,9 @@ local function mongus()
 		--notify('Anti Idle','Anti idle is enabled')
         else
 		notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
+        end
     end
-end
-
-mongus()
-
+    mongus()
 	if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end) then
 		if ver ~= Version then
 			notify('Outdated','Get the new version at infinite.yiff.gg')
@@ -11866,17 +11929,16 @@ end)
 wait()
 Credits:TweenPosition(UDim2.new(0,0,0.9,0), "Out", "Quart", 0.2)
 Logo:TweenSizeAndPosition(UDim2.new(0,175,0,175),UDim2.new(0,37,0,45), "Out", "Quart", 0.3)
-wait()
+wait(1)
 for i=0,1,0.1 do
 	Logo.ImageTransparency = i
 	IntroBackground.BackgroundTransparency = i
 	wait()
 end
 Credits:TweenPosition(UDim2.new(0,0,0.9,30), "Out", "Quart", 0.2)
-wait()
+wait(0.2)
 ]]
 Logo:Destroy()
 Credits:Destroy()
 IntroBackground:Destroy()
 minimizeHolder()
-
