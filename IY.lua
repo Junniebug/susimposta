@@ -12,7 +12,7 @@ if not game:IsLoaded() then
 	-- notLoaded:Destroy()
 end
 
-ver = '5.3.1'
+ver = '5.3.2'
 
 Players = game:GetService("Players")
 
@@ -4266,6 +4266,7 @@ end
 local canvasPos = Vector2.new(0,0)
 local topCommand = nil
 IndexContents = function(str,bool,cmdbar,Ianim)
+	CMDsF.CanvasPosition = Vector2.new(0,0)
 	local SizeY = 0
 	local indexnum = 0
 	local frame = CMDsF
@@ -4341,7 +4342,7 @@ task.spawn(function()
 		end
 		local chatboxFunc = chatbox:GetPropertyChangedSignal("Text"):Connect(Index)
 
-		function chatboxFocusLost(enterpressed)
+		local function chatboxFocusLost(enterpressed)
 			if not enterpressed or chatbox.Text:lower():sub(1,1) ~= prefix then
 				IndexContents('',true)
 			end
@@ -4461,6 +4462,7 @@ CMDs[#CMDs + 1] = {NAME = 'unswim / noswim', DESC = 'Stops you from swimming eve
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'setwaypoint / swp [name]', DESC = 'Sets a waypoint at your position'}
 CMDs[#CMDs + 1] = {NAME = 'waypointpos / wpp [name] [X Y Z]', DESC = 'Sets a waypoint with specified coordinates'}
+CMDs[#CMDs + 1] = {NAME = 'waypoints', DESC = 'Shows a list of currently active waypoints'}
 CMDs[#CMDs + 1] = {NAME = 'showwaypoints / showwp', DESC = 'Shows all currently set waypoints'}
 CMDs[#CMDs + 1] = {NAME = 'hidewaypoints / hidewp', DESC = 'Hides shown waypoints'}
 CMDs[#CMDs + 1] = {NAME = 'waypoint / wp [name]', DESC = 'Teleports player to a waypoint'}
@@ -7242,6 +7244,21 @@ addcmd('waypointpos',{'wpp','setwaypointposition','setpos','setwaypoint','setway
 	refreshwaypoints()
 	updatesaves()
 end)
+
+addcmd('waypoints',{'positions'},function(args, speaker)
+	if SettingsOpen == false then SettingsOpen = true
+		Settings:TweenPosition(UDim2.new(0, 0, 0, 45), "InOut", "Quart", 0.5, true, nil)
+		CMDsF.Visible = false
+	end
+	KeybindsFrame:TweenPosition(UDim2.new(0, 0, 0, 175), "InOut", "Quart", 0.5, true, nil)
+	AliasesFrame:TweenPosition(UDim2.new(0, 0, 0, 175), "InOut", "Quart", 0.5, true, nil)
+	PluginsFrame:TweenPosition(UDim2.new(0, 0, 0, 175), "InOut", "Quart", 0.5, true, nil)
+	PositionsFrame:TweenPosition(UDim2.new(0, 0, 0, 0), "InOut", "Quart", 0.5, true, nil)
+	wait(0.5)
+	SettingsHolder.Visible = false
+	maximizeHolder()
+end)
+
 
 waypointParts = {}
 addcmd('showwaypoints',{'showwp','showwps'},function(args, speaker)
