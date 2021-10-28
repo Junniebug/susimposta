@@ -3,25 +3,15 @@ getgenv().enabled = true
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-
-local Players=game:service'Players'
-local lp = Players.LocalPlayer
-local RS=game:service'ReplicatedStorage'
-local RF=RS.RemoteFunction
-local GameData=require(RS.Resources.Universal.GameData)
-local TeleportService=game:service'TeleportService'
-local VIM=game:service'VirtualInputManager'
-local mouse=lp:GetMouse()
-
-local GC = getconnections or get_signal_cons
-if GC then
-	for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
-		if v["Disable"] then
-			v["Disable"](v)
-		elseif v["Disconnect"] then
-			v["Disconnect"](v)
-		end
-	end
+if game.PlaceId == 5591597781 or game.PlaceId == 3260590327 then
+	local Players=game:service'Players'
+	local lp = Players.LocalPlayer
+	local RS=game:service'ReplicatedStorage'
+	local RF=RS.RemoteFunction
+	local GameData=require(RS.Resources.Universal.GameData)
+	local TeleportService=game:service'TeleportService'
+	local VIM=game:service'VirtualInputManager'
+	local mouse=lp:GetMouse()
 end
 	
 if game.PlaceId == 3260590327 and enabled then
