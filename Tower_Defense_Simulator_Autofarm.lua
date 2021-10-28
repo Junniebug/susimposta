@@ -13,7 +13,6 @@ if game.PlaceId == 5591597781 or game.PlaceId == 3260590327 then
 	local VIM=game:service'VirtualInputManager'
 	local mouse=lp:GetMouse()
 end
-	
 if game.PlaceId == 3260590327 and enabled then
     repeat 
         wait()
