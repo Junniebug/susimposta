@@ -52,7 +52,7 @@ if game.PlaceId == 5591597781 and enabled then
     VIM:SendKeyEvent(false,'W',false,game)
     RF:InvokeServer("Difficulty", "Vote", "Insane")
     repeat
-        if lp.PlayerGui.GameGui.Results.IsLoaded then
+        if lp.PlayerGui:FindFirstChild("GameGui").Results.IsLoaded then
             TeleportService:Teleport(GameData('Lobby'))
         end
         --wait()
