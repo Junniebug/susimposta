@@ -1,12 +1,10 @@
-if not game.PlaceId == 3260590327 or not game.PlaceId == 5591597781 then
-    return
-end
-
-getgenv().enabled = true
+if game.PlaceId ~= 3260590327 or game.PlaceId ~= 5591597781 then return end
 
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
+
+getgenv().enabled = true
 
 local Players = game:service'Players'
 local lp = Players.LocalPlayer
