@@ -6,13 +6,21 @@ end
 pcall(function() getgenv().IY_LOADED  = true end)
 
 if not game:IsLoaded() then
-	-- local notLoaded = Instance.new("Message", game:GetService("CoreGui"))
+	--[[local notLoaded
+	local success, err = pcall(function()
+		notLoaded = Instance.new("Message", game:GetService("CoreGui"))
+	end)
+	if not success and err then
+		notLoaded = Instance.new("Message", game:GetService('Workspace'))
+	else
+		notLoaded = Instance.new("Message", game:GetService("CoreGui"))
+	end]]
 	-- notLoaded.Text = 'Infinite Yield is waiting for the game to load'
 	game.Loaded:Wait()
 	-- notLoaded:Destroy()
 end
 
-ver = '5.3.2'
+ver = '5.3.3'
 
 Players = game:GetService("Players")
 
@@ -175,7 +183,19 @@ if (not is_sirhurt_closure) and (syn and syn.protect_gui) then --sirhurt is reta
 	local Main = Instance.new("ScreenGui")
 	Main.Name = randomString()
 	syn.protect_gui(Main)
-	Main.Parent = COREGUI
+	local success, err = pcall(function()
+		Main.Parent = COREGUI
+	end)
+	if not success and err then
+		COREGUI = Players.LocalPlayer.PlayerGui
+		Main.Parent = COREGUI
+	elseif success and not err then -- for COREGUI:FindFirstChild('RobloxGui')
+		if COREGUI:FindFirstChild('RobloxGui') then
+			PARENT = COREGUI.RobloxGui
+		else
+            		PARENT = COREGUI
+		end
+	end
 	PARENT = Main
 elseif get_hidden_gui or gethui then
 	local hiddenUI = get_hidden_gui or gethui
@@ -183,8 +203,6 @@ elseif get_hidden_gui or gethui then
 	Main.Name = randomString()
 	Main.Parent = hiddenUI()
 	PARENT = Main
-elseif COREGUI:FindFirstChild('RobloxGui') then
-	PARENT = COREGUI.RobloxGui
 else
 	local Main = Instance.new("ScreenGui")
 	Main.Name = randomString()
@@ -4263,6 +4281,7 @@ Match = function(name,str)
 	return name:lower():find(str:lower()) and true
 end
 
+local matchSearch = function(str1,str2) return str1 == string.sub(str2,1,#str1) end
 local canvasPos = Vector2.new(0,0)
 local topCommand = nil
 IndexContents = function(str,bool,cmdbar,Ianim)
@@ -4281,7 +4300,7 @@ IndexContents = function(str,bool,cmdbar,Ianim)
 	for i,v in next, frame:GetChildren() do
 		if v:IsA("TextButton") then
 			if bool then
-				if Match(v.Text,str) then
+				if matchSearch(str,v.Text) then
 					indexnum = indexnum + 1
 					v.Visible = true
 					if topCommand == nil then
@@ -4626,7 +4645,8 @@ CMDs[#CMDs + 1] = {NAME = 'unloopoof', DESC = 'Stops the oof chaos'}
 CMDs[#CMDs + 1] = {NAME = 'muteboombox [plr]', DESC = 'Mutes someones boombox'}
 CMDs[#CMDs + 1] = {NAME = 'unmuteboombox [plr]', DESC = 'Unmutes someones boombox'}
 CMDs[#CMDs + 1] = {NAME = 'unloopoof', DESC = 'Stops the oof chaos'}
-CMDs[#CMDs + 1] = {NAME = 'hitbox [plr] [size]', DESC = 'Expands the hitbox for players heads (default is 1)'}
+CMDs[#CMDs + 1] = {NAME = 'hitbox [plr] [size]', DESC = 'Expands the hitbox for players HumanoidRootPart (default is 1)'}
+CMDs[#CMDs + 1] = {NAME = 'headsize [plr] [size]', DESC = 'Expands the head size for players Head (default is 1)'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'reset', DESC = 'Resets your character normally'}
 CMDs[#CMDs + 1] = {NAME = 'respawn', DESC = 'Respawns you'}
@@ -7028,33 +7048,33 @@ addcmd('cframefly', {'cfly'}, function(args, ME)
 	local RunService = game:GetService('RunService')
 	local Keys, v3, cf = Enum.KeyCode, Vector3.new(), CFrame.new()
 	Con = RunService.Heartbeat:Connect(function()
-		local Camera, Cache = workspace.CurrentCamera, {}
+		local Camera --[[, Cache]] = workspace.CurrentCamera --, {}
 		local Human = ME.Character and ME.Character:FindFirstChildWhichIsA('Humanoid')
 		local HRP = Human and Human.RootPart or ME.Character.PrimaryPart
 		if not ME.Character or not Human or not HRP or not Camera then
 			return 
 		end
-		local Cache = {}
-		local Cons = {game.ItemChanged, Human.StateChanged, Human.Changed, ME.Character.Changed}
-		for _, v in ipairs(ME.Character:GetChildren()) do
-			if v:IsA('BasePart') then
-				Cons[#Cons + 1] = v.Changed
-				Cons[#Cons + 1] = v:GetPropertyChangedSignal('CFrame')
-			end
-		end
-		for _, v in ipairs(Cons) do
-			for _, v1 in ipairs(getconnections(v)) do
-				if not rawget(v1, '__OBJECT_ENABLED') then
-					Cache[#Cache + 1] = v1
-					v1:Disable()
-				end
-			end
-		end
+		-- local Cache = {}
+		-- local Cons = {game.ItemChanged, Human.StateChanged, Human.Changed, ME.Character.Changed}
+		-- for _, v in ipairs(ME.Character:GetChildren()) do
+			-- if v:IsA('BasePart') then
+				-- Cons[#Cons + 1] = v.Changed
+				-- Cons[#Cons + 1] = v:GetPropertyChangedSignal('CFrame')
+			-- end
+		-- end
+		-- for _, v in ipairs(Cons) do
+			-- for _, v1 in ipairs(getconnections(v)) do
+				-- if not rawget(v1, '__OBJECT_ENABLED') then
+					-- Cache[#Cache + 1] = v1
+					-- v1:Disable()
+				-- end
+			-- end
+		-- end
 		Human:ChangeState(11)
 		HRP.CFrame = CFrame.new(HRP.Position, HRP.Position + Camera.CFrame.LookVector) * (UIS:GetFocusedTextBox() and cf or CFrame.new((UIS:IsKeyDown(Keys.D) and SPI) or (UIS:IsKeyDown(Keys.A) and -SPI) or 0, (UIS:IsKeyDown(Keys.E) and SPI / 2) or (UIS:IsKeyDown(Keys.Q) and -SPI / 2) or 0, (UIS:IsKeyDown(Keys.S) and SPI) or (UIS:IsKeyDown(Keys.W) and -SPI) or 0))
-		for _, v in ipairs(Cache) do
-			v:Enable()
-		end
+		-- for _, v in ipairs(Cache) do
+			-- v:Enable()
+		-- end
 	end)
 end)
 
@@ -11401,7 +11421,7 @@ addcmd('unhovername',{'nohovername'},function(args, speaker)
 	end
 end)
 
-addcmd('hitbox',{},function(args, speaker)
+addcmd('headsize',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players) do
 		if Players[v]~= speaker and Players[v].Character:FindFirstChild('Head') then
@@ -11413,6 +11433,26 @@ addcmd('hitbox',{},function(args, speaker)
 					Head.Size = Vector3.new(2,1,1)
 				else
 					Head.Size = Size
+				end
+			end
+		end
+	end
+end)
+
+addcmd('hitbox',{},function(args, speaker)
+	local players = getPlayer(args[1], speaker)
+	for i,v in pairs(players) do
+		if Players[v]~= speaker and Players[v].Character:FindFirstChild('HumanoidRootPart') then
+			local sizeArg = tonumber(args[2])
+			local Size = Vector3.new(sizeArg,sizeArg,sizeArg)
+			local Root = Players[v].Character:FindFirstChild('HumanoidRootPart')
+			if Root:IsA("BasePart") then
+				if not args[2] or sizeArg == 1 then
+					Root.Size = Vector3.new(2,1,1)
+					Root.Transparency = 0.4
+				else
+					Root.Size = Size
+					Root.Transparency = 0.4
 				end
 			end
 		end
