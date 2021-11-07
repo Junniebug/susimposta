@@ -193,7 +193,7 @@ if (not is_sirhurt_closure) and (syn and syn.protect_gui) then --sirhurt is reta
 		if COREGUI:FindFirstChild('RobloxGui') then
 			PARENT = COREGUI.RobloxGui
 		else
-            		PARENT = COREGUI
+            PARENT = COREGUI
 		end
 	end
 	PARENT = Main
