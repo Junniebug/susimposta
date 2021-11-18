@@ -54,6 +54,9 @@ PinImage = Instance.new("ImageLabel")
 Tooltip = Instance.new("Frame")
 Title_3 = Instance.new("TextLabel")
 Description = Instance.new("TextLabel")
+IntroBackground = Instance.new("Frame")
+Logo = Instance.new("ImageLabel")
+Credits = Instance.new("TextBox")
 KeybindsFrame = Instance.new("Frame")
 Close = Instance.new("TextButton")
 Add = Instance.new("TextButton")
@@ -601,6 +604,37 @@ Description.TextTransparency = 0.1
 Description.TextWrapped = true
 Description.ZIndex = 10
 table.insert(text1,Description)
+
+IntroBackground.Name = "IntroBackground"
+IntroBackground.Parent = Holder
+IntroBackground.Active = true
+IntroBackground.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
+IntroBackground.BorderSizePixel = 0
+IntroBackground.Position = UDim2.new(0, 0, 0, 45)
+IntroBackground.Size = UDim2.new(0, 250, 0, 175)
+IntroBackground.ZIndex = 10
+
+Logo.Name = "Logo"
+Logo.Parent = Holder
+Logo.BackgroundTransparency = 1
+Logo.BorderSizePixel = 0
+Logo.Position = UDim2.new(0, 125, 0, 127)
+Logo.Size = UDim2.new(0, 10, 0, 10)
+Logo.Image = "rbxassetid://1352543873"
+Logo.ImageTransparency = 0
+Logo.ZIndex = 10
+
+Credits.Name = "Credits"
+Credits.Parent = Holder
+Credits.BackgroundTransparency = 1
+Credits.BorderSizePixel = 0
+Credits.Position = UDim2.new(0, 0, 0.9, 30)
+Credits.Size = UDim2.new(0, 250, 0, 20)
+Credits.Font = Enum.Font.SourceSansLight
+Credits.FontSize = Enum.FontSize.Size18
+Credits.Text = "Edge // Zwolf // Moon // Hunter"
+Credits.TextColor3 = Color3.new(1, 1, 1)
+Credits.ZIndex = 10
 
 KeybindsFrame.Name = "KeybindsFrame"
 KeybindsFrame.Parent = Settings
@@ -11935,6 +11969,21 @@ end
 IYMouse.Move:Connect(checkTT)
 
 task.spawn(function()
+	local function mongus()
+		local GC = getconnections or get_signal_cons	
+		if GC then
+			for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
+				if v["Disable"] then
+					v["Disable"](v)
+				elseif v["Disconnect"] then
+					v["Disconnect"](v)
+				end
+			end
+			--notify('Anti Idle','Anti idle is enabled')		
+		else
+			notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')		
+		end
+	end
 	if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end) then
 		if ver ~= Version then
 			notify('Outdated','Get the new version at infinite.yiff.gg')
@@ -12023,20 +12072,9 @@ task.spawn(function()
 		end
 	end
 end)
-local function mongus()
-	local GC = getconnections or get_signal_cons	
-	if GC then
-		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
-			if v["Disable"] then
-				v["Disable"](v)
-			elseif v["Disconnect"] then
-				v["Disconnect"](v)
-			end
-		end
-		--notify('Anti Idle','Anti idle is enabled')		
-	else
-		notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')		
-	end
-end
+wait()
+Logo:Destroy()
+Credits:Destroy()
+IntroBackground:Destroy()
 mongus()
 minimizeHolder()
