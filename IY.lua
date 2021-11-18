@@ -12073,8 +12073,9 @@ task.spawn(function()
 		end
 	end
 end)
-wait(0.2)
+wait()
 Logo:Destroy()
 Credits:Destroy()
 IntroBackground:Destroy()
+wait(0.2)
 minimizeHolder()
