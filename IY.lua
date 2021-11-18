@@ -6,18 +6,18 @@ end
 pcall(function() getgenv().IY_LOADED  = true end)
 
 if not game:IsLoaded() then
-	--[[local notLoaded
-	local success, err = pcall(function()
-		notLoaded = Instance.new("Message", game:GetService("CoreGui"))
-	end)
-	if not success and err then
-		notLoaded = Instance.new("Message", game:GetService('Workspace'))
-	else
-		notLoaded = Instance.new("Message", game:GetService("CoreGui"))
-	end]]
-	-- notLoaded.Text = 'Infinite Yield is waiting for the game to load'
+	--local notLoaded
+	--local success, err = pcall(function()
+	--	notLoaded = Instance.new("Message", game:GetService("CoreGui"))
+	--end)
+	--if not success and err then
+	--	notLoaded = Instance.new("Message", game:GetService('Workspace'))
+	--else
+	--	notLoaded = Instance.new("Message", game:GetService("CoreGui"))
+	--end
+	--notLoaded.Text = 'Infinite Yield is waiting for the game to load'
 	game.Loaded:Wait()
-	-- notLoaded:Destroy()
+	--notLoaded:Destroy()
 end
 
 ver = '5.3.3'
@@ -28,6 +28,7 @@ Holder = Instance.new("Frame")
 Title = Instance.new("TextLabel")
 Dark = Instance.new("Frame")
 Cmdbar = Instance.new("TextBox")
+CmdSuggestion = Instance.new("TextLabel")
 CMDsF = Instance.new("ScrollingFrame")
 cmdListLayout = Instance.new("UIListLayout")
 SettingsButton = Instance.new("ImageButton")
@@ -183,6 +184,17 @@ if (not is_sirhurt_closure) and (syn and syn.protect_gui) then --sirhurt is reta
 	local Main = Instance.new("ScreenGui")
 	Main.Name = randomString()
 	syn.protect_gui(Main)
+	Main.Parent = COREGUI
+	PARENT = Main
+elseif get_hidden_gui or gethui then
+	local hiddenUI = get_hidden_gui or gethui
+	local Main = Instance.new("ScreenGui")
+	Main.Name = randomString()
+	Main.Parent = hiddenUI()
+	PARENT = Main
+else
+	local Main = Instance.new("ScreenGui")
+	Main.Name = randomString()
 	local success, err = pcall(function()
 		Main.Parent = COREGUI
 	end)
@@ -196,17 +208,6 @@ if (not is_sirhurt_closure) and (syn and syn.protect_gui) then --sirhurt is reta
             PARENT = COREGUI
 		end
 	end
-	PARENT = Main
-elseif get_hidden_gui or gethui then
-	local hiddenUI = get_hidden_gui or gethui
-	local Main = Instance.new("ScreenGui")
-	Main.Name = randomString()
-	Main.Parent = hiddenUI()
-	PARENT = Main
-else
-	local Main = Instance.new("ScreenGui")
-	Main.Name = randomString()
-	Main.Parent = COREGUI
 	PARENT = Main
 end
 
@@ -265,6 +266,19 @@ Cmdbar.TextColor3 = Color3.new(1, 1, 1)
 Cmdbar.Text = ""
 Cmdbar.ZIndex = 10
 Cmdbar.PlaceholderText = "Command Bar"
+
+CmdSuggestion.Name = "CmdSuggestion"
+CmdSuggestion.Parent = Cmdbar
+CmdSuggestion.BackgroundTransparency = 1
+CmdSuggestion.BorderSizePixel = 0
+CmdSuggestion.Position = UDim2.new(0, 0, 0, 0)
+CmdSuggestion.Size = UDim2.new(0, 240, 0, 25)
+CmdSuggestion.Font = Enum.Font.SourceSans
+CmdSuggestion.TextSize = 18
+CmdSuggestion.TextXAlignment = Enum.TextXAlignment.Left
+CmdSuggestion.TextColor3 = Color3.fromRGB(171, 171, 171)
+CmdSuggestion.Text = ""
+CmdSuggestion.ZIndex = 10
 
 CMDsF.Name = "CMDs"
 CMDsF.Parent = Holder
@@ -590,37 +604,6 @@ Description.TextTransparency = 0.1
 Description.TextWrapped = true
 Description.ZIndex = 10
 table.insert(text1,Description)
-
-IntroBackground.Name = "IntroBackground"
-IntroBackground.Parent = Holder
-IntroBackground.Active = true
-IntroBackground.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
-IntroBackground.BorderSizePixel = 0
-IntroBackground.Position = UDim2.new(0, 0, 0, 45)
-IntroBackground.Size = UDim2.new(0, 250, 0, 175)
-IntroBackground.ZIndex = 10
-
-Logo.Name = "Logo"
-Logo.Parent = Holder
-Logo.BackgroundTransparency = 1
-Logo.BorderSizePixel = 0
-Logo.Position = UDim2.new(0, 125, 0, 127)
-Logo.Size = UDim2.new(0, 10, 0, 10)
-Logo.Image = "rbxassetid://1352543873"
-Logo.ImageTransparency = 0
-Logo.ZIndex = 10
-
-Credits.Name = "Credits"
-Credits.Parent = Holder
-Credits.BackgroundTransparency = 1
-Credits.BorderSizePixel = 0
-Credits.Position = UDim2.new(0, 0, 0.9, 30)
-Credits.Size = UDim2.new(0, 250, 0, 20)
-Credits.Font = Enum.Font.SourceSansLight
-Credits.FontSize = Enum.FontSize.Size18
-Credits.Text = "Edge // Zwolf // Moon // Hunter"
-Credits.TextColor3 = Color3.new(1, 1, 1)
-Credits.ZIndex = 10
 
 KeybindsFrame.Name = "KeybindsFrame"
 KeybindsFrame.Parent = Settings
@@ -3208,7 +3191,7 @@ function maximizeHolder()
 	end
 end
 
-local minimizeNum = 0 -- -20
+local minimizeNum = -20
 function minimizeHolder()
 	if StayOpen == false then
 		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
@@ -3379,7 +3362,7 @@ end
 
 IYMouse.KeyDown:Connect(function(Key)
 	if (Key==prefix) then
-    Holder.Visible = true
+	Holder.Visible = true
 		Cmdbar:CaptureFocus()
 		spawn(function()
 			repeat Cmdbar.Text = '' until Cmdbar.Text == ''
@@ -5449,10 +5432,74 @@ Players.LocalPlayer.Chatted:Connect(function()
 	end
 end)
 
+local stringFind = function(tbl, str)
+	if tbl == nil then return end
+	if type(tbl) == "table" then
+		for _, v in ipairs(tbl) do
+			if matchSearch(str,v) then return v end
+		end
+	end
+end
+
+local getPlrArguments = function(argument)
+	local arg = string.lower(argument)
+	local specialcases = {"all", "others", "random", "me", "nearest", "farthest", "allies", "enemies", "team", "nonteam", "friends", "nonfriends", "bacons", "nearest", "farthest", "alive", "dead"}
+	return stringFind(specialcases, arg) or (function()
+		for _, v in ipairs(Players:GetPlayers()) do
+			local Name = string.lower(v.Name)
+			if matchSearch(arg, Name) then return Name end
+		end
+	end)()
+end
+
 Cmdbar.PlaceholderText = "Command Bar ("..prefix..")"
 Cmdbar:GetPropertyChangedSignal("Text"):Connect(function()
 	if Cmdbar:IsFocused() then
-		IndexContents(Cmdbar.Text,true,true)
+		spawn(function()
+			IndexContents(Cmdbar.Text,true,true)
+		end)
+		CmdSuggestion.Text = ""
+		local InputText = Cmdbar.Text
+		local Args = string.split(InputText, " ")
+		local CmdArgs = cargs or {}
+		if InputText == "" then return end
+		for _, v in next, cmds do
+			local Name = v.NAME
+			local Aliases = v.ALIAS
+			local FoundAlias = false
+			if matchSearch(InputText, Name) then
+				CmdSuggestion.Text = Name
+				break
+			end
+			for _, v2 in next, Aliases do
+				if matchSearch(InputText, v2) then
+					FoundAlias = true
+					CmdSuggestion.Text = v2
+					break
+				end
+				if FoundAlias then break end
+			end
+		end
+		for i,v in next, Args do
+			if i > 1 and v ~= "" then
+				local Predict = ""
+				if #CmdArgs >= 1 then
+					Predict = getPlrArguments(v) or Predict
+				else
+					Predict = getPlrArguments(v) or Predict
+				end
+				CmdSuggestion.Text = string.sub(InputText, 1, #InputText - #Args[#Args]) .. Predict
+				local split = v:split(",")
+				if next(split) then
+					for i2, v2 in next, split do
+						if i2 > 1 and v2 ~= "" then
+							local PlayerName = getPlrArguments(v2)
+							CmdSuggestion.Text = string.sub(InputText, 1, #InputText - #split[#split]) .. (PlayerName or "")
+						end
+					end
+				end
+			end
+		end
 	end
 end)
 
@@ -5466,6 +5513,7 @@ Cmdbar.FocusLost:Connect(function(enterpressed)
 	wait()
 	if not Cmdbar:IsFocused() then
 		Cmdbar.Text = ""
+		CmdSuggestion.Text = ""
 		IndexContents('',true,false,true)
 		if SettingsOpen == true then
 			wait(0.2)
@@ -5484,10 +5532,23 @@ Cmdbar.Focused:Connect(function()
 		CMDsF.Visible = true
 		Settings:TweenPosition(UDim2.new(0, 0, 0, 220), "InOut", "Quart", 0.2, true, nil)
 	end
-	tabComplete = UserInputService.InputBegan:Connect(function(input,gameProcessed)
+	tabComplete = UserInputService.InputBegan:Connect(function(input, gameProcessed)
 		if Cmdbar:IsFocused() then
-			if input.KeyCode == Enum.KeyCode.Tab and topCommand ~= nil then
-				autoComplete(topCommand)
+			if input.KeyCode == Enum.KeyCode.Tab then
+				if CmdSuggestion.Text == ("" or " ") then
+				else
+					if string.match(CmdSuggestion.Text, " ") then
+						Cmdbar.Text = CmdSuggestion.Text
+						wait()
+						Cmdbar.Text = Cmdbar.Text:gsub("\t", "")
+						Cmdbar.CursorPosition = #Cmdbar.Text + 1
+					else
+						Cmdbar.Text = CmdSuggestion.Text .. " "
+						wait()
+						Cmdbar.Text = Cmdbar.Text:gsub("\t", "")
+						Cmdbar.CursorPosition = #Cmdbar.Text + 1
+					end
+				end
 			end
 		else
 			tabComplete:Disconnect()
@@ -7279,7 +7340,6 @@ addcmd('waypoints',{'positions'},function(args, speaker)
 	maximizeHolder()
 end)
 
-
 waypointParts = {}
 addcmd('showwaypoints',{'showwp','showwps'},function(args, speaker)
 	execCmd('hidewaypoints')
@@ -7530,7 +7590,7 @@ addcmd('hideiy',{},function(args, speaker)
 end)
 
 addcmd('showiy',{'unhideiy'},function(args, speaker)
-	minimizeNum = -20
+	minimizeNum = 0 -- -20
 	if wasStayOpen then
 		maximizeHolder()
 		StayOpen = true
@@ -11878,22 +11938,6 @@ end
 IYMouse.Move:Connect(checkTT)
 
 task.spawn(function()
-    local function mongus()
-	local GC = getconnections or get_signal_cons
-	if GC then
-        for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
-            if v["Disable"] then
-                v["Disable"](v)
-            elseif v["Disconnect"] then
-                v["Disconnect"](v)
-            end
-        end
-		--notify('Anti Idle','Anti idle is enabled')
-        else
-		notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
-        end
-    end
-    mongus()
 	if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end) then
 		if ver ~= Version then
 			notify('Outdated','Get the new version at infinite.yiff.gg')
@@ -11982,20 +12026,17 @@ task.spawn(function()
 		end
 	end
 end)
---[[
-wait()
-Credits:TweenPosition(UDim2.new(0,0,0.9,0), "Out", "Quart", 0.2)
-Logo:TweenSizeAndPosition(UDim2.new(0,175,0,175),UDim2.new(0,37,0,45), "Out", "Quart", 0.3)
-wait(1)
-for i=0,1,0.1 do
-	Logo.ImageTransparency = i
-	IntroBackground.BackgroundTransparency = i
-	wait()
+local GC = getconnections or get_signal_cons	
+if GC then
+	for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
+		if v["Disable"] then
+			v["Disable"](v)
+		elseif v["Disconnect"] then
+			v["Disconnect"](v)
+		end
+	end
+	--notify('Anti Idle','Anti idle is enabled')
+else
+	notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')
 end
-Credits:TweenPosition(UDim2.new(0,0,0.9,30), "Out", "Quart", 0.2)
-wait(0.2)
-]]
-Logo:Destroy()
-Credits:Destroy()
-IntroBackground:Destroy()
 minimizeHolder()
