@@ -12073,7 +12073,7 @@ task.spawn(function()
 		end
 	end
 end)
-wait()
+wait(0.2)
 Logo:Destroy()
 Credits:Destroy()
 IntroBackground:Destroy()
