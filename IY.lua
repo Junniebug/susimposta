@@ -636,6 +636,10 @@ Credits.Text = "Edge // Zwolf // Moon // Hunter"
 Credits.TextColor3 = Color3.new(1, 1, 1)
 Credits.ZIndex = 10
 
+Logo:Destroy()
+Credits:Destroy()
+IntroBackground:Destroy()
+
 KeybindsFrame.Name = "KeybindsFrame"
 KeybindsFrame.Parent = Settings
 KeybindsFrame.Active = true
