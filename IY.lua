@@ -636,10 +636,6 @@ Credits.Text = "Edge // Zwolf // Moon // Hunter"
 Credits.TextColor3 = Color3.new(1, 1, 1)
 Credits.ZIndex = 10
 
-Logo:Destroy()
-Credits:Destroy()
-IntroBackground:Destroy()
-
 KeybindsFrame.Name = "KeybindsFrame"
 KeybindsFrame.Parent = Settings
 KeybindsFrame.Active = true
@@ -12061,6 +12057,7 @@ task.spawn(function()
 		end
 	end
 end)
+wait()
 local function mongus()
 	local GC = getconnections or get_signal_cons	
 	if GC then
