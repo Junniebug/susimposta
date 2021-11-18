@@ -12073,8 +12073,8 @@ task.spawn(function()
 		end
 	end
 end)
+wait()
 Logo:Destroy()
 Credits:Destroy()
 IntroBackground:Destroy()
-wait()
 minimizeHolder()
