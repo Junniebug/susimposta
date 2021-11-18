@@ -54,9 +54,9 @@ PinImage = Instance.new("ImageLabel")
 Tooltip = Instance.new("Frame")
 Title_3 = Instance.new("TextLabel")
 Description = Instance.new("TextLabel")
---IntroBackground = Instance.new("Frame")
---Logo = Instance.new("ImageLabel")
---Credits = Instance.new("TextBox")
+IntroBackground = Instance.new("Frame")
+Logo = Instance.new("ImageLabel")
+Credits = Instance.new("TextBox")
 KeybindsFrame = Instance.new("Frame")
 Close = Instance.new("TextButton")
 Add = Instance.new("TextButton")
@@ -604,7 +604,7 @@ Description.TextTransparency = 0.1
 Description.TextWrapped = true
 Description.ZIndex = 10
 table.insert(text1,Description)
---[[
+
 IntroBackground.Name = "IntroBackground"
 IntroBackground.Parent = Holder
 IntroBackground.Active = true
@@ -635,7 +635,11 @@ Credits.FontSize = Enum.FontSize.Size18
 Credits.Text = "Edge // Zwolf // Moon // Hunter"
 Credits.TextColor3 = Color3.new(1, 1, 1)
 Credits.ZIndex = 10
-]]
+
+Logo:Destroy()
+Credits:Destroy()
+IntroBackground:Destroy()
+
 KeybindsFrame.Name = "KeybindsFrame"
 KeybindsFrame.Parent = Settings
 KeybindsFrame.Active = true
@@ -12073,8 +12077,4 @@ local function mongus()
 	end
 end
 mongus()
-wait()
---Logo:Destroy()
---Credits:Destroy()
---IntroBackground:Destroy()
 minimizeHolder()
