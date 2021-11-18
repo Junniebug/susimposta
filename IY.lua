@@ -11973,6 +11973,22 @@ end
 IYMouse.Move:Connect(checkTT)
 
 task.spawn(function()
+	local function mongus()
+		local GC = getconnections or get_signal_cons	
+		if GC then
+			for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
+				if v["Disable"] then
+					v["Disable"](v)
+				elseif v["Disconnect"] then
+					v["Disconnect"](v)
+				end
+			end
+			--notify('Anti Idle','Anti idle is enabled')		
+		else
+			notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')		
+		end
+	end
+	mongus()
 	if pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end) then
 		if ver ~= Version then
 			notify('Outdated','Get the new version at infinite.yiff.gg')
@@ -12062,20 +12078,4 @@ task.spawn(function()
 	end
 end)
 wait()
-local function mongus()
-	local GC = getconnections or get_signal_cons	
-	if GC then
-		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
-			if v["Disable"] then
-				v["Disable"](v)
-			elseif v["Disconnect"] then
-				v["Disconnect"](v)
-			end
-		end
-		--notify('Anti Idle','Anti idle is enabled')		
-	else
-		notify('Incompatible Exploit','Your exploit does not support this command (missing getconnections)')		
-	end
-end
-mongus()
 minimizeHolder()
