@@ -3191,7 +3191,7 @@ function maximizeHolder()
 	end
 end
 
-local minimizeNum = -20
+local minimizeNum = 0
 function minimizeHolder()
 	if StayOpen == false then
 		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
@@ -7590,7 +7590,7 @@ addcmd('hideiy',{},function(args, speaker)
 end)
 
 addcmd('showiy',{'unhideiy'},function(args, speaker)
-	minimizeNum = 0 -- -20
+	minimizeNum = -20
 	if wasStayOpen then
 		maximizeHolder()
 		StayOpen = true
