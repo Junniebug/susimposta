@@ -3194,6 +3194,7 @@ function minimizeHolder()
 		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
 	end
 end
+minimizeHolder()
 
 function cmdbarHolder()
 	if StayOpen == false then
@@ -12023,4 +12024,3 @@ task.spawn(function()
 		end
 	end
 end)
-minimizeHolder()
