@@ -6,21 +6,12 @@ end
 pcall(function() getgenv().IY_LOADED  = true end)
 
 if not game:IsLoaded() then
-	--local notLoaded
-	--local success, err = pcall(function()
-	--	notLoaded = Instance.new("Message", game:GetService("CoreGui"))
-	--end)
-	--if not success and err then
-	--	notLoaded = Instance.new("Message", game:GetService('Workspace'))
-	--else
-	--	notLoaded = Instance.new("Message", game:GetService("CoreGui"))
-	--end
-	--notLoaded.Text = 'Infinite Yield is waiting for the game to load'
 	game.Loaded:Wait()
+	local notLoaded = Instance.new("Message", game:GetService("CoreGui"))
 	--notLoaded:Destroy()
 end
 
-ver = '5.3.5'
+ver = '5.4
 
 Players = game:GetService("Players")
 
@@ -28,7 +19,6 @@ Holder = Instance.new("Frame")
 Title = Instance.new("TextLabel")
 Dark = Instance.new("Frame")
 Cmdbar = Instance.new("TextBox")
-CmdSuggestion = Instance.new("TextLabel")
 CMDsF = Instance.new("ScrollingFrame")
 cmdListLayout = Instance.new("UIListLayout")
 SettingsButton = Instance.new("ImageButton")
@@ -189,22 +179,12 @@ elseif get_hidden_gui or gethui then
 	Main.Name = randomString()
 	Main.Parent = hiddenUI()
 	PARENT = Main
+elseif COREGUI:FindFirstChild('RobloxGui') then
+	PARENT = COREGUI.RobloxGui
 else
 	local Main = Instance.new("ScreenGui")
 	Main.Name = randomString()
-	local success, err = pcall(function()
-		Main.Parent = COREGUI
-	end)
-	if not success and err then
-		COREGUI = Players.LocalPlayer.PlayerGui
-		Main.Parent = COREGUI
-	elseif success and not err then -- for COREGUI:FindFirstChild('RobloxGui')
-		if COREGUI:FindFirstChild('RobloxGui') then
-			PARENT = COREGUI.RobloxGui
-		else
-            PARENT = COREGUI
-		end
-	end
+	lMain.Parent = COREGUI
 	PARENT = Main
 end
 
@@ -263,19 +243,6 @@ Cmdbar.TextColor3 = Color3.new(1, 1, 1)
 Cmdbar.Text = ""
 Cmdbar.ZIndex = 10
 Cmdbar.PlaceholderText = "Command Bar"
-
-CmdSuggestion.Name = "CmdSuggestion"
-CmdSuggestion.Parent = Cmdbar
-CmdSuggestion.BackgroundTransparency = 1
-CmdSuggestion.BorderSizePixel = 0
-CmdSuggestion.Position = UDim2.new(0, 0, 0, 0)
-CmdSuggestion.Size = UDim2.new(0, 240, 0, 25)
-CmdSuggestion.Font = Enum.Font.SourceSans
-CmdSuggestion.TextSize = 18
-CmdSuggestion.TextXAlignment = Enum.TextXAlignment.Left
-CmdSuggestion.TextColor3 = Color3.fromRGB(171, 171, 171)
-CmdSuggestion.Text = ""
-CmdSuggestion.ZIndex = 10
 
 CMDsF.Name = "CMDs"
 CMDsF.Parent = Holder
@@ -2949,6 +2916,7 @@ currentScroll = Color3.fromRGB(78,78,79)
 defaultsettings = {
 	prefix = ';';
 	StayOpen = false;
+	keepIY = false;
 	logsEnabled = false;
 	jLogsEnabled = false;
 	aliases = {};
@@ -2966,6 +2934,7 @@ defaultsettings = {
 
 defaults = game:GetService("HttpService"):JSONEncode(defaultsettings)
 
+local KeepInfYield = false
 nosaves = false
 
 local loadedEventData = nil
@@ -2977,6 +2946,7 @@ function saves()
 					local json = game:GetService("HttpService"):JSONDecode(readfile("IY_FE.iy"))
 					if json.prefix ~= nil then prefix = json.prefix else prefix = ';' end
 					if json.StayOpen ~= nil then StayOpen = json.StayOpen else StayOpen = false end
+					if json.keepIY ~= nil then KeepInfYield = json.keepIY else KeepInfYield = false end
 					if json.logsEnabled ~= nil then logsEnabled = json.logsEnabled else logsEnabled = false end
 					if json.jLogsEnabled ~= nil then jLogsEnabled = json.jLogsEnabled else jLogsEnabled = false end
 					if json.aliases ~= nil then aliases = json.aliases else aliases = {} end
@@ -3013,6 +2983,7 @@ function saves()
 				nosaves = true
 				prefix = ';'
 				StayOpen = false
+				KeepInfYield = false
 				logsEnabled = false
 				jLogsEnabled = false
 				aliases = {}
@@ -3102,6 +3073,7 @@ function saves()
 	else
 		prefix = ';'
 		StayOpen = false
+		KeepInfYield = false
 		logsEnabled = false
 		jLogsEnabled = false
 		aliases = {}
@@ -3118,6 +3090,7 @@ function updatesaves()
 		local update = {
 			prefix = prefix;
 			StayOpen = StayOpen;
+			keepIY = KeepInfYield;
 			logsEnabled = logsEnabled;
 			jLogsEnabled = jLogsEnabled;
 			aliases = aliases;
@@ -4262,7 +4235,6 @@ Match = function(name,str)
 	return name:lower():find(str:lower()) and true
 end
 
-local matchSearch = function(str1,str2) return str1 == string.sub(str2,1,#str1) end
 local canvasPos = Vector2.new(0,0)
 local topCommand = nil
 IndexContents = function(str,bool,cmdbar,Ianim)
@@ -4281,7 +4253,7 @@ IndexContents = function(str,bool,cmdbar,Ianim)
 	for i,v in next, frame:GetChildren() do
 		if v:IsA("TextButton") then
 			if bool then
-				if matchSearch(str,v.Text) then
+				if Match(v.Text,str) then
 					indexnum = indexnum + 1
 					v.Visible = true
 					if topCommand == nil then
@@ -4426,6 +4398,9 @@ CMDs[#CMDs + 1] = {NAME = 'guidelete', DESC = 'Enables backspace to delete GUI'}
 CMDs[#CMDs + 1] = {NAME = 'unguidelete / noguidelete', DESC = 'Disables guidelete'}
 CMDs[#CMDs + 1] = {NAME = 'hideiy', DESC = 'Hides the main IY GUI'}
 CMDs[#CMDs + 1] = {NAME = 'showiy / unhideiy', DESC = 'Shows IY again'}
+CMDs[#CMDs + 1] = {NAME = 'keepiy', DESC = 'Auto execute IY when you teleport through servers'}
+CMDs[#CMDs + 1] = {NAME = 'unkeepiy', DESC = 'Disable keepiy'}
+CMDs[#CMDs + 1] = {NAME = 'togglekeepiy', DESC = 'Toggle keepiy'}
 CMDs[#CMDs + 1] = {NAME = 'savegame / saveplace', DESC = 'Uses saveinstance to save the game'}
 CMDs[#CMDs + 1] = {NAME = 'clearerror', DESC = 'Clears the annoying box and blur when a game kicks you'}
 CMDs[#CMDs + 1] = {NAME = 'clientantikick / antikick (CLIENT)', DESC = 'Prevents localscripts from kicking you'}
@@ -4566,6 +4541,7 @@ CMDs[#CMDs + 1] = {NAME = 'bringpartclass / bpc [class name] (CLIENT)', DESC = '
 CMDs[#CMDs + 1] = {NAME = 'noclickdetectorlimits / nocdlimits', DESC = 'Sets all click detectors MaxActivationDistance to math.huge'}
 CMDs[#CMDs + 1] = {NAME = 'fireclickdetectors / firecd', DESC = 'Uses all click detectors in a game'}
 CMDs[#CMDs + 1] = {NAME = 'firetouchinterests / touchinterests', DESC = 'Uses all touchinterests in a game'}
+CMDs[#CMDs + 1] = {NAME = 'fireproximityprompts / firepp', DESC = 'Uses all proximity prompts in a game'}
 CMDs[#CMDs + 1] = {NAME = 'simulationradius / simradius', DESC = 'Sets your SimulationRadius to math.huge'}
 CMDs[#CMDs + 1] = {NAME = 'nosimulationradius / nosimradius', DESC = 'Turns off the SimulationRadius loop and restores values to default'}
 CMDs[#CMDs + 1] = {NAME = 'tpunanchored / tpua [plr]', DESC = 'Teleports unanchored parts to a player'}
@@ -4626,8 +4602,7 @@ CMDs[#CMDs + 1] = {NAME = 'unloopoof', DESC = 'Stops the oof chaos'}
 CMDs[#CMDs + 1] = {NAME = 'muteboombox [plr]', DESC = 'Mutes someones boombox'}
 CMDs[#CMDs + 1] = {NAME = 'unmuteboombox [plr]', DESC = 'Unmutes someones boombox'}
 CMDs[#CMDs + 1] = {NAME = 'unloopoof', DESC = 'Stops the oof chaos'}
-CMDs[#CMDs + 1] = {NAME = 'hitbox [plr] [size]', DESC = 'Expands the hitbox for players HumanoidRootPart (default is 1)'}
-CMDs[#CMDs + 1] = {NAME = 'headsize [plr] [size]', DESC = 'Expands the head size for players Head (default is 1)'}
+CMDs[#CMDs + 1] = {NAME = 'hitbox [plr] [size]', DESC = 'Expands the hitbox for players heads (default is 1)'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'reset', DESC = 'Resets your character normally'}
 CMDs[#CMDs + 1] = {NAME = 'respawn', DESC = 'Respawns you'}
@@ -5430,74 +5405,10 @@ Players.LocalPlayer.Chatted:Connect(function()
 	end
 end)
 
-local stringFind = function(tbl, str)
-	if tbl == nil then return end
-	if type(tbl) == "table" then
-		for _, v in ipairs(tbl) do
-			if matchSearch(str,v) then return v end
-		end
-	end
-end
-
-local getPlrArguments = function(argument)
-	local arg = string.lower(argument)
-	local specialcases = {"all", "others", "random", "me", "nearest", "farthest", "allies", "enemies", "team", "nonteam", "friends", "nonfriends", "bacons", "nearest", "farthest", "alive", "dead"}
-	return stringFind(specialcases, arg) or (function()
-		for _, v in ipairs(Players:GetPlayers()) do
-			local Name = string.lower(v.Name)
-			if matchSearch(arg, Name) then return Name end
-		end
-	end)()
-end
-
 Cmdbar.PlaceholderText = "Command Bar ("..prefix..")"
 Cmdbar:GetPropertyChangedSignal("Text"):Connect(function()
 	if Cmdbar:IsFocused() then
-		spawn(function()
-			IndexContents(Cmdbar.Text,true,true)
-		end)
-		CmdSuggestion.Text = ""
-		local InputText = Cmdbar.Text
-		local Args = string.split(InputText, " ")
-		local CmdArgs = cargs or {}
-		if InputText == "" then return end
-		for _, v in next, cmds do
-			local Name = v.NAME
-			local Aliases = v.ALIAS
-			local FoundAlias = false
-			if matchSearch(InputText, Name) then
-				CmdSuggestion.Text = Name
-				break
-			end
-			for _, v2 in next, Aliases do
-				if matchSearch(InputText, v2) then
-					FoundAlias = true
-					CmdSuggestion.Text = v2
-					break
-				end
-				if FoundAlias then break end
-			end
-		end
-		for i,v in next, Args do
-			if i > 1 and v ~= "" then
-				local Predict = ""
-				if #CmdArgs >= 1 then
-					Predict = getPlrArguments(v) or Predict
-				else
-					Predict = getPlrArguments(v) or Predict
-				end
-				CmdSuggestion.Text = string.sub(InputText, 1, #InputText - #Args[#Args]) .. Predict
-				local split = v:split(",")
-				if next(split) then
-					for i2, v2 in next, split do
-						if i2 > 1 and v2 ~= "" then
-							local PlayerName = getPlrArguments(v2)
-							CmdSuggestion.Text = string.sub(InputText, 1, #InputText - #split[#split]) .. (PlayerName or "")
-						end
-					end
-				end
-			end
-		end
+		IndexContents(Cmdbar.Text,true,true)
 	end
 end)
 
@@ -5511,7 +5422,6 @@ Cmdbar.FocusLost:Connect(function(enterpressed)
 	wait()
 	if not Cmdbar:IsFocused() then
 		Cmdbar.Text = ""
-		CmdSuggestion.Text = ""
 		IndexContents('',true,false,true)
 		if SettingsOpen == true then
 			wait(0.2)
@@ -5530,23 +5440,10 @@ Cmdbar.Focused:Connect(function()
 		CMDsF.Visible = true
 		Settings:TweenPosition(UDim2.new(0, 0, 0, 220), "InOut", "Quart", 0.2, true, nil)
 	end
-	tabComplete = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	tabComplete = UserInputService.InputBegan:Connect(function(input,gameProcessed)
 		if Cmdbar:IsFocused() then
-			if input.KeyCode == Enum.KeyCode.Tab then
-				if CmdSuggestion.Text == ("" or " ") then
-				else
-					if string.match(CmdSuggestion.Text, " ") then
-						Cmdbar.Text = CmdSuggestion.Text
-						wait()
-						Cmdbar.Text = Cmdbar.Text:gsub("\t", "")
-						Cmdbar.CursorPosition = #Cmdbar.Text + 1
-					else
-						Cmdbar.Text = CmdSuggestion.Text .. " "
-						wait()
-						Cmdbar.Text = Cmdbar.Text:gsub("\t", "")
-						Cmdbar.CursorPosition = #Cmdbar.Text + 1
-					end
-				end
+			if input.KeyCode == Enum.KeyCode.Tab and topCommand ~= nil then
+				autoComplete(topCommand)
 			end
 		else
 			tabComplete:Disconnect()
@@ -6410,6 +6307,17 @@ Close_4.MouseButton1Click:Connect(function()
 	PluginsFrame:TweenPosition(UDim2.new(0, 0, 0, 175), "InOut", "Quart", 0.5, true, nil)
 end)
 
+game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(State)
+	if State == Enum.TeleportState.Started then
+		if KeepInfYield == true then
+			local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
+			if queueteleport then
+				queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
+			end
+		end
+	end
+end)
+
 addcmd('addalias',{},function(args, speaker)
 	if #args < 2 then return end
 	local cmd = string.lower(args[1])
@@ -6459,7 +6367,7 @@ addcmd('discord', {'support', 'help'}, function(args, speaker)
 	else
 		notify('Discord Invite', 'discord.gg/dYHag43eeU')
 	end
-	local req = (syn and syn.request) or (http and http.request) or http_request
+	local req = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or getgenv().request or request
 	if req then
 		req({
 			Url = 'http://127.0.0.1:6463/rpc?v=1',
@@ -6474,6 +6382,36 @@ addcmd('discord', {'support', 'help'}, function(args, speaker)
 				args = {code = 'dYHag43eeU'}
 			})
 		})
+	end
+end)
+
+addcmd('keepiy', {}, function(args, speaker)
+	local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
+	if queueteleport then
+		KeepInfYield = true
+		updatesaves()
+	else
+		notify('Incompatible Exploit','Your exploit does not support this command (missing syn.queue_on_teleport)')
+	end
+end)
+
+addcmd('unkeepiy', {}, function(args, speaker)
+	local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
+	if queueteleport then
+		KeepInfYield = false
+		updatesaves()
+	else
+		notify('Incompatible Exploit','Your exploit does not support this command (missing syn.queue_on_teleport)')
+	end
+end)
+
+addcmd('toggleunkeepiy', {}, function(args, speaker)
+	local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
+	if queueteleport then
+		KeepInfYield = not KeepInfYield
+		updatesaves()
+	else
+		notify('Incompatible Exploit','Your exploit does not support this command (missing syn.queue_on_teleport)')
 	end
 end)
 
@@ -7116,23 +7054,22 @@ addcmd('cframefly', {'cfly'}, function(args, ME)
 		-- local Cache = {}
 		-- local Cons = {game.ItemChanged, Human.StateChanged, Human.Changed, ME.Character.Changed}
 		-- for _, v in ipairs(ME.Character:GetChildren()) do
-			-- if v:IsA('BasePart') then
-				-- Cons[#Cons + 1] = v.Changed
-				-- Cons[#Cons + 1] = v:GetPropertyChangedSignal('CFrame')
-			-- end
+		-- if v:IsA('BasePart') then
+		-- Cons[#Cons + 1] = v.Changed
+		-- Cons[#Cons + 1] = v:GetPropertyChangedSignal('CFrame')
+		-- end
 		-- end
 		-- for _, v in ipairs(Cons) do
-			-- for _, v1 in ipairs(getconnections(v)) do
-				-- if not rawget(v1, '__OBJECT_ENABLED') then
-					-- Cache[#Cache + 1] = v1
-					-- v1:Disable()
-				-- end
-			-- end
+		-- for _, v1 in ipairs(getconnections(v)) do
+		-- if not rawget(v1, '__OBJECT_ENABLED') then
+		-- Cache[#Cache + 1] = v1
+		-- v1:Disable()
+		-- end
 		-- end
 		Human:ChangeState(11)
 		HRP.CFrame = CFrame.new(HRP.Position, HRP.Position + Camera.CFrame.LookVector) * (UIS:GetFocusedTextBox() and cf or CFrame.new((UIS:IsKeyDown(Keys.D) and SPI) or (UIS:IsKeyDown(Keys.A) and -SPI) or 0, (UIS:IsKeyDown(Keys.E) and SPI / 2) or (UIS:IsKeyDown(Keys.Q) and -SPI / 2) or 0, (UIS:IsKeyDown(Keys.S) and SPI) or (UIS:IsKeyDown(Keys.W) and -SPI) or 0))
 		-- for _, v in ipairs(Cache) do
-			-- v:Enable()
+		-- v:Enable()
 		-- end
 	end)
 end)
@@ -8760,7 +8697,8 @@ addcmd('unloopbring',{'noloopbring'},function(args, speaker)
 	end
 end)
 
-local walkto
+local walkto = false
+local waypointwalkto = false
 addcmd('walkto',{'follow'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players)do
@@ -8773,6 +8711,75 @@ addcmd('walkto',{'follow'},function(args, speaker)
 			repeat wait()
 				speaker.Character:FindFirstChildOfClass("Humanoid"):MoveTo(getRoot(Players[v].Character).Position)
 			until Players[v].Character == nil or not getRoot(Players[v].Character) or walkto == false
+		end
+	end
+end)
+
+addcmd('pathfindwalktowaypoint',{'pathfindwalktowp'},function(args, speaker)
+	waypointwalkto = false
+	wait()
+	local WPName = tostring(getstring(1))
+	local PathService = game:GetService("PathfindingService")
+	local hum = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+	local path = PathService:CreatePath()
+	if speaker.Character then
+		for i,_ in pairs(WayPoints) do
+			if tostring(WayPoints[i].NAME):lower() == tostring(WPName):lower() then
+				if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+					speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+					wait(.1)
+				end
+				local TrueCoords = Vector3.new(WayPoints[i].COORD[1], WayPoints[i].COORD[2], WayPoints[i].COORD[3])
+				waypointwalkto = true
+				repeat wait()
+					local success, response = pcall(function()
+						path:ComputeAsync(getRoot(speaker.Character).Position, TrueCoords)
+						local waypoints = path:GetWaypoints()
+						local distance 
+						for waypointIndex, waypoint in pairs(waypoints) do
+							local waypointPosition = waypoint.Position
+							hum:MoveTo(waypointPosition)
+							repeat 
+								distance = (waypointPosition - hum.Parent.PrimaryPart.Position).magnitude
+								wait()
+							until
+							distance <= 5
+						end
+					end)
+					if not success then
+						speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(TrueCoords)
+					end
+				until not speaker.Character or waypointwalkto == false
+			end
+		end
+		for i,_ in pairs(pWayPoints) do
+			if tostring(pWayPoints[i].NAME):lower() == tostring(WPName):lower() then
+				if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+					speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+					wait(.1)
+				end
+				local TrueCoords = pWayPoints[i].COORD[1].Position
+				waypointwalkto = true
+				repeat wait()
+					local success, response = pcall(function()
+						path:ComputeAsync(getRoot(speaker.Character).Position, TrueCoords)
+						local waypoints = path:GetWaypoints()
+						local distance 
+						for waypointIndex, waypoint in pairs(waypoints) do
+							local waypointPosition = waypoint.Position
+							hum:MoveTo(waypointPosition)
+							repeat 
+								distance = (waypointPosition - hum.Parent.PrimaryPart.Position).magnitude
+								wait()
+							until
+							distance <= 5
+						end
+					end)
+					if not success then
+						speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(TrueCoords)
+					end
+				until not speaker.Character or waypointwalkto == false
+			end
 		end
 	end
 end)
@@ -8816,6 +8823,7 @@ end)
 
 addcmd('unwalkto',{'nowalkto','unfollow','nofollow'},function(args, speaker)
 	walkto = false
+	waypointwalkto = false
 end)
 
 addcmd('freeze',{'fr'},function(args, speaker)
@@ -10343,6 +10351,18 @@ addcmd('fireclickdetectors',{'firecd','firecds'},function(args, speaker)
 	end
 end)
 
+addcmd('fireproximityprompts',{'firepp'},function(args, speaker)
+	if fireproximityprompt then
+		for i, v in pairs(workspace:GetDescendants()) do
+			if v:FindFirstChild("ProximityPrompt") then
+				fireproximityprompt(v.ProximityPrompt)
+			end
+		end
+	else
+		notify('Incompatible Exploit','Your exploit does not support this command (missing fireproximityprompt)')
+	end
+end)
+
 simRadius = false
 addcmd('simulationradius',{'simradius'},function(args, speaker)
 	if sethidden then		
@@ -10973,65 +10993,79 @@ addcmd('joinlogs',{'jlogs'},function(args, speaker)
 end)
 
 flinging = false
+local flingtbl = {}
 addcmd('fling',{},function(args, speaker)
-	for _, child in pairs(speaker.Character:GetDescendants()) do
-		if child:IsA("BasePart") then
-			child.CustomPhysicalProperties = PhysicalProperties.new(2, 0.3, 0.5)
-		end
+	local rootpart = getRoot(speaker.Character)
+	if not rootpart then return end
+	flingtbl.OldPos = rootpart.CFrame
+	flingtbl.OldVelocity = rootpart.Velocity
+	local bv = Instance.new("BodyAngularVelocity")
+	flingtbl.bv = bv
+	bv.MaxTorque = Vector3.new(1, 1, 1) * math.huge
+	bv.P = math.huge
+	bv.AngularVelocity = Vector3.new(0, 9e5, 0)
+	bv.Parent = rootpart
+	local Char = speaker.Character:GetChildren()
+	for i, v in next, Char do
+	    if v:IsA("BasePart") then
+	        v.CanCollide = false
+	        v.Massless = true
+	        v.Velocity = Vector3.new(0, 0, 0)
+	    end
 	end
-	execCmd('noclip nonotify')
-	wait(.1)
-	local bambam = Instance.new("BodyAngularVelocity")
-	bambam.Name = randomString()
-	bambam.Parent = getRoot(speaker.Character)
-	bambam.AngularVelocity = Vector3.new(0,311111,0)
-	bambam.MaxTorque = Vector3.new(0,311111,0)
-	bambam.P = math.huge
-	local function PauseFling()
-		if speaker.Character:FindFirstChildOfClass('Humanoid') then
-			if speaker.Character:FindFirstChildOfClass('Humanoid').FloorMaterial == Enum.Material.Air then
-				bambam.AngularVelocity = Vector3.new(0,0,0)
-			else
-				bambam.AngularVelocity = Vector3.new(0,311111,0)
-			end
-		end
-	end
-	if TouchingFloor then
-		TouchingFloor:Disconnect()
-	end
-	if TouchingFloorReset then
-		TouchingFloorReset:Disconnect()
-	end
-	TouchingFloor = speaker.Character:FindFirstChildOfClass('Humanoid'):GetPropertyChangedSignal("FloorMaterial"):Connect(PauseFling)
+	flingtbl.Noclipping2 = game:GetService("RunService").Stepped:Connect(function()
+	    for i, v in next, Char do
+	        if v:IsA("BasePart") then
+	            v.CanCollide = false
+	        end
+	    end
+	end)
 	flinging = true
-	local function flingDied()
-		execCmd('unfling')
-	end
-	TouchingFloorReset = speaker.Character:FindFirstChildOfClass('Humanoid').Died:Connect(flingDied)
 end)
 
-addcmd('unfling',{'nofling'},function(args, speaker)
-	execCmd('clip nonotify')
-	if TouchingFloor then
-		TouchingFloor:Disconnect()
+addcmd('unfling',{},function(args, speaker)
+	local rootpart = getRoot(speaker.Character)
+	if not rootpart then return end
+	local Char = speaker.Character:GetChildren()
+	if flingtbl.bv ~= nil then
+		flingtbl.bv:Destroy()
+		flingtbl.bv = nil
 	end
-	if TouchingFloorReset then
-		TouchingFloorReset:Disconnect()
+	if flingtbl.Noclipping2 ~= nil then
+		flingtbl.Noclipping2:Disconnect()
+		flingtbl.Noclipping2 = nil
 	end
+	for i, v in next, Char do
+		if v:IsA("BasePart") then
+			v.CanCollide = true
+			v.Massless = false
+		end
+	end
+	flingtbl.isRunning = game:GetService("RunService").Stepped:Connect(function()
+		if flingtbl.OldPos ~= nil then
+			rootpart.CFrame = flingtbl.OldPos
+		end
+		if flingtbl.OldVelocity ~= nil then
+			rootpart.Velocity = flingtbl.OldVelocity
+		end
+	end)
+	wait(2)
+	rootpart.Anchored = true
+	if flingtbl.isRunning ~= nil then
+		flingtbl.isRunning:Disconnect()
+		flingtbl.isRunning = nil
+	end
+	rootpart.Anchored = false
+	if flingtbl.OldVelocity ~= nil then
+		rootpart.Velocity = flingtbl.OldVelocity
+	end
+	if flingtbl.OldPos ~= nil then
+		rootpart.CFrame = flingtbl.OldPos
+	end
+	wait()
+	flingtbl.OldVelocity = nil
+	flingtbl.OldPos = nil
 	flinging = false
-	wait(.1)
-	local speakerChar = speaker.Character
-	if not speakerChar or not getRoot(speakerChar) then return end
-	for i,v in pairs(getRoot(speakerChar):GetChildren()) do
-		if v.ClassName == 'BodyAngularVelocity' then
-			v:Destroy()
-		end
-	end
-	for _, child in pairs(speakerChar:GetDescendants()) do
-		if child.ClassName == "Part" or child.ClassName == "MeshPart" then
-			child.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5)
-		end
-	end
 end)
 
 addcmd('togglefling',{},function(args, speaker)
@@ -11179,7 +11213,7 @@ addcmd('handlekill', {'hkill'}, function(args, speaker)
 					v1 = ((v1.IsA(v1, "BasePart") and firetouchinterest(Handle, v1, 1, (RS.Wait(RS) and nil) or firetouchinterest(Handle, v1, 0)) and nil) or v1) or v1
 				end
 			end
-			notify("Handle Kill Stopped!", v.Name .. " died/left or you unequiped the tool!")
+			notify("Handle Kill Stopped!", v.Name .. " died/left or you uneqquiped the tool!")
 		end)
 	end
 end)
@@ -11486,7 +11520,7 @@ addcmd('unhovername',{'nohovername'},function(args, speaker)
 	end
 end)
 
-addcmd('headsize',{},function(args, speaker)
+addcmd('hitbox',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players) do
 		if Players[v]~= speaker and Players[v].Character:FindFirstChild('Head') then
@@ -11498,26 +11532,6 @@ addcmd('headsize',{},function(args, speaker)
 					Head.Size = Vector3.new(2,1,1)
 				else
 					Head.Size = Size
-				end
-			end
-		end
-	end
-end)
-
-addcmd('hitbox',{},function(args, speaker)
-	local players = getPlayer(args[1], speaker)
-	for i,v in pairs(players) do
-		if Players[v]~= speaker and Players[v].Character:FindFirstChild('HumanoidRootPart') then
-			local sizeArg = tonumber(args[2])
-			local Size = Vector3.new(sizeArg,sizeArg,sizeArg)
-			local Root = Players[v].Character:FindFirstChild('HumanoidRootPart')
-			if Root:IsA("BasePart") then
-				if not args[2] or sizeArg == 1 then
-					Root.Size = Vector3.new(2,1,1)
-					Root.Transparency = 0.4
-				else
-					Root.Size = Size
-					Root.Transparency = 0.4
 				end
 			end
 		end
@@ -11742,6 +11756,7 @@ keycodeMap = {
 	["pause"] = 0x13,
 	["capslock"] = 0x14,
 	["spacebar"] = 0x20,
+	["space"] = 0x20,
 	["pageup"] = 0x21,
 	["pagedown"] = 0x22,
 	["end"] = 0x23,
