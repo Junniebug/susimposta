@@ -1,23 +1,37 @@
+if game.PlaceId ~= 3260590327 or game.PlaceId ~= 5591597781 then return end
+
 getgenv().enabled = true
 
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-if game.PlaceId == 5591597781 or game.PlaceId == 3260590327 then
-	local Players=game:service'Players'
-	local lp = Players.LocalPlayer
-	local RS=game:service'ReplicatedStorage'
-	local RF=RS.RemoteFunction
-	local GameData=require(RS.Resources.Universal.GameData)
-	local TeleportService=game:service'TeleportService'
-	local VIM=game:service'VirtualInputManager'
-	local mouse=lp:GetMouse()
+
+local Players = game:service'Players'
+local lp = Players.LocalPlayer
+local RS = game:service'ReplicatedStorage'
+local RF = RS.RemoteFunction
+local GameData = require(RS.Resources.Universal.GameData)
+local TeleportService = game:service'TeleportService'
+local VIM = game:service'VirtualInputManager'
+local mouse = lp:GetMouse()
+
+local GC = getconnections or get_signal_cons
+if GC then
+	for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
+		if v['Disable'] then
+			v['Disable'](v)
+		elseif v['Disconnect'] then
+			v['Disconnect'](v)
+		end
+	end
 end
+	
 if game.PlaceId == 3260590327 and enabled then
     repeat 
         wait()
         for i,v in pairs(workspace.Elevators:GetDescendants()) do
-            if not v:FindFirstChild('Room') and v.Name == 'Elevator' then
+            if v:FindFirstChild('Floor') then
+                v = v.Parent
                 if v.State.Players.Value >= 0 then
                     if v.State.Map.Title.Value == 'Crossroads'
                     or v.State.Map.Title.Value == 'Autumn Falling'
@@ -39,9 +53,9 @@ if game.PlaceId == 5591597781 and enabled then
     VIM:SendKeyEvent(true,'W',false,game)
     wait()
     VIM:SendKeyEvent(false,'W',false,game)
-    RF:InvokeServer("Difficulty", "Vote", "Insane")
+    RF:InvokeServer('Difficulty', 'Vote', 'Insane')
     repeat
-        if lp.PlayerGui:FindFirstChild("GameGui").Results.IsLoaded then
+        if lp.PlayerGui.GameGui.Results.Content.IsLoaded then
             TeleportService:Teleport(GameData('Lobby'))
         end
         --wait()
@@ -51,7 +65,7 @@ if game.PlaceId == 5591597781 and enabled then
         if RS.State.Map.Value == 'Crossroads' then
             list = {}
             for i,v in pairs(workspace.Towers:GetChildren()) do
-                if v:FindFirstChild("Type").Value == 'Ace Pilot' and v.Owner.Value == lp then
+                if v.Type.Value == 'Ace Pilot' and v.Owner.Value == lp then
                     table.insert(list,v)
                 end
             end
@@ -60,6 +74,7 @@ if game.PlaceId == 5591597781 and enabled then
                     ['Position'] = Vector3.new(14.32466506958, -0.042298793792725, 9.9408111572266)})
                 RF:InvokeServer('Troops','Place','Ace Pilot',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
                     ['Position'] = Vector3.new(17.582077026367, -0.042412281036377, 9.9493408203125)})
+                --RF:InvokeServer('Troops','Target','Set',{['Troop'] = v})
             else
                 RF:InvokeServer('Troops','Place','Military Base',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
                     ['Position'] = Vector3.new(8.0040044784546, -0.042558670043945, -5.6546907424927)})
@@ -76,7 +91,7 @@ if game.PlaceId == 5591597781 and enabled then
         elseif RS.State.Map.Value == 'Autumn Falling' then
             list = {}
             for i,v in pairs(workspace.Towers:GetChildren()) do
-                if v:FindFirstChild("Type").Value == 'Ace Pilot' and v.Owner.Value == lp then
+                if v.Type.Value == 'Ace Pilot' and v.Owner.Value == lp then
                     table.insert(list,v)
                 end
             end
@@ -101,7 +116,7 @@ if game.PlaceId == 5591597781 and enabled then
         elseif RS.State.Map.Value == 'Nether' then
             list = {}
             for i,v in pairs(workspace.Towers:GetChildren()) do
-                if v:FindFirstChild("Type").Value == 'Ace Pilot' and v.Owner.Value == lp then
+                if v.Type.Value == 'Ace Pilot' and v.Owner.Value == lp then
                     table.insert(list,v)
                 end
             end
@@ -126,7 +141,7 @@ if game.PlaceId == 5591597781 and enabled then
         elseif RS.State.Map.Value == 'Wrecked Battlefield' then
             list = {}
             for i,v in pairs(workspace.Towers:GetChildren()) do
-                if v:FindFirstChild("Type").Value == 'Ace Pilot' and v.Owner.Value == lp then
+                if v.Type.Value == 'Ace Pilot' and v.Owner.Value == lp then
                     table.insert(list,v)
                 end
             end
