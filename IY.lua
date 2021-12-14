@@ -7066,6 +7066,7 @@ addcmd('cframefly', {'cfly'}, function(args, ME)
 		-- v1:Disable()
 		-- end
 		-- end
+		-- end
 		Human:ChangeState(11)
 		HRP.CFrame = CFrame.new(HRP.Position, HRP.Position + Camera.CFrame.LookVector) * (UIS:GetFocusedTextBox() and cf or CFrame.new((UIS:IsKeyDown(Keys.D) and SPI) or (UIS:IsKeyDown(Keys.A) and -SPI) or 0, (UIS:IsKeyDown(Keys.E) and SPI / 2) or (UIS:IsKeyDown(Keys.Q) and -SPI / 2) or 0, (UIS:IsKeyDown(Keys.S) and SPI) or (UIS:IsKeyDown(Keys.W) and -SPI) or 0))
 		-- for _, v in ipairs(Cache) do
