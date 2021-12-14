@@ -1,6 +1,4 @@
-if not game.PlaceId == 3260590327 or not game.PlaceId == 5591597781 then
-    return
-end
+if game.PlaceId ~= 3260590327 or not game.PlaceId ~= 5591597781 then return end
 
 getgenv().enabled = true
 
