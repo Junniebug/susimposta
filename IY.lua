@@ -6391,7 +6391,7 @@ addcmd('keepiy', {}, function(args, speaker)
 		KeepInfYield = true
 		updatesaves()
 	else
-		notify('Incompatible Exploit','Your exploit does not support this command (missing syn.queue_on_teleport)')
+		notify('Incompatible Exploit','Your exploit does not support this command (missing queue_on_teleport)')
 	end
 end)
 
@@ -6401,7 +6401,7 @@ addcmd('unkeepiy', {}, function(args, speaker)
 		KeepInfYield = false
 		updatesaves()
 	else
-		notify('Incompatible Exploit','Your exploit does not support this command (missing syn.queue_on_teleport)')
+		notify('Incompatible Exploit','Your exploit does not support this command (missing queue_on_teleport)')
 	end
 end)
 
@@ -6411,7 +6411,7 @@ addcmd('toggleunkeepiy', {}, function(args, speaker)
 		KeepInfYield = not KeepInfYield
 		updatesaves()
 	else
-		notify('Incompatible Exploit','Your exploit does not support this command (missing syn.queue_on_teleport)')
+		notify('Incompatible Exploit','Your exploit does not support this command (missing queue_on_teleport)')
 	end
 end)
 
