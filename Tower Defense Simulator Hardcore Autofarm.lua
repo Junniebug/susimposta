@@ -1,10 +1,10 @@
 if game.PlaceId ~= 3260590327 or game.PlaceId ~= 5591597781 then return end
 
+getgenv().enabled = true
+
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-
-getgenv().enabled = true
 
 local Players = game:service'Players'
 local lp = Players.LocalPlayer
@@ -30,7 +30,8 @@ if game.PlaceId == 3260590327 and enabled then
     repeat 
         wait()
         for i,v in pairs(workspace.Elevators:GetDescendants()) do
-            if v:FindFirstChild('Room') then
+            if v:FindFirstChild('Wires') then
+                v = v.Parent
                 if v.State.Players.Value >= 0 then
                     if v.State.Map.Title.Value == 'Crossroads'
                     or v.State.Map.Title.Value == 'Autumn Falling'
@@ -54,7 +55,7 @@ if game.PlaceId == 5591597781 and enabled then
     VIM:SendKeyEvent(false,'W',false,game)
     RF:InvokeServer('Difficulty', 'Vote', 'Insane')
     repeat
-        if lp.PlayerGui.GameGui.Results.IsLoaded then
+        if lp.PlayerGui.GameGui.Results.Content.IsLoaded then
             TeleportService:Teleport(GameData('Lobby'))
         end
         --wait()
