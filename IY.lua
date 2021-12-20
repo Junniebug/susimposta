@@ -7106,7 +7106,7 @@ addcmd('float', {'platform'},function(args, speaker)
 			local FloatValue = -3.5
 			if r15(speaker) then FloatValue = -3.65 end
 			Float.CFrame = getRoot(pchar).CFrame * CFrame.new(0,FloatValue,0)
-			notify('Float','Float Enabled (Q = down & E = up)')
+			--notify('Float','Float Enabled (Q = down & E = up)')
 			qUp = IYMouse.KeyUp:Connect(function(KEY)
 				if KEY == 'q' then
 					FloatValue = FloatValue + 0.5
@@ -7157,7 +7157,7 @@ end)
 addcmd('unfloat',{'nofloat','unplatform','noplatform'},function(args, speaker)
 	Floating = false
 	local pchar = speaker.Character
-	notify('Float','Float Disabled')
+	--notify('Float','Float Disabled')
 	if pchar:FindFirstChild(floatName) then
 		pchar:FindFirstChild(floatName):Destroy()
 	end
