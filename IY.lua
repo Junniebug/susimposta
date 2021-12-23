@@ -3,7 +3,7 @@ if IY_LOADED and not _G.IY_DEBUG == true then
 	return
 end
 
-pcall(function() getgenv().IY_LOADED  = true end)
+pcall(function() getgenv().IY_LOADED = true end)
 
 if not game:IsLoaded() then
 	game.Loaded:Wait()
@@ -11,7 +11,7 @@ if not game:IsLoaded() then
 	--notLoaded:Destroy()
 end
 
-ver = '5.4.1'
+ver = '5.4.2'
 
 Players = game:GetService("Players")
 
@@ -4553,6 +4553,7 @@ CMDs[#CMDs + 1] = {NAME = 'destroyheight / dh [num]', DESC = 'Sets FallenPartsDe
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'fullbright / fb (CLIENT)', DESC = 'Makes the map brighter / more visible'}
 CMDs[#CMDs + 1] = {NAME = 'loopfullbright / loopfb (CLIENT)', DESC = 'Makes the map brighter / more visible but looped'}
+CMDs[#CMDs + 1] = {NAME = 'unloopfullbright / unloopfb', DESC = 'Unloops fullbright'}
 CMDs[#CMDs + 1] = {NAME = 'ambient [num] [num] [num] (CLIENT)', DESC = 'Changes ambient'}
 CMDs[#CMDs + 1] = {NAME = 'day (CLIENT)', DESC = 'Changes the time to day for the client'}
 CMDs[#CMDs + 1] = {NAME = 'night (CLIENT)', DESC = 'Changes the time to night for the client'}
@@ -4731,7 +4732,7 @@ CMDs[#CMDs + 1] = {NAME = 'reloadplugin [name]', DESC = 'Reloads a plugin'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'breakloops / break (cmd loops)', DESC = 'Stops any cmd loops (;100^1^cmd)'}
 CMDs[#CMDs + 1] = {NAME = 'removecmd / deletecmd', DESC = 'Removes a command until the admin is reloaded'}
-CMDs[#CMDs + 1] = {NAME = 'tpwalk / teleportwalk', DESC = 'Teleports you to your move direction'}
+CMDs[#CMDs + 1] = {NAME = 'tpwalk / teleportwalk [num]', DESC = 'Teleports you to your move direction'}
 CMDs[#CMDs + 1] = {NAME = 'untpwalk / unteleportwalk', DESC = 'Undoes tpwalk / teleportwalk'}
 wait()
 
@@ -8416,11 +8417,11 @@ addcmd('replicationlag',{'backtrack'},function(args, speaker)
 end)
 
 addcmd('noprompts', {'nopurchaseprompts'}, function(args, speaker)
-	COREGUI.PurchasePromptApp.Enabled = false
+	COREGUI.PurchasePrompt.Enabled = false
 end)
 
 addcmd('showprompts', {'showpurchaseprompts'}, function(args, speaker)
-	COREGUI.PurchasePromptApp.Enabled = true
+	COREGUI.PurchasePrompt.Enabled = true
 end)
 
 addcmd('age',{},function(args, speaker)
@@ -11229,7 +11230,11 @@ addcmd('tpwalk', {'teleportwalk'}, function(args, speaker)
 	local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
 	while tpwalking and hb:Wait() and chr and hum and hum.Parent do
 		if hum.MoveDirection.Magnitude > 0 then
-			chr:TranslateBy(hum.MoveDirection)
+			if args[1] and isNumber(args[1]) then
+				chr:TranslateBy(hum.MoveDirection * tonumber(args[1]))
+			else
+				chr:TranslateBy(hum.MoveDirection)
+			end
 		end
 	end
 end)
