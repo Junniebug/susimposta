@@ -11,7 +11,7 @@ if not game:IsLoaded() then
 	--notLoaded:Destroy()
 end
 
-ver = '5.4.2'
+ver = '5.4.3'
 
 Players = game:GetService("Players")
 
@@ -4289,7 +4289,8 @@ end
 PlayerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
 local chatbox
 task.spawn(function()
-	if pcall(function() chatbox = PlayerGui:WaitForChild("Chat").Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end) then	
+	local success, result = pcall(function() chatbox = game.WaitForChild(PlayerGui, "Chat").Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end)
+	if success then
 		local function chatboxFocused()
 			canvasPos = CMDsF.CanvasPosition
 		end
@@ -4541,6 +4542,7 @@ CMDs[#CMDs + 1] = {NAME = 'bringpartclass / bpc [class name] (CLIENT)', DESC = '
 CMDs[#CMDs + 1] = {NAME = 'noclickdetectorlimits / nocdlimits', DESC = 'Sets all click detectors MaxActivationDistance to math.huge'}
 CMDs[#CMDs + 1] = {NAME = 'fireclickdetectors / firecd', DESC = 'Uses all click detectors in a game'}
 CMDs[#CMDs + 1] = {NAME = 'firetouchinterests / touchinterests', DESC = 'Uses all touchinterests in a game'}
+CMDs[#CMDs + 1] = {NAME = 'noproximitypromptlimits / nopplimits', DESC = 'Sets all proximity prompts MaxActivationDistance to math.huge'}
 CMDs[#CMDs + 1] = {NAME = 'fireproximityprompts / firepp', DESC = 'Uses all proximity prompts in a game'}
 CMDs[#CMDs + 1] = {NAME = 'simulationradius / simradius', DESC = 'Sets your SimulationRadius to math.huge'}
 CMDs[#CMDs + 1] = {NAME = 'nosimulationradius / nosimradius', DESC = 'Turns off the SimulationRadius loop and restores values to default'}
@@ -4607,6 +4609,7 @@ CMDs[#CMDs + 1] = {NAME = 'muteboombox [plr]', DESC = 'Mutes someones boombox'}
 CMDs[#CMDs + 1] = {NAME = 'unmuteboombox [plr]', DESC = 'Unmutes someones boombox'}
 CMDs[#CMDs + 1] = {NAME = 'unloopoof', DESC = 'Stops the oof chaos'}
 CMDs[#CMDs + 1] = {NAME = 'hitbox [plr] [size]', DESC = 'Expands the hitbox for players heads (default is 1)'}
+CMDs[#CMDs + 1] = {NAME = 'headsize [plr] [size]', DESC = 'Expands the head size for players Head (default is 1)'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'reset', DESC = 'Resets your character normally'}
 CMDs[#CMDs + 1] = {NAME = 'respawn', DESC = 'Respawns you'}
@@ -4734,6 +4737,7 @@ CMDs[#CMDs + 1] = {NAME = 'breakloops / break (cmd loops)', DESC = 'Stops any cm
 CMDs[#CMDs + 1] = {NAME = 'removecmd / deletecmd', DESC = 'Removes a command until the admin is reloaded'}
 CMDs[#CMDs + 1] = {NAME = 'tpwalk / teleportwalk [num]', DESC = 'Teleports you to your move direction'}
 CMDs[#CMDs + 1] = {NAME = 'untpwalk / unteleportwalk', DESC = 'Undoes tpwalk / teleportwalk'}
+CMDs[#CMDs + 1] = {NAME = 'notifyping / ping', DESC = 'Notify yourself your ping'}
 wait()
 
 for i = 1, #CMDs do
@@ -7669,6 +7673,20 @@ addcmd('antilag',{'boostfps','lowgraphics'},function(args, speaker)
 			v.Enabled = false
 		end
 	end
+	workspace.DescendantAdded:Connect(function(child)
+		coroutine.wrap(function()
+			if child:IsA('ForceField') then
+				game:GetService('RunService').Heartbeat:Wait()
+				child:Destroy()
+			elseif child:IsA('Sparkles') then
+				game:GetService('RunService').Heartbeat:Wait()
+				child:Destroy()
+			elseif child:IsA('Smoke') or child:IsA('Fire') then
+				game:GetService('RunService').Heartbeat:Wait()
+				child:Destroy()
+			end
+		end)()
+	end)
 end)
 
 addcmd('setfpscap', {'fpscap', 'maxfps'}, function(args, speaker)
@@ -7685,6 +7703,12 @@ addcmd('setfpscap', {'fpscap', 'maxfps'}, function(args, speaker)
 		return notify('Incompatible Exploit', 'Your exploit does not support this command (missing setfpscap)')
 	end
 end)
+
+addcmd('notifyping',{'ping'},function(args, speaker)
+	local Current_Ping = string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(), " ")[1] .. "ms"
+	notify("Ping", tostring(Current_Ping))
+end)
+
 
 addcmd('notify',{},function(args, speaker)
 	notify(getstring(1))
@@ -10365,11 +10389,19 @@ addcmd('fireclickdetectors',{'firecd','firecds'},function(args, speaker)
 	end
 end)
 
+addcmd('noproximitypromptlimits',{'nopplimits','removepplimits'},function(args, speaker)
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v:IsA("ProximityPrompt") then
+			v.MaxActivationDistance = math.huge
+		end
+	end
+end)
+
 addcmd('fireproximityprompts',{'firepp'},function(args, speaker)
 	if fireproximityprompt then
-		for i, v in pairs(workspace:GetDescendants()) do
-			if v:FindFirstChild("ProximityPrompt") then
-				fireproximityprompt(v.ProximityPrompt)
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v:IsA("ProximityPrompt") then
+				fireproximityprompt(v)
 			end
 		end
 	else
@@ -11538,10 +11570,10 @@ addcmd('unhovername',{'nohovername'},function(args, speaker)
 	end
 end)
 
-addcmd('hitbox',{},function(args, speaker)
+addcmd('headsize',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players) do
-		if Players[v]~= speaker and Players[v].Character:FindFirstChild('Head') then
+		if Players[v] ~= speaker and Players[v].Character:FindFirstChild('Head') then
 			local sizeArg = tonumber(args[2])
 			local Size = Vector3.new(sizeArg,sizeArg,sizeArg)
 			local Head = Players[v].Character:FindFirstChild('Head')
@@ -11550,6 +11582,26 @@ addcmd('hitbox',{},function(args, speaker)
 					Head.Size = Vector3.new(2,1,1)
 				else
 					Head.Size = Size
+				end
+			end
+		end
+	end
+end)
+
+addcmd('hitbox',{},function(args, speaker)
+	local players = getPlayer(args[1], speaker)
+	for i,v in pairs(players) do
+		if Players[v] ~= speaker and Players[v].Character:FindFirstChild('HumanoidRootPart') then
+			local sizeArg = tonumber(args[2])
+			local Size = Vector3.new(sizeArg,sizeArg,sizeArg)
+			local Root = Players[v].Character:FindFirstChild('HumanoidRootPart')
+			if Root:IsA("BasePart") then
+				if not args[2] or sizeArg == 1 then
+					Root.Size = Vector3.new(2,1,1)
+					Root.Transparency = 0.4
+				else
+					Root.Size = Size
+					Root.Transparency = 0.4
 				end
 			end
 		end
