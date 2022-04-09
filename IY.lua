@@ -207,6 +207,7 @@ Holder.BorderSizePixel = 0
 Holder.Position = UDim2.new(1, -250, 1, -220)
 Holder.Size = UDim2.new(0, 250, 0, 220)
 Holder.ZIndex = 10
+Holder.Visible = false
 table.insert(shade2,Holder)
 
 Title.Name = "Title"
@@ -220,7 +221,6 @@ Title.TextSize = 18
 Title.Text = "Infinite Yield FE v"..ver
 Title.TextColor3 = Color3.new(1, 1, 1)
 Title.ZIndex = 10
-Title.Visible = false
 table.insert(shade1,Title)
 table.insert(text1,Title)
 
@@ -3208,7 +3208,7 @@ function maximizeHolder()
 	end
 end
 
-local minimizeNum = -20
+local minimizeNum = 0 -- -20
 function minimizeHolder()
 	if StayOpen == false then
 		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
@@ -3379,6 +3379,7 @@ end
 
 IYMouse.KeyDown:Connect(function(Key)
 	if (Key==prefix) then
+		Holder.Visible = true
 		Cmdbar:CaptureFocus()
 		spawn(function()
 			repeat Cmdbar.Text = '' until Cmdbar.Text == ''
@@ -12300,8 +12301,9 @@ task.spawn(function()
 		end
 	end
 end)
---[[
+
 wait()
+--[[
 Credits:TweenPosition(UDim2.new(0,0,0.9,0), "Out", "Quart", 0.2)
 Logo:TweenSizeAndPosition(UDim2.new(0,175,0,175), UDim2.new(0,37,0,45), "Out", "Quart", 0.3)
 wait(1)
