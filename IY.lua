@@ -1,17 +1,18 @@
 if IY_LOADED and not _G.IY_DEBUG == true then
-	--error("Infinite Yield is already running!",0)
+	error("Infinite Yield is already running!",0)
 	return
 end
 
 pcall(function() getgenv().IY_LOADED = true end)
 
 if not game:IsLoaded() then
+	--local notLoaded = Instance.new("Message", game:GetService("CoreGui"))
+	--notLoaded.Text = 'Infinite Yield is waiting for the game to load'
 	game.Loaded:Wait()
-	local notLoaded = Instance.new("Message", game:GetService("CoreGui"))
 	--notLoaded:Destroy()
 end
 
-ver = '5.6'
+ver = '5.7'
 
 Players = game:GetService("Players")
 
@@ -44,6 +45,9 @@ PinImage = Instance.new("ImageLabel")
 Tooltip = Instance.new("Frame")
 Title_3 = Instance.new("TextLabel")
 Description = Instance.new("TextLabel")
+IntroBackground = Instance.new("Frame")
+Logo = Instance.new("ImageLabel")
+Credits = Instance.new("TextBox")
 KeybindsFrame = Instance.new("Frame")
 Close = Instance.new("TextButton")
 Add = Instance.new("TextButton")
@@ -184,7 +188,7 @@ elseif COREGUI:FindFirstChild('RobloxGui') then
 else
 	local Main = Instance.new("ScreenGui")
 	Main.Name = randomString()
-	lMain.Parent = COREGUI
+	Main.Parent = COREGUI
 	PARENT = Main
 end
 
@@ -203,7 +207,6 @@ Holder.BorderSizePixel = 0
 Holder.Position = UDim2.new(1, -250, 1, -220)
 Holder.Size = UDim2.new(0, 250, 0, 220)
 Holder.ZIndex = 10
-Holder.Visible = false
 table.insert(shade2,Holder)
 
 Title.Name = "Title"
@@ -217,6 +220,7 @@ Title.TextSize = 18
 Title.Text = "Infinite Yield FE v"..ver
 Title.TextColor3 = Color3.new(1, 1, 1)
 Title.ZIndex = 10
+Title.Visible = false
 table.insert(shade1,Title)
 table.insert(text1,Title)
 
@@ -568,6 +572,37 @@ Description.TextTransparency = 0.1
 Description.TextWrapped = true
 Description.ZIndex = 10
 table.insert(text1,Description)
+
+IntroBackground.Name = "IntroBackground"
+IntroBackground.Parent = Holder
+IntroBackground.Active = true
+IntroBackground.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
+IntroBackground.BorderSizePixel = 0
+IntroBackground.Position = UDim2.new(0, 0, 0, 45)
+IntroBackground.Size = UDim2.new(0, 250, 0, 175)
+IntroBackground.ZIndex = 10
+
+Logo.Name = "Logo"
+Logo.Parent = Holder
+Logo.BackgroundTransparency = 1
+Logo.BorderSizePixel = 0
+Logo.Position = UDim2.new(0, 125, 0, 127)
+Logo.Size = UDim2.new(0, 10, 0, 10)
+Logo.Image = "rbxassetid://1352543873"
+Logo.ImageTransparency = 0
+Logo.ZIndex = 10
+
+Credits.Name = "Credits"
+Credits.Parent = Holder
+Credits.BackgroundTransparency = 1
+Credits.BorderSizePixel = 0
+Credits.Position = UDim2.new(0, 0, 0.9, 30)
+Credits.Size = UDim2.new(0, 250, 0, 20)
+Credits.Font = Enum.Font.SourceSansLight
+Credits.FontSize = Enum.FontSize.Size18
+Credits.Text = "Edge // Zwolf // Moon // Toon"
+Credits.TextColor3 = Color3.new(1, 1, 1)
+Credits.ZIndex = 10
 
 KeybindsFrame.Name = "KeybindsFrame"
 KeybindsFrame.Parent = Settings
@@ -2070,6 +2105,7 @@ UserInputService = game:GetService("UserInputService")
 local sethidden = sethiddenproperty or set_hidden_property or set_hidden_prop
 local gethidden = gethiddenproperty or get_hidden_property or get_hidden_prop
 local setsimulation = setsimulationradius or set_simulation_radius
+local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
 
 function writefileExploit()
 	if writefile then
@@ -2916,7 +2952,7 @@ currentScroll = Color3.fromRGB(78,78,79)
 defaultsettings = {
 	prefix = ';';
 	StayOpen = false;
-	keepIY = false;
+	keepIY = true;
 	logsEnabled = false;
 	jLogsEnabled = false;
 	aliases = {};
@@ -2934,7 +2970,7 @@ defaultsettings = {
 
 defaults = game:GetService("HttpService"):JSONEncode(defaultsettings)
 
-local KeepInfYield = false
+local KeepInfYield = true
 nosaves = false
 
 local fileExtension = "iy"
@@ -2957,7 +2993,7 @@ function saves()
 					local json = game:GetService("HttpService"):JSONDecode(readfile("IY_FE." .. fileExtension))
 					if json.prefix ~= nil then prefix = json.prefix else prefix = ';' end
 					if json.StayOpen ~= nil then StayOpen = json.StayOpen else StayOpen = false end
-					if json.keepIY ~= nil then KeepInfYield = json.keepIY else KeepInfYield = false end
+					if json.keepIY ~= nil then KeepInfYield = json.keepIY else KeepInfYield = true end
 					if json.logsEnabled ~= nil then logsEnabled = json.logsEnabled else logsEnabled = false end
 					if json.jLogsEnabled ~= nil then jLogsEnabled = json.jLogsEnabled else jLogsEnabled = false end
 					if json.aliases ~= nil then aliases = json.aliases else aliases = {} end
@@ -2994,7 +3030,7 @@ function saves()
 				nosaves = true
 				prefix = ';'
 				StayOpen = false
-				KeepInfYield = false
+				KeepInfYield = true
 				logsEnabled = false
 				jLogsEnabled = false
 				aliases = {}
@@ -3084,7 +3120,7 @@ function saves()
 	else
 		prefix = ';'
 		StayOpen = false
-		KeepInfYield = false
+		KeepInfYield = true
 		logsEnabled = false
 		jLogsEnabled = false
 		aliases = {}
@@ -3116,7 +3152,7 @@ function updatesaves()
 			currentScroll = {currentScroll.R,currentScroll.G,currentScroll.B};
 			eventBinds = eventEditor.SaveData()
 		}
-		writefileCooldown("IY_FE" .. fileExtension, game:GetService("HttpService"):JSONEncode(update))
+		writefileCooldown("IY_FE." .. fileExtension, game:GetService("HttpService"):JSONEncode(update))
 	end
 end
 
@@ -3172,13 +3208,12 @@ function maximizeHolder()
 	end
 end
 
-local minimizeNum = 0
+local minimizeNum = -20
 function minimizeHolder()
 	if StayOpen == false then
 		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
 	end
 end
-minimizeHolder()
 
 function cmdbarHolder()
 	if StayOpen == false then
@@ -3344,7 +3379,6 @@ end
 
 IYMouse.KeyDown:Connect(function(Key)
 	if (Key==prefix) then
-	Holder.Visible = true
 		Cmdbar:CaptureFocus()
 		spawn(function()
 			repeat Cmdbar.Text = '' until Cmdbar.Text == ''
@@ -4615,6 +4649,7 @@ CMDs[#CMDs + 1] = {NAME = 'unfriend [plr]', DESC = 'Unfriends certain players'}
 CMDs[#CMDs + 1] = {NAME = 'headsit [plr]', DESC = 'Sit on a players head'}
 CMDs[#CMDs + 1] = {NAME = 'walkto / follow [plr]', DESC = 'Follow a player'}
 CMDs[#CMDs + 1] = {NAME = 'pathfindwalkto / pathfindfollow [plr]', DESC = 'Follow a player using pathfinding'}
+CMDs[#CMDs + 1] = {NAME = 'pathfindwalktowaypoint / pathfindwalktowp [waypoint]', DESC = 'Walk to a waypoint using pathfinding'}
 CMDs[#CMDs + 1] = {NAME = 'unwalkto / unfollow', DESC = 'Stops following a player'}
 CMDs[#CMDs + 1] = {NAME = 'stareat / stare [plr]', DESC = 'Stare / look at a player'}
 CMDs[#CMDs + 1] = {NAME = 'unstareat / unstare [plr]', DESC = 'Disables stareat'}
@@ -4637,7 +4672,7 @@ CMDs[#CMDs + 1] = {NAME = 'unloopoof', DESC = 'Stops the oof chaos'}
 CMDs[#CMDs + 1] = {NAME = 'muteboombox [plr]', DESC = 'Mutes someones boombox'}
 CMDs[#CMDs + 1] = {NAME = 'unmuteboombox [plr]', DESC = 'Unmutes someones boombox'}
 CMDs[#CMDs + 1] = {NAME = 'unloopoof', DESC = 'Stops the oof chaos'}
-CMDs[#CMDs + 1] = {NAME = 'hitbox [plr] [size]', DESC = 'Expands the hitbox for players heads (default is 1)'}
+CMDs[#CMDs + 1] = {NAME = 'hitbox [plr] [size]', DESC = 'Expands the hitbox for players HumanoidRootPart (default is 1)'}
 CMDs[#CMDs + 1] = {NAME = 'headsize [plr] [size]', DESC = 'Expands the head size for players Head (default is 1)'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'reset', DESC = 'Resets your character normally'}
@@ -5123,8 +5158,9 @@ SpecialPlayerCases = {
 		return returns
 	end,
 	["random"] = function(speaker,args,currentList)
-		local players = currentList
-		table.remove(players, speaker)
+		local players = Players:GetPlayers()
+		local localplayer = Players.LocalPlayer
+		table.remove(players, table.find(players, localplayer))
 		return {players[math.random(1,#players)]}
 	end,
 	["%%(.+)"] = function(speaker,args)
@@ -5578,7 +5614,7 @@ function ESP(plr)
 				end)
 				local function espLoop()
 					if COREGUI:FindFirstChild(plr.Name..'_ESP') then
-						if plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid") and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+						if plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid") and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 							local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - getRoot(plr.Character).Position).magnitude)
 							TextLabel.Text = 'Name: '..plr.Name..' | Health: '..round(plr.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | Studs: '..pos
 						end
@@ -5731,7 +5767,7 @@ function Locate(plr)
 				end)
 				local function lcLoop()
 					if COREGUI:FindFirstChild(plr.Name..'_LC') then
-						if plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid") and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+						if plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid") and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 							local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - getRoot(plr.Character).Position).magnitude)
 							TextLabel.Text = 'Name: '..plr.Name..' | Health: '..round(plr.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | Studs: '..pos
 						end
@@ -6157,6 +6193,7 @@ IYMouse.Button1Down:Connect(function()
 end)
 
 PluginsGUI = PluginEditor.background
+
 function addPlugin(name)
 	if name:lower() == 'plugin file name' or name:lower() == 'iy_fe.' .. fileExtension or name == 'iy_fe' then
 		notify('Plugin Error','Please enter a valid plugin')
@@ -6349,13 +6386,10 @@ Close_4.MouseButton1Click:Connect(function()
 	PluginsFrame:TweenPosition(UDim2.new(0, 0, 0, 175), "InOut", "Quart", 0.5, true, nil)
 end)
 
-game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(State)
+Players.LocalPlayer.OnTeleport:Connect(function(State)
 	if State == Enum.TeleportState.Started then
-		if KeepInfYield == true then
-			local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
-			if queueteleport then
-				queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
-			end
+		if KeepInfYield and queueteleport then
+			queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
 		end
 	end
 end)
@@ -6402,7 +6436,7 @@ addcmd('clraliases',{},function(args, speaker)
 end)
 
 addcmd('discord', {'support', 'help'}, function(args, speaker)
-	local http = game:GetService('HttpService') 
+	local rhttp = game:GetService('HttpService') 
 	if toClipboard then
 		toClipboard('https://discord.com/invite/dYHag43eeU')
 		notify('Discord Invite', 'Copied to clipboard!\ndiscord.gg/dYHag43eeU')
@@ -6418,9 +6452,9 @@ addcmd('discord', {'support', 'help'}, function(args, speaker)
 				['Content-Type'] = 'application/json',
 				Origin = 'https://discord.com'
 			},
-			Body = http:JSONEncode({
+			Body = rhttp:JSONEncode({
 				cmd = 'INVITE_BROWSER',
-				nonce = http:GenerateGUID(false),
+				nonce = rhttp:GenerateGUID(false),
 				args = {code = 'dYHag43eeU'}
 			})
 		})
@@ -6428,7 +6462,6 @@ addcmd('discord', {'support', 'help'}, function(args, speaker)
 end)
 
 addcmd('keepiy', {}, function(args, speaker)
-	local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
 	if queueteleport then
 		KeepInfYield = true
 		updatesaves()
@@ -6438,7 +6471,6 @@ addcmd('keepiy', {}, function(args, speaker)
 end)
 
 addcmd('unkeepiy', {}, function(args, speaker)
-	local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
 	if queueteleport then
 		KeepInfYield = false
 		updatesaves()
@@ -6448,7 +6480,6 @@ addcmd('unkeepiy', {}, function(args, speaker)
 end)
 
 addcmd('toggleunkeepiy', {}, function(args, speaker)
-	local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport
 	if queueteleport then
 		KeepInfYield = not KeepInfYield
 		updatesaves()
@@ -6903,7 +6934,7 @@ addcmd('noclip',{},function(args, speaker)
 	end
 	Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
 	if args[1] and args[1] == 'nonotify' then return end
-	--notify('Noclip','Noclip Enabled')
+	notify('Noclip','Noclip Enabled')
 end)
 
 addcmd('clip',{'unnoclip'},function(args, speaker)
@@ -6912,7 +6943,7 @@ addcmd('clip',{'unnoclip'},function(args, speaker)
 	end
 	Clip = true
 	if args[1] and args[1] == 'nonotify' then return end
-	--notify('Noclip','Noclip Disabled')
+	notify('Noclip','Noclip Disabled')
 end)
 
 addcmd('togglenoclip',{},function(args, speaker)
@@ -6928,7 +6959,7 @@ QEfly = true
 iyflyspeed = 1
 vehicleflyspeed = 1
 function sFLY(vfly)
-	repeat wait() until Players.LocalPlayer and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+	repeat wait() until Players.LocalPlayer and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 	repeat wait() until IYMouse
 	if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
 
@@ -7080,6 +7111,7 @@ addcmd('togglefly',{},function(args, speaker)
 		sFLY()
 	end
 end)
+
 CFspeed = 50
 addcmd('cframefly', {'cfly'}, function(args, speaker)
 	--Full credit to peyton#9148
@@ -7131,7 +7163,7 @@ addcmd('float', {'platform'},function(args, speaker)
 			local FloatValue = -3.5
 			if r15(speaker) then FloatValue = -3.65 end
 			Float.CFrame = getRoot(pchar).CFrame * CFrame.new(0,FloatValue,0)
-			--notify('Float','Float Enabled (Q = down & E = up)')
+			notify('Float','Float Enabled (Q = down & E = up)')
 			qUp = IYMouse.KeyUp:Connect(function(KEY)
 				if KEY == 'q' then
 					FloatValue = FloatValue + 0.5
@@ -7182,7 +7214,7 @@ end)
 addcmd('unfloat',{'nofloat','unplatform','noplatform'},function(args, speaker)
 	Floating = false
 	local pchar = speaker.Character
-	--notify('Float','Float Disabled')
+	notify('Float','Float Disabled')
 	if pchar:FindFirstChild(floatName) then
 		pchar:FindFirstChild(floatName):Destroy()
 	end
@@ -7746,12 +7778,6 @@ addcmd('setfpscap', {'fpscap', 'maxfps'}, function(args, speaker)
 		return notify('Incompatible Exploit', 'Your exploit does not support this command (missing setfpscap)')
 	end
 end)
-
-addcmd('notifyping',{'ping'},function(args, speaker)
-	local Current_Ping = string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(), " ")[1] .. "ms"
-	notify("Ping", tostring(Current_Ping))
-end)
-
 
 addcmd('notify',{},function(args, speaker)
 	notify(getstring(1))
@@ -8360,7 +8386,6 @@ addcmd('noclipcam', {'nccam'}, function(args, speaker)
 	end
 end)
 
-
 addcmd('maxzoom',{},function(args, speaker)
 	speaker.CameraMaxZoomDistance = args[1]
 end)
@@ -8661,7 +8686,7 @@ addcmd('vehiclegoto',{'vgoto','vtp','vehicletp'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players)do
 		if Players[v].Character ~= nil then
-			local seat = speaker.Character:FindFirstChildOfClass("Humanoid").SeatPart
+			local seat = speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart
 			local vehicleModel = seat.Parent
 			repeat
 				if vehicleModel.ClassName ~= "Model" then
@@ -8695,7 +8720,7 @@ end)
 local vnoclipParts = {}
 addcmd('vehiclenoclip',{'vnoclip'},function(args, speaker)
 	vnoclipParts = {}
-	local seat = speaker.Character:FindFirstChildOfClass("Humanoid").SeatPart
+	local seat = speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart
 	local vehicleModel = seat.Parent
 	repeat
 		if vehicleModel.ClassName ~= "Model" then
@@ -8732,7 +8757,7 @@ addcmd('clientbring',{'cbring'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players)do
 		if Players[v].Character ~= nil then
-			if Players[v].Character:FindFirstChildOfClass("Humanoid") then
+			if Players[v].Character:FindFirstChildOfClass('Humanoid') then
 				Players[v].Character:FindFirstChildOfClass('Humanoid').Sit = false
 			end
 			wait()
@@ -8797,7 +8822,44 @@ addcmd('walkto',{'follow'},function(args, speaker)
 			end
 			walkto = true
 			repeat wait()
-				speaker.Character:FindFirstChildOfClass("Humanoid"):MoveTo(getRoot(Players[v].Character).Position)
+				speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(getRoot(Players[v].Character).Position)
+			until Players[v].Character == nil or not getRoot(Players[v].Character) or walkto == false
+		end
+	end
+end)
+
+addcmd('pathfindwalkto',{'pathfindfollow'},function(args, speaker)
+	walkto = false
+	wait()
+	local players = getPlayer(args[1], speaker)
+	local PathService = game:GetService("PathfindingService")
+	local hum = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+	local path = PathService:CreatePath()
+	for i,v in pairs(players)do
+		if Players[v].Character ~= nil then
+			if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+				speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+				wait(.1)
+			end
+			walkto = true
+			repeat wait()
+				local success, response = pcall(function()
+					path:ComputeAsync(getRoot(speaker.Character).Position, getRoot(Players[v].Character).Position)
+					local waypoints = path:GetWaypoints()
+					local distance 
+					for waypointIndex, waypoint in pairs(waypoints) do
+						local waypointPosition = waypoint.Position
+						hum:MoveTo(waypointPosition)
+						repeat 
+							distance = (waypointPosition - hum.Parent.PrimaryPart.Position).magnitude
+							wait()
+						until
+						distance <= 5
+					end	 
+				end)
+				if not success then
+					speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(getRoot(Players[v].Character).Position)
+				end
 			until Players[v].Character == nil or not getRoot(Players[v].Character) or walkto == false
 		end
 	end
@@ -8868,43 +8930,6 @@ addcmd('pathfindwalktowaypoint',{'pathfindwalktowp'},function(args, speaker)
 					end
 				until not speaker.Character or waypointwalkto == false
 			end
-		end
-	end
-end)
-
-addcmd('pathfindwalkto',{'pathfindfollow'},function(args, speaker)
-	walkto = false
-	wait()
-	local players = getPlayer(args[1], speaker)
-	local PathService = game:GetService("PathfindingService")
-	local hum = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-	local path = PathService:CreatePath()
-	for i,v in pairs(players)do
-		if Players[v].Character ~= nil then
-			if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
-				speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
-				wait(.1)
-			end
-			walkto = true
-			repeat wait()
-				local success, response = pcall(function()
-					path:ComputeAsync(getRoot(speaker.Character).Position, getRoot(Players[v].Character).Position)
-					local waypoints = path:GetWaypoints()
-					local distance 
-					for waypointIndex, waypoint in pairs(waypoints) do
-						local waypointPosition = waypoint.Position
-						hum:MoveTo(waypointPosition)
-						repeat 
-							distance = (waypointPosition - hum.Parent.PrimaryPart.Position).magnitude
-							wait()
-						until
-						distance <= 5
-					end	 
-				end)
-				if not success then
-					speaker.Character:FindFirstChildOfClass("Humanoid"):MoveTo(getRoot(Players[v].Character).Position)
-				end
-			until Players[v].Character == nil or not getRoot(Players[v].Character) or walkto == false
 		end
 	end
 end)
@@ -9293,7 +9318,7 @@ addcmd('dance', {}, function(args, speaker)
 		local dances = {"27789359", "30196114", "248263260", "45834924", "33796059", "28488254", "52155728"}
 		local animation = Instance.new("Animation")
 		animation.AnimationId = "rbxassetid://" .. dances[math.random(1, #dances)]
-		animTrack = speaker.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(animation)
+		animTrack = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(animation)
 		animTrack:Play()
 	else
 		notify('R6 Required', 'This command requires the r6 rig type')
@@ -9334,7 +9359,7 @@ addcmd('nohead',{'rhead','headless'},function(args, speaker)
 		-- Full credit to Thomas_Cornez#0272 @Discord
 		local lplr = Players.LocalPlayer
 		local char = lplr.Character
-		local rig = tostring(char:FindFirstChildOfClass("Humanoid").RigType) == "Enum.HumanoidRigType.R6" and 1 or tostring(char:FindFirstChildOfClass("Humanoid").RigType) == "Enum.HumanoidRigType.R15" and 2
+		local rig = tostring(char:FindFirstChildOfClass('Humanoid').RigType) == "Enum.HumanoidRigType.R6" and 1 or tostring(char:FindFirstChildOfClass('Humanoid').RigType) == "Enum.HumanoidRigType.R15" and 2
 
 		local speaker = Players.LocalPlayer
 
@@ -9351,8 +9376,8 @@ addcmd('nohead',{'rhead','headless'},function(args, speaker)
 
 		lplr.Character = test
 		wait(2)
-		char:FindFirstChildOfClass("Humanoid").Animator.Parent = humanoidanimation
-		char:FindFirstChildOfClass("Humanoid"):Destroy()
+		char:FindFirstChildOfClass('Humanoid').Animator.Parent = humanoidanimation
+		char:FindFirstChildOfClass('Humanoid'):Destroy()
 
 		char.Head:Destroy()
 		wait(5)
@@ -9443,25 +9468,25 @@ addcmd('sitwalk',{},function(args, speaker)
 	anims.run:FindFirstChildOfClass("Animation").AnimationId = sit
 	anims.jump:FindFirstChildOfClass("Animation").AnimationId = sit
 	if r15(speaker) then
-		speaker.Character:FindFirstChildOfClass("Humanoid").HipHeight = 0.5
+		speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight = 0.5
 	else
-		speaker.Character:FindFirstChildOfClass("Humanoid").HipHeight = -1.5
+		speaker.Character:FindFirstChildOfClass('Humanoid').HipHeight = -1.5
 	end
 end)
 
 function noSitFunc()
 	wait()
-	if Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Sit then
-		Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Sit = false
+	if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').Sit then
+		Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').Sit = false
 	end
 end
 addcmd('nosit',{},function(args, speaker)
 	if noSit then noSit:Disconnect() nositDied:Disconnect() end
-	noSit = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):GetPropertyChangedSignal("Sit"):Connect(noSitFunc)
+	noSit = Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):GetPropertyChangedSignal("Sit"):Connect(noSitFunc)
 	local function nositDiedFunc()
-		repeat wait() until speaker.Character ~= nil and speaker.Character:FindFirstChildOfClass('Humanoid')
+		repeat wait() until speaker.Character ~= nil and speaker.Character:FindFirstChildOfClass("Humanoid")
 		noSit:Disconnect()
-		noSit = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):GetPropertyChangedSignal("Sit"):Connect(noSitFunc)
+		noSit = Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):GetPropertyChangedSignal("Sit"):Connect(noSitFunc)
 	end
 	nositDied = speaker.CharacterAdded:Connect(nositDiedFunc)
 end)
@@ -9600,7 +9625,7 @@ addcmd('spasm',{},function(args, speaker)
 		local AnimationId = "33796059"
 		SpasmAnim = Instance.new("Animation")
 		SpasmAnim.AnimationId = "rbxassetid://"..AnimationId
-		Spasm = pchar:FindFirstChildOfClass("Humanoid"):LoadAnimation(SpasmAnim)
+		Spasm = pchar:FindFirstChildOfClass('Humanoid'):LoadAnimation(SpasmAnim)
 		Spasm:Play()
 		Spasm:AdjustSpeed(99)
 	else
@@ -9618,7 +9643,7 @@ addcmd('headthrow',{},function(args, speaker)
 		local AnimationId = "35154961"
 		local Anim = Instance.new("Animation")
 		Anim.AnimationId = "rbxassetid://"..AnimationId
-		local k = speaker.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
+		local k = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(Anim)
 		k:Play(0)
 		k:AdjustSpeed(1)
 	else
@@ -9632,7 +9657,7 @@ addcmd('animation',{'anim'},function(args, speaker)
 		local AnimationId = tostring(args[1])
 		local Anim = Instance.new("Animation")
 		Anim.AnimationId = "rbxassetid://"..AnimationId
-		local k = pchar:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
+		local k = pchar:FindFirstChildOfClass('Humanoid'):LoadAnimation(Anim)
 		k:Play()
 		if args[2] then
 			k:AdjustSpeed(tostring(args[2]))
@@ -9663,12 +9688,12 @@ addcmd('copyanimation',{'copyanim','copyemote'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for _,v in ipairs(players)do
 		local char = Players[v].Character
-		for _, v1 in pairs(speaker.Character:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
+		for _, v1 in pairs(speaker.Character:FindFirstChildOfClass('Humanoid'):GetPlayingAnimationTracks()) do
 			v1:Stop()
 		end
-		for _, v1 in pairs(Players[v].Character:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
+		for _, v1 in pairs(Players[v].Character:FindFirstChildOfClass('Humanoid'):GetPlayingAnimationTracks()) do
 			if not string.find(v1.Animation.AnimationId, "507768375") then
-				local ANIM = speaker.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(v1.Animation)
+				local ANIM = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(v1.Animation)
 				ANIM:Play(.1, 1, v1.Speed)
 				ANIM.TimePosition = v1.TimePosition
 				task.spawn(function()
@@ -10187,7 +10212,7 @@ addcmd('blockhead',{},function(args, speaker)
 end)
 
 addcmd('blockhats',{},function(args, speaker)
-	for _,v in pairs(speaker.Character:FindFirstChildOfClass("Humanoid"):GetAccessories()) do
+	for _,v in pairs(speaker.Character:FindFirstChildOfClass('Humanoid'):GetAccessories()) do
 		for i,c in pairs(v:GetDescendants()) do
 			if c:IsA("SpecialMesh") then
 				c:Destroy()
@@ -10276,10 +10301,10 @@ addcmd('carpet',{},function(args, speaker)
 		execCmd('uncarpet')
 		wait()
 		local players = getPlayer(args[1], speaker)
-		for i,v in pairs(players) do
+		for i,v in pairs(players)do
 			carpetAnim = Instance.new("Animation")
 			carpetAnim.AnimationId = "rbxassetid://282574440"
-			carpet = speaker.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(carpetAnim)
+			carpet = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(carpetAnim)
 			carpet:Play(.1, 1, 1)
 			local carpetplr = Players[v].Name
 			carpetDied = speaker.Character:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
@@ -10484,6 +10509,11 @@ addcmd('uninstantproximityprompts',{'uninstantpp'},function(args, speaker)
 	end
 end)
 
+addcmd('notifyping',{'ping'},function(args, speaker)
+	local Current_Ping = string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(), " ")[1] .. "ms"
+	notify("Ping", tostring(Current_Ping))
+end)
+
 simRadius = false
 addcmd('simulationradius',{'simradius'},function(args, speaker)
 	if sethidden then		
@@ -10646,7 +10676,7 @@ end)
 addcmd('hatspin',{'spinhats'},function(args, speaker)
 	execCmd('unhatspin')
 	wait(.5)
-	for _,v in pairs(speaker.Character:FindFirstChildOfClass("Humanoid"):GetAccessories()) do
+	for _,v in pairs(speaker.Character:FindFirstChildOfClass('Humanoid'):GetAccessories()) do
 		local keep = Instance.new("BodyPosition") keep.Name = randomString() keep.Parent = v.Handle
 		local spin = Instance.new("BodyAngularVelocity") spin.Name = randomString() spin.Parent = v.Handle
 		v.Handle:FindFirstChildOfClass("Weld"):Destroy()
@@ -10671,7 +10701,7 @@ addcmd('unhatspin',{'unspinhats'},function(args, speaker)
 	if spinhats then
 		spinhats:Disconnect()
 	end
-	for _,v in pairs(speaker.Character:FindFirstChildOfClass("Humanoid"):GetAccessories()) do
+	for _,v in pairs(speaker.Character:FindFirstChildOfClass('Humanoid'):GetAccessories()) do
 		v.Parent = workspace
 		for i,c in pairs(v.Handle) do
 			if c:IsA("BodyPosition") or c:IsA("BodyAngularVelocity") then
@@ -10694,7 +10724,7 @@ addcmd('clearhats',{'cleanhats'},function(args, speaker)
 				table.insert(Hats,x)
 			end
 		end
-		for _,getacc in next, Character:FindFirstChild("Humanoid"):GetAccessories() do
+		for _,getacc in next, Character:FindFirstChildOfClass('Humanoid'):GetAccessories() do
 			getacc:Destroy()
 		end
 		for i = 1,#Hats do
@@ -10995,7 +11025,7 @@ addcmd('enablestate',{},function(args, speaker)
 	if not tonumber(x) then
 		local x = Enum.HumanoidStateType[args[1]]
 	end
-	speaker.Character:FindFirstChildOfClass('Humanoid'):SetStateEnabled(x, true)
+	speaker.Character:FindFirstChildOfClass("Humanoid"):SetStateEnabled(x, true)
 end)
 
 addcmd('disablestate',{},function(args, speaker)
@@ -11003,7 +11033,7 @@ addcmd('disablestate',{},function(args, speaker)
 	if not tonumber(x) then
 		local x = Enum.HumanoidStateType[args[1]]
 	end
-	speaker.Character:FindFirstChildOfClass('Humanoid'):SetStateEnabled(x, false)
+	speaker.Character:FindFirstChildOfClass("Humanoid"):SetStateEnabled(x, false)
 end)
 
 addcmd('drophats',{'drophat'},function(args, speaker)
@@ -11015,8 +11045,14 @@ addcmd('drophats',{'drophat'},function(args, speaker)
 end)
 
 addcmd('deletehats',{'nohats','rhats'},function(args, speaker)
-	if speaker.Character then
-		speaker.Character:FindFirstChildOfClass('Humanoid'):RemoveAccessories()
+	for i,v in next, speaker.Character:GetDescendants() do
+		if v:IsA("Accessory") then
+			for i,p in next, v:GetDescendants() do
+				if p:IsA("Weld") then
+					p:Destroy()
+				end
+			end
+		end
 	end
 end)
 
@@ -11156,7 +11192,6 @@ local flingtbl = {}
 addcmd('fling',{},function(args, speaker)
 	local rootpart = getRoot(speaker.Character)
 	if not rootpart then return end
-	flingtbl.OldPos = rootpart.CFrame
 	flingtbl.OldVelocity = rootpart.Velocity
 	local bv = Instance.new("BodyAngularVelocity")
 	flingtbl.bv = bv
@@ -11185,6 +11220,7 @@ end)
 addcmd('unfling',{},function(args, speaker)
 	local rootpart = getRoot(speaker.Character)
 	if not rootpart then return end
+	flingtbl.OldPos = rootpart.CFrame
 	local Char = speaker.Character:GetChildren()
 	if flingtbl.bv ~= nil then
 		flingtbl.bv:Destroy()
@@ -11287,7 +11323,7 @@ function attach(speaker,target)
 	if tools(speaker) then
 		local char = speaker.Character
 		local tchar = target.Character
-		local hum = speaker.Character:FindFirstChildOfClass('Humanoid')
+		local hum = speaker.Character:FindFirstChildOfClass("Humanoid")
 		local hrp = getRoot(speaker.Character)
 		local hrp2 = getRoot(target.Character)
 		hum.Name = "1"
@@ -11372,7 +11408,7 @@ addcmd('handlekill', {'hkill'}, function(args, speaker)
 					v1 = ((v1.IsA(v1, "BasePart") and firetouchinterest(Handle, v1, 1, (RS.Wait(RS) and nil) or firetouchinterest(Handle, v1, 0)) and nil) or v1) or v1
 				end
 			end
-			notify("Handle Kill Stopped!", v.Name .. " died/left or you uneqquiped the tool!")
+			notify("Handle Kill Stopped!", v.Name .. " died/left or you unequipped the tool!")
 		end)
 	end
 end)
@@ -11643,7 +11679,7 @@ addcmd('hovername',{},function(args, speaker)
 		local target = IYMouse.Target
 
 		if target then
-			local humanoid = target.Parent:FindFirstChildOfClass('Humanoid') or target.Parent.Parent:FindFirstChildOfClass('Humanoid')
+			local humanoid = target.Parent:FindFirstChildOfClass("Humanoid") or target.Parent.Parent:FindFirstChildOfClass("Humanoid")
 			if humanoid then
 				t = humanoid.Parent
 			end
@@ -11749,7 +11785,6 @@ addcmd('unstareat',{'unstare','nostare','nostareat'},function(args, speaker)
 		stareLoop:Disconnect()
 	end
 end)
-	
 
 local RolewatchData = {["Group"]=0,["Role"]="",["Leave"]=false}
 local RolewatchConnection = Players.PlayerAdded:Connect(function(player)
@@ -12265,3 +12300,29 @@ task.spawn(function()
 		end
 	end
 end)
+--[[
+wait()
+Credits:TweenPosition(UDim2.new(0,0,0.9,0), "Out", "Quart", 0.2)
+Logo:TweenSizeAndPosition(UDim2.new(0,175,0,175), UDim2.new(0,37,0,45), "Out", "Quart", 0.3)
+wait(1)
+for i=0,1,0.1 do
+	Logo.ImageTransparency = i
+	IntroBackground.BackgroundTransparency = i
+	wait()
+end
+Credits:TweenPosition(UDim2.new(0,0,0.9,30), "Out", "Quart", 0.2)
+wait(0.2)]]
+Logo:Destroy()
+Credits:Destroy()
+IntroBackground:Destroy()
+minimizeHolder()
+local GC = getconnections or get_signal_cons
+if GC then
+	for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
+		if v["Disable"] then
+			v["Disable"](v)
+		elseif v["Disconnect"] then
+			v["Disconnect"](v)
+		end
+	end
+end
