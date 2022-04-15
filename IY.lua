@@ -66,7 +66,7 @@ Cmdbar_2 = Instance.new("TextBox")
 Toggles = Instance.new("ScrollingFrame")
 Fly = Instance.new("TextLabel")
 Select_3 = Instance.new("TextButton")
-Noclip = Instance.new("TextLabel")
+] = Instance.new("TextLabel")
 Select_4 = Instance.new("TextButton")
 Float = Instance.new("TextLabel")
 Select_5 = Instance.new("TextButton")
@@ -6935,7 +6935,7 @@ addcmd('noclip',{},function(args, speaker)
 	end
 	Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
 	if args[1] and args[1] == 'nonotify' then return end
-	notify('Noclip','Noclip Enabled')
+	--notify('Noclip','Noclip Enabled')
 end)
 
 addcmd('clip',{'unnoclip'},function(args, speaker)
@@ -7164,7 +7164,7 @@ addcmd('float', {'platform'},function(args, speaker)
 			local FloatValue = -3.5
 			if r15(speaker) then FloatValue = -3.65 end
 			Float.CFrame = getRoot(pchar).CFrame * CFrame.new(0,FloatValue,0)
-			notify('Float','Float Enabled (Q = down & E = up)')
+			--notify('Float','Float Enabled (Q = down & E = up)')
 			qUp = IYMouse.KeyUp:Connect(function(KEY)
 				if KEY == 'q' then
 					FloatValue = FloatValue + 0.5
