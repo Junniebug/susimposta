@@ -7215,7 +7215,7 @@ end)
 addcmd('unfloat',{'nofloat','unplatform','noplatform'},function(args, speaker)
 	Floating = false
 	local pchar = speaker.Character
-	notify('Float','Float Disabled')
+	--notify('Float','Float Disabled')
 	if pchar:FindFirstChild(floatName) then
 		pchar:FindFirstChild(floatName):Destroy()
 	end
