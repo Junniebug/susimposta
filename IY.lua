@@ -6944,7 +6944,7 @@ addcmd('clip',{'unnoclip'},function(args, speaker)
 	end
 	Clip = true
 	if args[1] and args[1] == 'nonotify' then return end
-	notify('Noclip','Noclip Disabled')
+	--notify('Noclip','Noclip Disabled')
 end)
 
 addcmd('togglenoclip',{},function(args, speaker)
