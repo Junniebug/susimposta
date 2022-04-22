@@ -101,8 +101,8 @@ if game.PlaceId == 5591597781 and enabled then
                     table.insert(list,v)
                 end
             end
-            if #list ~= 2 then
-                if table.find(Troops,'Ace Pilot') and not wave10 then
+            if #list ~= 2 and not wave10 then
+                if table.find(Troops,'Ace Pilot') then
                     RF:InvokeServer('Troops','Place','Ace Pilot',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
                         ['Position'] = Vector3.new(14.32466506958, -0.042298793792725, 9.9408111572266)})
                     RF:InvokeServer('Troops','Place','Ace Pilot',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
@@ -131,8 +131,8 @@ if game.PlaceId == 5591597781 and enabled then
                     table.insert(list,v)
                 end
             end
-            if #list ~= 2 then
-                if table.find(Troops,'Ace Pilot') and not wave10 then
+            if #list ~= 2 and not wave10 then
+                if table.find(Troops,'Ace Pilot') then
                     RF:InvokeServer('Troops','Place','Ace Pilot',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
                         ['Position'] = Vector3.new(-30.279186248779, 2.2224984169006, 6.0061264038086)})
                     RF:InvokeServer('Troops','Place','Ace Pilot',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
@@ -160,8 +160,8 @@ if game.PlaceId == 5591597781 and enabled then
                     table.insert(list,v)
                 end
             end
-            if #list ~= 2 then
-                if table.find(Troops,'Ace Pilot') and not wave10 then
+            if #list ~= 2 and not wave10 then
+                if table.find(Troops,'Ace Pilot') then
                     RF:InvokeServer('Troops','Place','Ace Pilot',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
                         ['Position'] = Vector3.new(6.8225507736206, 0.91462802886963, 10.23609828949)})
                     RF:InvokeServer('Troops','Place','Ace Pilot',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
@@ -189,8 +189,8 @@ if game.PlaceId == 5591597781 and enabled then
                     table.insert(list,v)
                 end
             end
-            if #list ~= 2 then
-                if table.find(Troops,'Ace Pilot') and not wave10 then
+            if #list ~= 2 and not wave10 then
+                if table.find(Troops,'Ace Pilot') then
                     RF:InvokeServer('Troops','Place','Ace Pilot',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
                         ['Position'] = Vector3.new(6.5366067886353, 0.61862790584564, -6.5430221557617)})
                     RF:InvokeServer('Troops','Place','Ace Pilot',{['Rotation'] = CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)), 
