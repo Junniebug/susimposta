@@ -215,7 +215,7 @@ if game.PlaceId == 5591597781 and enabled then
         for i,v in pairs(workspace.Towers:GetChildren()) do
             RF:InvokeServer('Troops','Upgrade','Set',{['Troop'] = v})
         end
-        if lp.PlayerGui.GameGui.Health.Wave.Text ~= 'WAVE 0' and lp.PlayerGui.GameGui.Waves.Content.No.Button.AbsolutePosition == Vector2.new(976, 162) and lp.PlayerGui.GameGui.Waves.Content.Visible == true then
+        if lp.PlayerGui.GameGui.Health.Wave.Text ~= 'WAVE 0' and lp.PlayerGui.GameGui.Waves.Content.No.Button.AbsolutePosition == Vector2.new(976, 162) or lp.PlayerGui.GameGui.Waves.Content.No.Button.AbsolutePosition == Vector2.new(409.583984, 97.0379944) and lp.PlayerGui.GameGui.Waves.Content.Visible == true then
             RF:InvokeServer('Waves','Skip')
         end
     until not enabled
