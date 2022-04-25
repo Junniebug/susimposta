@@ -73,10 +73,10 @@ if game.PlaceId == 5591597781 and enabled then
     repeat
         wait(1)
         for i,v in pairs(lp.PlayerGui.GameGui.Hotbar.Troops:GetDescendants()) do
-            if v:IsA'TextLabel' and v.Text == '$750' then
+            if v:IsA'TextLabel' and v.Text == '$500' then
                 table.insert(Troops,'Ace Pilot')
             end
-            if v:IsA'TextLabel' and v.Text == '$600' then
+            if v:IsA'TextLabel' and v.Text == '$400' then
                 table.insert(Troops,'Military Base')
             end
         end
