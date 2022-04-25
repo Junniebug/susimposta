@@ -70,6 +70,7 @@ end
 
 if game.PlaceId == 5591597781 and enabled then
     local Troops = {}
+    RF:InvokeServer('Difficulty', 'Vote', 'Insane')
     repeat
         wait(1)
         for i,v in pairs(lp.PlayerGui.GameGui.Hotbar.Troops:GetDescendants()) do
