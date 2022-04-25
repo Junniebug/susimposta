@@ -3366,7 +3366,7 @@ function CreateJoinLabel(plr,ID)
 	ImageLabel_3.BackgroundTransparency = 1
 	ImageLabel_3.BorderSizePixel = 0
 	ImageLabel_3.Size = UDim2.new(0, 45, 1, 0)
-	ImageLabel_3.Image = game.Players:GetUserThumbnailAsync(ID, Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size420x420)
+	ImageLabel_3.Image = Players:GetUserThumbnailAsync(ID, Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size420x420)
 	scroll_3.CanvasSize = UDim2.new(0, 0, 0, listlayout.AbsoluteContentSize.Y)
 	scroll_3.CanvasPosition = Vector2.new(0,scroll_2.CanvasPosition.Y+infoFrame.AbsoluteSize.Y)
 	wait()
@@ -6832,12 +6832,12 @@ addcmd('autorejoin',{'autorj'},function(args, speaker)
 		if Err.Name == "ErrorTitle" then
 			Err:GetPropertyChangedSignal("Text"):Connect(function()
 				if Err.Text:sub(0, 12) == "Disconnected" then
-					if #game.Players:GetPlayers() <= 1 then
-						game.Players.LocalPlayer:Kick("\nRejoining...")
+					if #Players:GetPlayers() <= 1 then
+						Players.LocalPlayer:Kick("\nRejoining...")
 						wait()
-						game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+						game:GetService("TeleportService"):Teleport(game.PlaceId, Players.LocalPlayer)
 					else
-						game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
+						game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, Players.LocalPlayer)
 					end
 				end
 			end)
@@ -10062,7 +10062,8 @@ end)
 addcmd('remotespy',{'rspy'},function(args, speaker)
 	notify("Loading",'Hold on a sec')
 	-- Full credit to exx, creator of SimpleSpy
-	loadstring(game:HttpGet("https://gist.githubusercontent.com/luatsuki/c75a272fb67bccc22bd1b6add92ee267/raw/56375f8536aeca0cc84b44032312efb0fa5b7fa0/Spy"))()
+        -- also thanks to NoobSploit for fixing
+	loadstring(game:HttpGet("https://gist.githubusercontent.com/Toon-arch/8f5af8403ca5dabad30763ab2b1cf8d0/raw/87d9847dd85850777e691e46d0c52f9020b42ee2/spy"))()
 end)
 
 addcmd('audiologger',{'alogger'},function(args, speaker)
