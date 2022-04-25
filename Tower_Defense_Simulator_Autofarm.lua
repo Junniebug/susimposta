@@ -48,7 +48,8 @@ if game.PlaceId == 3260590327 and enabled then
     repeat 
         wait()
         for i,v in pairs(workspace.Elevators:GetDescendants()) do
-            if v:FindFirstChild('Floor') then
+            if v:FindFirstChild('Hatch') then
+		v = v.Parent
                 print(v)
                 if v.State.Players.Value >= 0 then
                     if v.State.Map.Title.Value == 'Crossroads'
