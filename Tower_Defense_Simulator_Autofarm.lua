@@ -70,7 +70,6 @@ end
 
 if game.PlaceId == 5591597781 and enabled then
     local Troops = {}
-    RF:InvokeServer('Difficulty', 'Vote', 'Insane')
     repeat
         wait(1)
         for i,v in pairs(lp.PlayerGui.GameGui.Hotbar.Troops:GetDescendants()) do
@@ -220,5 +219,8 @@ if game.PlaceId == 5591597781 and enabled then
         if lp.PlayerGui.GameGui.Health.Wave.Text ~= 'WAVE 0' and lp.PlayerGui.GameGui.Waves.Content.No.Button.AbsolutePosition == Vector2.new(976, 162) or lp.PlayerGui.GameGui.Waves.Content.No.Button.AbsolutePosition == Vector2.new(409.583984, 97.0379944) and lp.PlayerGui.GameGui.Waves.Content.Visible == true then
             RF:InvokeServer('Waves','Skip')
         end
+	if lp.PlayerGui.GameGui.Health.Wave.Text == 'WAVE 0' then
+	     RF:InvokeServer('Difficulty', 'Vote', 'Insane')
+	end
     until not enabled
 end
