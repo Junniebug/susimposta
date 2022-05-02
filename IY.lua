@@ -12319,7 +12319,7 @@ Logo:Destroy()
 Credits:Destroy()
 IntroBackground:Destroy()
 minimizeHolder()
--[[local GC = getconnections or get_signal_cons
+local GC = getconnections or get_signal_cons
 if GC then
 	for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
 		if v["Disable"] then
@@ -12328,4 +12328,4 @@ if GC then
 			v["Disconnect"](v)
 		end
 	end
-end]]
+end
